@@ -160,6 +160,18 @@ hr {
     background-color: transparent;  
 }
 
+.card-body {
+    padding: 0;
+}
+
+.card-subtitle {
+    margin-top: 1.5rem;
+}
+
+.card-list {
+    padding-left: 2rem;
+}
+
 .card__text {
     padding-top: 1rem;
 }
@@ -195,14 +207,6 @@ hr {
 .card__content {
     position: relative;
     padding: 1rem 0 0 1rem;
-}
-
-.card-subtitle {
-    margin-top: 1.5rem;
-}
-
-.card-list {
-    padding-left: 2rem;
 }
 
 /*Form*/
