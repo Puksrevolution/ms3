@@ -154,8 +154,9 @@ if __name__ == "__main__":
 https://git.heroku.com/cbms3.git
 8. git remote add heroku https://git.heroku.com/cbms3.git
 9. git push -u heroku master
+10. git remote rm heroku
 
-10. on Heroku
+11. on Heroku
   - Deploy
     - GitHub
     - repo name: ms3
