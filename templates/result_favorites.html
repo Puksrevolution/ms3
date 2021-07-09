@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="search__container">
+        <div class="col-md-auto">
+            <form class="d-flex">
+                <input class="form-control" type="search" placeholder="Search My Favorites"
+                    aria-label="Search">
+                <button class="btn btn-lavender" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-auto">
+        <div class="d-flex">
+            <div class="card card__recipe" style="width: 40rem;">
+                <h2 class="card__recipe-title"> recipe.title </h2>
+                <img src="{{ url_for('static', filename='images/kaesekuchen-mit-2-schichten.jpg')}}"
+                    class="card-img-top rounded" alt="...">
+                <div class="card-body">
+                    <h3 class="text-center">Ingredients</h3>
+                    <hr>
+                    <p class="card__recipe-text text-center">
+                        <small class="text-muted">
+                            <i class="fas fa-hourglass-half"></i>: recipe.time
+                            <i class="fas fa-signal"></i>: recipe.severity
+                        </small>
+                    </p>
+                    <ul class="card-list">
+                        <li class="ul-item"> recipe.ingredients </li>
+                    </ul>
+                    <p class="card__recipe-description"> recipe.description </p>
+                    <button class="btn btn-reset btn-remove">
+                        Remove
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <a href="{{ url_for('favorites') }}" class="btn btn-lavender">
+        Back to My Favorites
+    </a>
+</div>
+{% endblock %}

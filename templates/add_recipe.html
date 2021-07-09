@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+        <form class="needs-validation" action="/add_recipe" method="POST" id="addRecipe" name="addRecipe">
+            <div class="row g-3">
+                <div class="col-12 font-weight-bolder">
+                    <label for="recipe_title" class="form-label">Recipe Title:</label>
+                    <input type="text" class="form-control mb-3" id="recipe_title" name="recipe_title" required
+                        data-validation-required-message="Please enter a Recipe title">
+                </div>
+                <div class="col-12 font-weight-bolder">
+                    <label class="form-label">Add Image:</label>
+                    <div>
+                        <input type="file" id="file" name="file" accept="image/*">
+                        <label for="file" class="btn btn-dimgray mt-1 mb-3">Choose Image</label>
+                        <input class="btn btn-dimgray mt-1 mb-3" type="submit">
+                    </div>
+                </div>
+                <div class="col-sm-8 font-weight-bolder">
+                    <label for="methode" class="form-label">Methode:</label>
+                    <select class="form-control mb-3" id="methode" name="methode">
+                        <option value="" disabled="" selected="">Select Option</option>
+                        <option>Cooking</option>
+                        <option>Backing</option>
+                    </select>
+                </div>
+                <div class="col-6 font-weight-bolder">
+                    <label for="time" class="form-label">Time</label>
+                    <input type="text" class="form-control mb-3" id="time" name="time" required
+                        data-validation-required-message="Please enter the time you need for this dish">
+                </div>
+                <div class="col-6 font-weight-bolder">
+                    <label for="graded" class="form-label">Graded:</label>
+                    <select class="form-control mb-3" id="graded" name="graded">
+                        <option value="" disabled="" selected="">Select Option</option>
+                        <option>Simple</option>
+                        <option>Middel</option>
+                        <option>Hard</option>
+                    </select>
+                </div>
+                <div class="col-12 font-weight-bolder">
+                    <label for="ingredients" class="form-label">Ingredients:</label>
+                    <input class="form-control mb-3" id="ingredients" name="ingredients" required="">
+                </div>
+                <div class="col-12 font-weight-bolder">
+                    <label for="description" class="form-label">Description:</label>
+                    <textarea class="form-control mb-3" id="description" name="description" rows="5" required=""></textarea>
+                </div>
+                <div class="col-6">
+                    <label for="add" class="form-label font-weight-bolder">Add to List: </label>
+                    <div class="form-check">
+                        <input class="form-check-input" id="recipe" name="add" type="radio" checked="" required="">
+                        <label class="form-check-label" for="recipe">Recipe</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" id="favorites" name="add" type="radio" required="">
+                        <label class="form-check-label" for="favorites">My Favorites</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" id="both" name="add" type="radio" required="">
+                        <label class="form-check-label" for="both">Add To Both</label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

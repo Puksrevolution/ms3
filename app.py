@@ -1,17 +1,6 @@
-### Install Flask
-
-1. pip3 install Flask
-2. pip3 freeze --local > requirements.txt
-3. from flask import Flask, render_template
-
-render_template, Jinja template tool
-
-### HTML/CSS/Basic
-
-```
 import os
-import json
-from flask import Flask, render_template
+# import json
+from flask import Flask, render_template, request, flash, redirect, url_for, session
 
 
 app = Flask(__name__)
@@ -87,67 +76,3 @@ if __name__ == "__main__":
         host=os.environ.get("IP", "0.0.0.0"),
         port=int(os.environ.get("PORT", "5000")),
         debug=True)
-```
-
-### sensitive data(passwords etc.)
-
-- from flask import Flask, render_template, request, flash,
-
-request, get data
-flash, display messages for user(something like: "Subscibe Successeded")
-
-
-
-1. touch .gitignore
-2. touch env.py
-
-  - env.py
-```
-import os
-
-os.environ.setdefault("SECRET_KEY", "your_secret_key_here")
-```
-  - .gitignore
-```
-env.py
-__pycache__/
-```
-
-  - app.py
-```
-import os
-import json
-from flask import Flask, render_template, request, flash
-if os.path.exists("env.py"):
-    import env
-
-
-app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY")
-```
-
-
-Credits
-====
-
-### Code
-
-[webstoked](https://webstoked.com/auto-update-copyright-year-javascript/)
-
-```
-Copyright © <span id="copyright-year">2020</span>
-
-<script>
-    document.querySelector('#copyright-year').innerText = new Date().getFullYear();
-</script>
-```
-### Content
-
-[Simly Recipes](https://www.simplyrecipes.com/)
-- About Us
-- Contact Us
-- Terms of Use
-
-[Anthony O' Brien](https://github.com/auxfuse)
-- Privacy Policy
-- Accessibility

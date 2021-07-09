@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2 class="text-center pb-4">
+            username 's Profile
+        </h2>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-10 col-sm-6 col-lg-5">
+        <p>Add your repice to the <strong>Recipe</strong> library: </p>
+        <a class="btn btn-dimgray" href="{{ url_for('addRecipe') }}">Recipe</a>
+        <p class="pt-3">Add your repice to your <strong>My Favorites</strong> library: </p>
+        <a class="btn btn-dimgray" href="{{ url_for('addRecipe') }}">My Favorites</a>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-10 col-sm-6 col-lg-5 mt-4">
+        <p>Your <strong>Favorite Recipes</strong>:</p>
+        <ul class="card-list">
+            <li class="ul-item"><h5> recipe_title </h5></li>
+        </ul>
+        
+    </div>
+</div>
+{% endblock %}
