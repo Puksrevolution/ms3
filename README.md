@@ -146,11 +146,27 @@ if __name__ == "__main__":
 
 7. on Heroku
   - settings
+    - Config Vars -> Reveal Config Vars
+    - Key: IP, Value: 0.0.0.0
+    - Key: PORT, Value: 5000
+    - Key: SECRET_KEY, Value: your_secret_key_here    
   - get Heroku git URL
 https://git.heroku.com/cbms3.git
-
 8. git remote add heroku https://git.heroku.com/cbms3.git
 9. git push -u heroku master
+
+10. on Heroku
+  - Deploy
+    - GitHub
+    - repo name: ms3
+    - search
+    - connect
+    - Enable Automatic Deploys
+    - Deploy Branch
+
+
+
+
 
 ### HTML/CSS/Basic
 
