@@ -155,6 +155,11 @@ https://git.heroku.com/cbms3.git
 8. git remote add heroku https://git.heroku.com/cbms3.git
 9. git push -u heroku master
 10. git remote rm heroku
+11. git remote -v
+
+- git add .
+- git commit -m ""
+- git push origin master
 
 11. on Heroku
   - Deploy

@@ -3,37 +3,38 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-11 col-sm-7 col-lg-5">
-        <form class="form" method="POST" action="{{ url_for('register') }}">
+        <form class="form" method="POST" action="/register">
             <!-- username -->
             <div class="row">
-                <div class="form__group col 12">
-                    <input id="username" name="username" type="text" minlength="5" maxlength="15"
-                        pattern="^[a-zA-Z0-9]{5,15}$" class="validate form__input" placeholder="Choose Username" required>
+                <div class="form__group col-12">
+                    <input class="form__input" id="username" name="username" type="text" minlength="5" maxlength="15"
+                        pattern="^[a-zA-Z0-9]{5,15}$" required>
                     <label class="form__label" for="username">Choose Username</label>
-                    <i class="fas fa-user-plus prefix light-blue-text text-darken-4"></i>
+                    <i class="fas fa-user-plus form__input-icon"></i>
                 </div>
             </div>
             <!-- passowrd -->
             <div class="row">
-                <div class="form__group col 12">
-                    <input id="password" name="password" type="password" minlength="5" maxlength="15"
-                        pattern="^[a-zA-Z0-9]{5,15}$" class="validate form__input" required>
+                <div class="form__group col-12">
+                    <input class="form__input" id="password" type="password" name="password" minlength="5" maxlength="15"
+                        pattern="^[a-zA-Z0-9]{5,15}$" required>
                     <label class="form__label" for="password">Set Password</label>
-                    <i class="fas fa-user-lock prefix light-blue-text text-darken-4"></i>
+                    <i class="fas fa-user-lock form__input-icon"></i>
                 </div>
             </div>
             <div class="custom-control custom-checkbox mb-3">
-                <input required type="checkbox" class="custom-control-input" id="customCheck1">
-                <label class="custom-control-label" for="customCheck1">By signing up I agree to the BookCook Terms of Use.
+                <input class="custom-control-input" type="checkbox" id="customCheck" required>
+                <label class="custom-control-label" for="customCheck">By signing up I agree to the BookCook Terms of Use.
                     I acknowledge that I have read the Privacy Policy.
-                    <a href="{{url_for('privacy')}}">the Privacy Policy.</a></label>
-            </div>
+                    <a href="{{url_for('privacy')}}">the Privacy Policy.</a>
+                </label>
+            </div>            
             <!-- {% for message in get_flashed_messages() %} -->
             <p class="text-danger"> message </p>
             <!-- {% endfor %} -->
             <!-- login -->
             <div class="row">
-                <button type="submit" class="col s12 btn btn-lavender">
+                <button class="col-12 btn btn-lavender" type="submit">
                     Register <i class="fas fa-sign-in-alt"></i>
                 </button>
             </div>
