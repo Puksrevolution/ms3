@@ -1,10 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Montserrat:wght@500;700&display=swap');
-/*BASE*/
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;    
-}
 
 /**
 background-color: #F4F3EE;
@@ -15,6 +9,13 @@ background-color: #FAF9F9;
 background-color: #FEF9EF;
 background-color: #F5EFED;
 */
+
+/*BASE*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;    
+}
 
 body {
     background-color: #FEF9EF;
@@ -40,10 +41,6 @@ h3 {
     font-family: 'Comfortaa', sans-serif;
 }
 
-.subtitle {
-    padding-top: 0.4rem;
-}
-
 p {
     margin: 0;
     padding: 0;
@@ -59,7 +56,12 @@ a:hover {
 }
 
 ul {
-    margin: 0.5rem 0;
+    margin: 0.5rem 0 0.5rem 2rem;
+    
+}
+
+.ul-item {
+    padding-bottom: 0.5rem;
 }
 
 hr {
@@ -78,9 +80,8 @@ hr {
 
 .main {    
     position: relative;
-    min-height: calc(60vh - 13rem);
-    /*min-height: 60vh;*/
-    margin: 2rem 0 4rem 0;
+    min-height: calc(60vh - 13rem);    
+    margin: 2rem 1rem 4rem 1rem;
 }
 
 /*Container*/
@@ -88,23 +89,7 @@ hr {
     position: relative;
 }
 
-.search__container {  
-    width: 50%;       
-}
-
-.recipe__container {  
-    margin-top: 3rem;
-}
-
-.page__container {
-    padding-top: 3rem;
-}
-
 /*Image*/
-.img {
-    width: 50%;
-}
-
 .rounded {
     border-radius: 0.75rem;
 }
@@ -113,6 +98,7 @@ hr {
 .btn {
     box-shadow: 0 0 0.5rem #868686;     
 } 
+
 .btn-lavender {
     background-color: #E3DFFF;           
 }
@@ -161,29 +147,6 @@ hr {
 
 .card-body {
     padding: 0;
-}
-
-.card-subtitle {
-    margin-top: 1.5rem;
-}
-
-.card-list {
-    padding-left: 2rem;
-}
-
-.card__text {
-    padding-top: 1rem;
-}
-
-.card__email {
-    padding-top: 0.5rem;    
-    text-shadow: 0 0 0.15rem #868686;
-}
-
-.card__email:hover {
-    color: #6D6A75;
-    text-shadow: none;
-    text-decoration: underline;
 }
 
 .card__recipe {
@@ -373,6 +336,17 @@ input[type="file"] {
     color: #6D6A75;
 }
 
+/*text layout*/
+.contact__email {
+    padding-top: 0.5rem;    
+    text-shadow: 0 0 0.15rem #868686;
+}
+.contact__email:hover {
+    color: #6D6A75;
+    text-shadow: none;
+    text-decoration: underline;
+}
+
 /* Media Queries */
 @media (min-width: 992px) {
     .col-lg-5 {
@@ -382,11 +356,7 @@ input[type="file"] {
     }
 }
 
-@media (max-width: 48em) {    
-    .search__container {
-        width: 80%;
-    }
-    
+@media (max-width: 48em) {          
     .footer__line {
         padding-bottom: 0.7rem;
     }
@@ -404,9 +374,3 @@ input[type="file"] {
     }
 }
 
-@media (max-width: 36em) {
-    .main {
-        margin-left: 1rem;
-        margin-right: 1rem;  
-    }
-}

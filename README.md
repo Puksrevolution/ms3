@@ -261,9 +261,9 @@ if __name__ == "__main__":
 Credits
 ====
 
-### Code
+## Code
 
-[webstoked](https://webstoked.com/auto-update-copyright-year-javascript/)
+### [webstoked](https://webstoked.com/auto-update-copyright-year-javascript/)
 
 ```
 Copyright © <span id="copyright-year">2020</span>
@@ -272,7 +272,147 @@ Copyright © <span id="copyright-year">2020</span>
     document.querySelector('#copyright-year').innerText = new Date().getFullYear();
 </script>
 ```
-### Content
+
+### [Bootstrap](https://getbootstrap.com/)
+
+#### [Pagination](https://getbootstrap.com/docs/5.0/components/pagination/)
+```
+<nav class="mt-5" aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+        </li>
+    </ul>
+</nav>
+```
+#### [Album](https://getbootstrap.com/docs/5.0/examples/album/)
+```
+<div class="album">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col mb-3">
+                <div class="card">
+                    <img src="{{ recipe.images }}"
+                        class="img-fluid rounded" alt="...">
+                    <div class="card-body">
+                        <div class="card__content">
+                            <h3> recipe.title </h3>
+                            <p> recipe.rating </p>
+                            <p>
+                                <small class="text-muted">
+                                    <i class="fas fa-hourglass-half"></i> : recipe.time
+                                    <i class="fas fa-signal"></i> : recipe.severity
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-3">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/kaesekuchen-mit-2-schichten.jpg')}}"
+                        class="img-fluid rounded" alt="...">
+                    <div class="card-body">
+                        <div class="card__content">
+                            <h3> recipe.title </h3>
+                            <p> recipe.rating </p>
+                            <p>
+                                <small class="text-muted">
+                                    <i class="fas fa-hourglass-half"></i> : recipe.time
+                                    <i class="fas fa-signal"></i> : recipe.severity
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-3">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/kaesekuchen-mit-2-schichten.jpg')}}"
+                        class="img-fluid rounded" alt="...">
+                    <div class="card-body">
+                        <div class="card__content">
+                            <h3> recipe.title </h3>
+                            <p> recipe.rating </p>
+                            <p>
+                                <small class="text-muted">
+                                    <i class="fas fa-hourglass-half"></i> : recipe.time
+                                    <i class="fas fa-signal"></i> : recipe.severity
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col mb-3">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/kaesekuchen-mit-2-schichten.jpg')}}"
+                        class="img-fluid rounded" alt="...">
+                    <div class="card-body">
+                        <div class="card__content">
+                            <h3> recipe.title </h3>
+                            <p> recipe.rating </p>
+                            <p>
+                                <small class="text-muted">
+                                    <i class="fas fa-hourglass-half"></i> : recipe.time
+                                    <i class="fas fa-signal"></i> : recipe.severity
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-3">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/kaesekuchen-mit-2-schichten.jpg')}}"
+                        class="img-fluid rounded" alt="...">
+                    <div class="card-body">
+                        <div class="card__content">
+                            <h3> recipe.title </h3>
+                            <p> recipe.rating </p>
+                            <p>
+                                <small class="text-muted">
+                                    <i class="fas fa-hourglass-half"></i> : recipe.time
+                                    <i class="fas fa-signal"></i> : recipe.severity
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col mb-3">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/kaesekuchen-mit-2-schichten.jpg')}}"
+                        class="img-fluid rounded" alt="...">
+                    <div class="card-body">
+                        <div class="card__content">
+                            <h3> recipe.title </h3>
+                            <p> recipe.rating </p>
+                            <p>
+                                <small class="text-muted">
+                                    <i class="fas fa-hourglass-half"></i> : recipe.time
+                                    <i class="fas fa-signal"></i> : recipe.severity
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>
+```
+
+
+
+## Content
 
 [Simly Recipes](https://www.simplyrecipes.com/)
 - About Us

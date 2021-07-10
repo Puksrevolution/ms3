@@ -66,6 +66,10 @@ def resultRecipe():
     return render_template("result_recipe.html", page_title="Recipe")
 
 
+@app.route("/result_recipes")
+def resultRecipes():
+    return render_template("result_recipes.html", page_title="Recipes")
+
 @app.route("/result_favorites")
 def resultFavorites():
     return render_template("result_favorites.html", page_title="My Favorite")

@@ -3,31 +3,32 @@
 {% block content %}
 <!-- Search Box-->
 <div class="row justify-content-center mt-5">
-    <div class="col-12 col-ms-8 col-md-5">
+    <div class="col-12 col-ms-8 col-md-6 col-lg-5">
         <form class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search for my Favorites" aria-label="Search">
-            <button class="btn btn-lavender" type="submit"><i class="fas fa-search"></i></button>
+            <button class="btn btn-lavender mx-2" type="submit"><i class="fas fa-search"></i></button>
         </form>
     </div>
 </div>
-<div class="recipe__container">
+<!-- Recipe Card -->
+<div class="mt-5">
     <div class="row justify-content-center">
         <div class="col-10 col-md-6">
             <img src="{{ url_for('static', filename='images/kaesekuchen-mit-2-schichten.jpg')}}"
                 class="img-fluid rounded" alt="...">
         </div>
-        <div class="col-10 col-md-6">
+        <div class="col-10 col-md-6 pb-5">
             <div class="card__content">
                 <h3> recipe.title </h3>
                 <p> recipe.rating </p>
-                <p class="card__recipe-text">
+                <p>
                     <small class="text-muted">
                         <i class="fas fa-hourglass-half"></i> : 3h
                         <i class="fas fa-signal"></i> : simple
                     </small>
                 </p>
             </div>
-            <button class="btn btn-reset btn-remove">
+            <button class="btn btn-remove">
                 Remove
             </button>
         </div>
