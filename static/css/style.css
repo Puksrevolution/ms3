@@ -56,11 +56,12 @@ a:hover {
 }
 
 ul {
-    margin: 0.5rem 0 0.5rem 2rem;
+    margin: 0.5rem 0 0.5rem 0;
     
 }
 
 .ul-item {
+    padding-left: 2rem;
     padding-bottom: 0.5rem;
 }
 

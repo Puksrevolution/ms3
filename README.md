@@ -1,3 +1,154 @@
+Create a MongoDB Database App
+  - 
+
+
+
+1. pip3 install Flask
+2. touch .gitignore
+```
+env.py
+__pycache__/
+```
+3. touch env.py (setting up default environment variable)
+  - [RandomKeygen - The Secure Password & Keygen Generator](https://randomkeygen.com/)
+    - Fort Knox Passwords - Secure enough for almost anything, like root or administrator passwords.
+    - os.environ.setdefault("SECRET_KEY", "fort_knox_password_here")
+  - MongoDB
+    - Overwiev
+    - connect
+    - Connect your Application
+    mongodb+srv://Puk:<password>@myfirstcluster.82ax2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+    mongodb+srv://Puk:Pa55w0rd@myfirstcluster.82ax2.mongodb.net/cook_book?retryWrites=true&w=majority
+```
+import os
+
+os.environ.setdefault("IP", "0.0.0.0")
+os.environ.setdefault("PORT", "5000")
+os.environ.setdefault("SECRET_KEY", "sXMca2*~NeVkEwz919@8*4ikHRvO^")
+os.environ.setdefault("MONGO_URI", "mongodb+srv://Puk:Pa55w0rd@myfirstcluster.82ax2.mongodb.net/cook_book?retryWrites=true&w=majority")
+os.environ.setdefault("MONGO_DBNAME", "cook_book")
+
+```
+4. touch app.py
+```
+import os
+from flask import Flask
+if os.path.exists("env.py"):
+    import env
+
+
+app = Flask(__name__)
+
+
+@app.route("/")
+def hello():
+    return "Hello World!"
+
+
+if __name__ == "__main__":
+    app.run(host=os.environ.get("IP"),
+            port=int(os.environ.get("PORT")),
+            debug=True)
+```
+5. python3 app.py
+
+- git add .
+- git commit -m "Create the Flask App"
+- git status (making sure env.py gets ignored)
+- git push
+
+6. pip3 freeze --local > requirements.txt
+7. echo web: python app.py > Procfile
+8. Heroku
+  - create new app
+  - app name
+  - country Europe
+  - create app
+  - GitHub
+    - repo name: ms3
+    - search
+    - connect
+    - settings
+    - Config Vars -> Reveal Config Vars
+    - Key: IP, Value: 0.0.0.0
+    - Key: PORT, Value: 5000
+    - Key: SECRET_KEY, Value: sXMca2*~NeVkEwz919@8*4ikHRvO^
+    - Key: MONGO_URI, Value: 
+    mongodb+srv://Puk:Pa55w0rd@myfirstcluster.82ax2.mongodb.net/cook_book?retryWrites=true&w=majority
+    - Key: MONGO_DBNAME, Value: cook_book
+
+- git status
+- git add requirements.txt
+- git commit -m "Add requirements.txt"
+- git add Procfile
+- git commit -m "Add Procfile"
+- git push
+
+    - Deploy    
+    - Enable Automatic Deploys
+    - Deploy Branch
+
+
+9. pip3 install flask-pymongo
+10. pip3 install dnspython
+
+- pip3 freeze --local > requirements.txt (after every pip3 install needed)
+
+11. MongoDB
+  - Overwiev
+  - connect
+  - Connect your Application
+  mongodb+srv://Puk:<password>@myfirstcluster.82ax2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+  mongodb+srv://Puk:Pa55w0rd@myfirstcluster.82ax2.mongodb.net/cook_book?retryWrites=true&w=majority
+
+12. app.py
+```
+import os
+from flask import (
+    Flask, render_template, flash,
+    redirect, request, session, url_for)
+from flask_pymongo import PyMongo
+from bson.objectid import ObjectId
+if os.path.exists("env.py"):
+    import env
+
+
+app = Flask(__name__)
+
+app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
+app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+app.secret_key = os.environ.get("SECRET_KEY")
+
+mongo = PyMongo(app)
+
+
+@app.route("/")
+@app.route("/add_recipe")
+def add_recipe():
+    recipe = mongo.db.favorites.find()
+    return render_template("favorites.html", recipe=recipe)
+
+
+if __name__ == "__main__":
+    app.run(host=os.environ.get("IP"),
+            port=int(os.environ.get("PORT")),
+            debug=True)
+
+```
+favorites.html
+```
+{% for recipe in favorites %}
+        {{ recipe.recipe_title }}
+        {{ recipe.recipe_image-url }}
+        {{ recipe.recipe_time }}
+        {{ recipe.recipe_severity }}
+        {{ recipe.recipe_ingredient }}
+        {{ recipe.recipe_description }}
+{% endfor %}
+```
+
+
+
 ### Install Flask
 
 1. pip3 install Flask

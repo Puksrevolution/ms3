@@ -1,9 +1,21 @@
 import os
 # import json
-from flask import Flask, render_template, request, flash, redirect, url_for, session
-
+from flask import (
+    Flask, render_template, flash,
+    redirect, request, session, url_for)
+from flask_pymongo import PyMongo
+from bson.objectid import ObjectId
+from werkzeug.security import generate_password_hash, check_password_hash
+if os.path.exists("env.py"):
+    import env
 
 app = Flask(__name__)
+
+app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
+app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+app.secret_key = os.environ.get("SECRET_KEY")
+
+mongo = PyMongo(app)
 
 
 @app.route("/")
@@ -46,11 +58,6 @@ def addRecipe():
     return render_template("add_recipe.html", page_title="Add Recipe")
 
 
-@app.route("/favorites")
-def favorites():
-    return render_template("favorites.html", page_title="My Favorites")
-
-
 @app.route("/register")
 def register():
     return render_template("register.html", page_title="Register")
@@ -61,22 +68,30 @@ def login():
     return render_template("login.html", page_title="Log In")
 
 
-@app.route("/result_recipe")
-def resultRecipe():
-    return render_template("result_recipe.html", page_title="Recipe")
+@app.route("/favorite")
+def favorite():
+    return render_template("favorite.html", page_title="My Favorite")
 
 
-@app.route("/result_recipes")
-def resultRecipes():
-    return render_template("result_recipes.html", page_title="Recipes")
+@app.route("/favorites")
+def favorites():
+    return render_template(
+        "favorites.html", page_title="My Favorites")
 
-@app.route("/result_favorites")
-def resultFavorites():
-    return render_template("result_favorites.html", page_title="My Favorite")
+
+@app.route("/recipe")
+def recipe():
+    return render_template("recipe.html", page_title="Recipe")
+
+
+@app.route("/recipes")
+def recipes():
+    recipes = mongo.db.recipes.find()
+    return render_template(
+        "recipes.html", recipes=recipes, page_title="Recipes")
 
 
 if __name__ == "__main__":
-    app.run(
-        host=os.environ.get("IP", "0.0.0.0"),
-        port=int(os.environ.get("PORT", "5000")),
-        debug=True)
+    app.run(host=os.environ.get("IP"),
+            port=int(os.environ.get("PORT")),
+            debug=True)

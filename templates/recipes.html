@@ -5,53 +5,36 @@
 <div class="row justify-content-center mt-5">
     <div class="col-12 col-ms-8 col-md-6 col-lg-5">
         <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search Recipes" aria-label="Search">
+            <input class="form-control me-2" type="search" placeholder="Search for my Favorites" aria-label="Search">
             <button class="btn btn-lavender mx-2" type="submit"><i class="fas fa-search"></i></button>
         </form>
     </div>
 </div>
 
+{% for recipe in recipes %}
 <!-- Recipe Card -->
 <div class="mt-5">
-    <div class="row justify-content-center">
-        <div class="col-10 col-md-6">
+    <div class="row justify-content-center">              
+        <div class="col-10 col-md-6 col-lg-5">
             <img src="{{ url_for('static', filename='images/kaesekuchen-mit-2-schichten.jpg')}}"
                 class="img-fluid rounded" alt="...">
         </div>
-        <div class="col-10 col-md-6">
+        <div class="col-10 col-md-5 pb-5">
             <div class="card__content">
-                <h3> recipe.title </h3>
+                <h3>{{ recipe.recipe_title }}</h3>
                 <p> recipe.rating </p>
                 <p>
                     <small class="text-muted">
-                        <i class="fas fa-hourglass-half"></i> : recipe.time
-                        <i class="fas fa-signal"></i> : recipe.severity
+                        <i class="fas fa-hourglass-half"></i> :  {{ recipe.recipe_time }} 
+                        <i class="fas fa-signal"></i> :  {{ recipe.recipe_severity }}
                     </small>
                 </p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="mt-5">
-    <div class="row justify-content-center">
-        <div class="col-10 col-md-6">
-            <div class="card__content">
-                <h3> recipe.title </h3>
-                <p> recipe.rating </p>
-                <p>
-                    <small class="text-muted">
-                        <i class="fas fa-hourglass-half"></i> : recipe.time
-                        <i class="fas fa-signal"></i> : recipe.severity
-                    </small>
-                </p>
-            </div>
-        </div>
-        <div class="col-10 col-md-6 order-first order-md-last">
-            <img src="{{ url_for('static', filename='images/kaesekuchen-mit-2-schichten.jpg')}}"
-                class="img-fluid rounded" alt="...">
+            </div>                  
         </div>        
     </div>
 </div>
+{% endfor %}
+
 <nav class="mt-5" aria-label="Page navigation">
     <ul class="pagination justify-content-center">
         <li class="page-item disabled">
