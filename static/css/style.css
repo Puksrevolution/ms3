@@ -55,16 +55,6 @@ a:hover {
     text-decoration: none;
 }
 
-ul {
-    margin: 0.5rem 0 0.5rem 0;
-    
-}
-
-.ul-item {
-    padding-left: 2rem;
-    padding-bottom: 0.5rem;
-}
-
 hr {
     width: 25%;
     margin: 0 auto;
@@ -151,7 +141,13 @@ hr {
 }
 
 .card-list {
+    margin-top: 0.5rem;
     margin-left: 1.5rem;
+}
+
+.ul-item {
+    padding-left: 0.5rem;
+    padding-bottom: 0.2rem;
 }
 
 .card__recipe {
