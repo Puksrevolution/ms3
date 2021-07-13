@@ -1,0 +1,26 @@
+<ul class="navbar-nav ml-auto justify-content-end">
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+    </li>
+    {% if session.user %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('profile', username=session['user']) }}">Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('addRecipe', username=session['user']) }}">Add Recipe</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('favorites', username=session['user']) }}">My Favorites</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
+        </li>
+    {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('login') }}">Log In</a>
+        </li>
+    {% endif %}                
+</ul>

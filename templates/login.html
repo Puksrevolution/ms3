@@ -3,11 +3,11 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-11 col-sm-7 col-lg-5">
-        <form class="form" method="POST" action="/login">
+        <form class="form" method="POST" action="{{ url_for('login') }}">
             <!-- username -->
             <div class="row">
-                <div class="form__group col-12">
-                    <input class="form__input" id="username" name="username" type="text" minlength="5" maxlength="15"
+                <div class="form__group col-12 mb-4">
+                    <input class="form__input" id="username" name="username" type="text" placeholder="Username" minlength="5" maxlength="15"
                         pattern="^[a-zA-Z0-9]{5,15}$" required>
                     <label class="form__label" for="username">Username</label>
                     <i class="fas fa-user-plus form__input-icon"></i>
@@ -15,8 +15,8 @@
             </div>
             <!-- passowrd -->
             <div class="row">
-                <div class="form__group col-12">
-                    <input class="form__input" id="password" type="password" name="password" minlength="5" maxlength="15"
+                <div class="form__group col-12 mb-4">
+                    <input class="form__input" id="password" type="password" name="password" placeholder="Password" minlength="5" maxlength="15"
                         pattern="^[a-zA-Z0-9]{5,15}$" required>
                     <label class="form__label" for="password">Password</label>
                     <i class="fas fa-user-lock form__input-icon"></i>
