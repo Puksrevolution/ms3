@@ -17,11 +17,11 @@
     <meta property="og:title" content="CookBook | Yummy Recepies For Everyone">
     <meta property="og:description" content="You find here at CookBook always the right recipe idea: 
         for cooking or baking, after work, for guests or parties, in spring, summer, autumn and winter.">
-    <meta property="og:image" content="../static/images/cookHat.svg">
+    <meta property="og:image" content="../static/images/CookHat.svg">
     <meta property="og:url" content="https://cbms3.herokuapp.com/">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/cookHat.svg')}}" />       
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/CookHat.svg')}}" />       
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -44,7 +44,7 @@
         <div class="container-lg">
         <!-- Navbar brand -->
         <a class="navbar-brand mt-2 mt-lg-0" href="{{ url_for('index') }}">
-            <img src="{{ url_for('static', filename='images/cookHat.svg')}}" height="60" alt="Cook Hat Logo"
+            <img src="{{ url_for('static', filename='images/CookHat.svg')}}" height="60" alt="Cook Hat Logo"
                 loading="lazy" />
         </a>
         <a class="navbar-brand mt-2 mt-lg-0" href="{{ url_for('index') }}">
@@ -62,16 +62,16 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('index') }}">Home</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Recipes</a>
+                </li>
                 {% if session.user %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('profile', username=session['user']) }}">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('addRecipe') }}">Add Recipe</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('favorites') }}">My Favorites</a>
-                    </li>                   
+                        <a class="nav-link" href="#">Add Recipe</a>
+                    </li>                                   
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
                     </li>
@@ -96,6 +96,13 @@
         </div>
     </header>
 
+    <main class="main">
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
     <section>
         <!-- flash messages -->
         {% with messages = get_flashed_messages() %}
@@ -108,16 +115,6 @@
             {% endif %}
         {% endwith %}
     </section>
-
-
-    <main class="main">
-        <div class="container">
-            {% block content %}
-            {% endblock %}
-        </div>
-    </main>
-
-
 
     <footer class="footer">
         <div class="container">
@@ -206,7 +203,7 @@
             <div class="copyright">
                 <i class="far fa-copyright"></i> <span id="copyright-year"></span> CookBook
             </div>
-            <a href="#top" class="top" title="Back to top"><i class="fas fa-chevron-up"></i></a>
+            <a href="#top" class="top" title="Back to top"><i class="fas fa-chevron-up"></i></a>            
         </div>
     </footer>
 

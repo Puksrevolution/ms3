@@ -1,30 +1,81 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!-- Greeting -->
 <div class="row">
     <div class="col-12">
         <h2 class="text-center pb-4">
-            {{ username }}'s Profile
+            Hi {{ username }}
         </h2>
     </div>
 </div>
+
+<!-- Greeting -->
 <div class="row justify-content-center">
     <div class="col-10 col-sm-6 col-lg-5">
-        <p>Add your repice to the <strong>Recipe</strong> library: </p>
-        <a class="btn btn-dimgray" href="{{ url_for('addRecipe') }}">Recipe</a>
-        <p class="pt-3">Add your repice to your <strong>My Favorites</strong> library: </p>
-        <a class="btn btn-dimgray" href="{{ url_for('addRecipe') }}">My Favorites</a>
+        <p>
+            Creating new recipes and share them with other users.<br> 
+            Favourite other users recipes and add them to your profile.
+        </p>        
     </div>
 </div>
+
+<!-- Favourites list -->
 <div class="row justify-content-center">
     <div class="col-10 col-sm-6 col-lg-5 mt-4">
-        <p>Your <strong>Favorite Recipes</strong>:</p>        
-        <ul class="card-list">
-            {% for favorite in favorites %}
-            <li class="ul-item"><h5> {{ favorite.favorite_title }} </h5></li>
-            {% endfor %}
-        </ul>
-        
+        <p>Your <strong>Favorite Recipes</strong>:</p>
+        <div class="card-list">
+          <!-- {% for favorite in favorites %} -->
+                <p class="ul-item">
+                    <a class="" href="#">
+                        <h5>  favourite.recipe_name  </h5>
+                    </a>                    
+                </p>
+               <!-- {% if session.user %} -->
+                    <div class="">                            
+                        <a class="btn-floating halfway-fab right" href="#">
+                            <i class="fas fa-minus" id="like_minus"></i>
+                        </a>
+                    </div>
+                <!-- {% endif %} -->
+            <!-- {% endfor %} -->
+        </div>
+    </div>
+</div>
+
+<!-- Created Recipes -->
+<div class="row justify-content-center">
+    <div class="col-10 col-sm-6 col-lg-5 mt-4">
+        <p>Your <strong>Created Recipes</strong>:</p>
+        <!-- {% for recipe in recipes %}
+        {% if recipe.created_by == username %} -->
+            <div class="">
+                <div class="">
+                    <div class="card-title">
+                        <a class="" href="#">
+                            <h5>  recipe.recipe_name  </h5>
+                        </a>
+                        <!-- {% if session.user|lower == recipe.created_by|lower %}
+                             Edit and delete recipes buttons -->
+                            <div class="row">
+                                <div class="col s12">
+                                    <a href="#" class="btn-small left">
+                                        Edit Recipe
+                                    </a>
+                                    <a class="btn-small right" href="#" title="delete" onclick="return
+                                        confirm('Are you sure you want to delete this recipe?')">
+                                        Delete Recipe
+                                    </a>
+                                </div>
+                            </div>
+                        <!-- {% endif %} -->
+                    </div>
+                </div>
+            </div>
+        <!-- {% else %}
+        {% endif %}
+        {% endfor %} -->
+        </div>
     </div>
 </div>
 {% endblock %}

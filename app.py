@@ -1,4 +1,6 @@
 import os
+import requests
+from flask_paginate import Pagination, get_page_parameter
 # import json
 from flask import (
     Flask, render_template, flash,
@@ -11,6 +13,7 @@ if os.path.exists("env.py"):
 
 app = Flask(__name__)
 
+# Configuration #
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
@@ -20,7 +23,10 @@ mongo = PyMongo(app)
 
 @app.route("/")
 def index():
-    return render_template("index.html", page_title="Yummy Recipes")
+    recipes = list(mongo.db.recipes.find())
+    return render_template("index.html", 
+                           page_title="Yummy Recipes",
+                           recipes=recipes)
 
 
 @app.route("/about")
@@ -102,59 +108,38 @@ def login():
     return render_template("login.html", page_title="Log In")
 
 
-@app.route("/profile/<username>", methods=["GET", "POST"])
-def profile(username):
-    # grab the session user's username from db
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
-
-    if session["user"]:
-        return render_template(
-            "profile.html", username=username, page_title="Profile")
-
-    return redirect(url_for("login"))
-
-
-@app.route("/logout")
+@ app.route('/logout')
 def logout():
     # remove user from session cookie
     flash("You have been logged out")
     session.pop("user")
+    return redirect(url_for('login'))
+
+
+# User profile page #
+@app.route("/profile/<username>", methods=["GET", "POST"])
+def profile(username):
+    # Retrieve users and recipes to use on profile page #
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    users = list(mongo.db.users.find())
+    recipes = list(mongo.db.recipes.find())
+    favourite_recipes = mongo.db.users.find_one(
+                {"username": session["user"]})["favourite_recipes"]
+    # Favourite recipe display functionality advised by CI tutors #
+    favourites = []
+    # To push to favourites array #
+    for recipe in favourite_recipes:
+        favourites.append(mongo.db.recipes.find_one({"_id": recipe}))
+    if session["user"]:
+        return render_template(
+            "profile.html", username=username, users=users,
+            recipes=recipes, favourites=favourites, page_title="Profile")
+
     return redirect(url_for("login"))
 
 
-@app.route("/add_recipe")
-def addRecipe():
-    return render_template("add_recipe.html", page_title="Add Recipe")
-
-
-@app.route("/favorite")
-def favorite():
-    return render_template("favorite.html", page_title="My Favorite")
-
-
-@app.route("/favorites")
-def favorites():
-    favorites = mongo.db.favorites.find()
-    return render_template(
-        "favorites.html", favorites=favorites, page_title="My Favorites")
-
-
-@app.route("/recipe")
-def recipe():
-    return render_template("recipe.html", page_title="Recipe")
-
-
-@app.route("/recipes")
-def recipes():
-    recipes = mongo.db.recipes.find()
-    return render_template(
-        "recipes.html", recipes=recipes, page_title="Recipes")
-
-
 # ---- NEWSLETTER SUBSCRIPTION FORM ----- #
-
-
 @ app.route('/sub', methods=['POST'])
 def sub():
     sub = mongo.db.newsletter
