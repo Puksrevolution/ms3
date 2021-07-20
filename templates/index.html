@@ -17,7 +17,7 @@
 </div>
 <div class="row text-center mt-3">
     <div class="col-12">
-        <a class="btn btn-dimgray" href="#">View Recipes</a>
+        <a class="btn btn-dimgray" href="{{ url_for('all_recipes') }}">View Recipes</a>
     </div>
 </div>
 <div class="row">
@@ -29,20 +29,23 @@
 </div>
 
 <!-- Recipe Card -->
-<div class="album">
+
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {% for recipe in recipes %}
             <div class="col mb-3">
-                <div class="card gallery__card-image">
+                <div class="card gallery__card-image rounded-border">
                     <a href="#">
-                        <img class="gallery__image  rounded" alt="Recipe Image"
+                        <img class="gallery__image" alt="Recipe Image"
                         src="{{ recipe.image }}"> 
+                        <div class="gallery__heading">
+                            <h5 class="">{{ recipe.recipe_name }}</h5>                    
+                        </div>     
                     </a>                   
-                </div>
+                </div>                              
             </div>            
             {% endfor %}
         </div>
     </div>
-</div>
+
 {% endblock %}

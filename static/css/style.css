@@ -55,6 +55,10 @@ a:hover {
     text-decoration: none;
 }
 
+ul {
+    margin: 0;
+}
+
 hr {
     width: 25%;
     margin: 0 auto;
@@ -81,8 +85,21 @@ hr {
     position: relative;
 }
 
+/*Pagination*/
+.pagination ul li {
+    display: inline-block;
+    padding: 0 0.5rem;
+    list-style: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.active {
+    color: #868686;    
+}
+
 /*Image*/
-.rounded {
+.rounded-border {
     border-radius: 0.75rem;
 }
 
@@ -131,6 +148,16 @@ hr {
     color: #E3DFFF;    
 }
 
+.btn-reset {     
+    background-color: #9A031E;    
+    margin-left: 0.5rem;
+    color: #E3DFFF;
+}
+.btn-reset:hover {
+    background-color: rgb(230, 0, 42);
+    color: #E3DFFF;    
+}
+
 /*Card*/
 .card {
     border: transparent;
@@ -149,6 +176,19 @@ hr {
 .ul-item {
     padding-left: 0.5rem;
     padding-bottom: 0.2rem;
+}
+
+.recipe_list-card {    
+    margin: 0 0 0 1.5rem;
+}
+
+.fa-user-circle {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.fa-heart {
+    color: #9A031Efa;
 }
 
 .card__recipe {
@@ -173,15 +213,47 @@ hr {
     padding: 1rem 0 0 1rem;
 }
 
+.recipe_list {
+    font-size: 1.3rem;
+}
+
+.recipe_name-all {
+    padding: 2rem 0 1rem 0;
+}
+
 .recipe_name:hover {
     text-decoration: underline;
 }
 
+.recipe__icon {
+    font-size: 0.9rem;
+}
+
+.recipe__icon-right {
+    padding-right: 1rem;
+}
+
+.recipe__card-image {
+    height: 14.5rem;
+    overflow: hidden;
+    object-fit: contain;
+    box-shadow: 0 0 1rem black; 
+}
+
+.recipe__image {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;   
+    filter: contrast(1.1) brightness(1.15) saturate(1.1);        
+}
+
 .gallery__card-image {
     display: block;
+    position: relative;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover;    
 }
 
 .gallery__image {
@@ -189,18 +261,34 @@ hr {
     position: relative;
     width: 100%;
     height: 100%;
-    filter: contrast(1.1) brightness(1.15) saturate(1.1);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.75);
+    border-radius: 0.85rem;
+    filter: contrast(1.1) brightness(1.15) saturate(1.1);    
     transform: scale(1);
-    z-index: 0;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0);
+    z-index: 0;    
     transition: filter 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out, z-index 0.2s linear;
 }
 .gallery__image:hover {
     box-shadow: 0 0 1rem black;
     transform: scale(1.1);
-    z-index: 1000;
+    z-index: 10;
     transition: filter 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out, z-index 0s linear;
     filter: contrast(1) brightness(1) saturate(1);
+}
+
+.gallery__heading {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;    
+    padding: 1rem 0 0.5rem 1rem;    
+    color: white;    
+    text-shadow: 0 0 1rem black,
+                0 0 1rem black,
+                0 0 1rem black,
+                0 0 1rem black,
+                0 0 1rem black;         
+    z-index: 12;        
 }
 
 /*Form*/
@@ -318,8 +406,8 @@ input[type="file"] {
 .footer__line {  
     border-bottom: 2px solid #FEF9EF;
     border-radius: 2px;
-    margin-bottom: 0.3rem;
-    padding-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
     text-align: center;    
 }
 
@@ -399,14 +487,6 @@ input[type="file"] {
 }
 
 /* Media Queries */
-@media (min-width: 992px) {
-    .col-lg-5 {
-        -ms-flex: 0 0 35%;
-        flex: 0 0 35%;
-        max-width: 35%;
-    }
-}
-
 @media (max-width: 48em) {          
     .footer__line {
         padding-bottom: 0.7rem;
@@ -423,5 +503,24 @@ input[type="file"] {
         right: 1.5rem;
         bottom: -0.5rem;       
     }
+    .recipe_name-all {
+        padding-top: 0;
+        padding-bottom: 0.75rem;
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    .recipe__icon {
+        font-size: 0.8rem;
+    }
+    .recipe__icon-right {
+        padding-right: 0.5rem;
+    }
+    .recipe__card-image {
+        height: 13rem;        
+    }
 }
-
+@media (max-width: 30em) {
+    .recipe__card-image {
+        height: 10rem;        
+    }
+}

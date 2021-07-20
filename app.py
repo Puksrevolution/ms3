@@ -21,10 +21,59 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
+recipes = mongo.db.recipes.find()
+
+PER_PAGE = 4
+
+
+def paginated(recipes, page):
+    offset = page * PER_PAGE - PER_PAGE
+    paginated_recipes = recipes[offset: offset + PER_PAGE]
+    pagination = Pagination(page=page, per_page=PER_PAGE, total=len(recipes))
+    return [
+        paginated_recipes,
+        pagination
+    ]
+
+
+# Main recipes page #
+@app.route("/all_recipes")
+def all_recipes():
+    # Mentor assisted with restructuring of code related to pagnination #
+    recipes = list(mongo.db.recipes.find().sort("_id", -1))
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    pagination_obj = paginated(recipes, page)
+    paginated_recipes = pagination_obj[0]
+    pagination = pagination_obj[1]
+    return render_template("recipes.html",
+                           page_title="All Recipes",
+                           recipes=paginated_recipes,
+                           recipe_paginated=paginated_recipes,
+                           pagination=pagination)
+
+
+# Search functionality #
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    # Search functionality #
+    query = request.form.get("query")
+    recipes = list(mongo.db.recipes.find({"$text": {"$search": query}}))
+    # Pagination #
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    pagination_obj = paginated(recipes, page)
+    paginated_recipes = pagination_obj[0]
+    pagination = pagination_obj[1]    
+    return render_template("recipes.html", recipes=recipes,
+                           total=len(recipes),
+                           recipe_paginated=paginated_recipes,
+                           pagination=pagination,
+                           title="Search Result", search=True)
+
+
 @app.route("/")
 def index():
     recipes = list(mongo.db.recipes.find())
-    return render_template("index.html", 
+    return render_template("index.html",
                            page_title="Yummy Recipes",
                            recipes=recipes)
 
@@ -116,25 +165,19 @@ def logout():
     return redirect(url_for('login'))
 
 
-# User profile page #
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
-    # Retrieve users and recipes to use on profile page #
+    # grab the session user's username from db
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
-    users = list(mongo.db.users.find())
+
     recipes = list(mongo.db.recipes.find())
-    favourite_recipes = mongo.db.users.find_one(
-                {"username": session["user"]})["favourite_recipes"]
-    # Favourite recipe display functionality advised by CI tutors #
-    favourites = []
-    # To push to favourites array #
-    for recipe in favourite_recipes:
-        favourites.append(mongo.db.recipes.find_one({"_id": recipe}))
+
     if session["user"]:
-        return render_template(
-            "profile.html", username=username, users=users,
-            recipes=recipes, favourites=favourites, page_title="Profile")
+        return render_template("profile.html",
+                               username=username,
+                               recipes=recipes,
+                               page_title="Profile")
 
     return redirect(url_for("login"))
 

@@ -1,4 +1,7 @@
-Create a MongoDB Database App
+git push origin master
+
+
+##### Create a MongoDB Database App
   - 
 
 
@@ -128,27 +131,19 @@ if __name__ == "__main__":
             debug=True)
 
 ```
-favorites.html
-```
-{% for recipe in favorites %}
-        {{ recipe.recipe_title }}
-        {{ recipe.recipe_image-url }}
-        {{ recipe.recipe_time }}
-        {{ recipe.recipe_severity }}
-        {{ recipe.recipe_ingredient }}
-        {{ recipe.recipe_description }}
-{% endfor %}
-```
-
-- install request
-  - python -m pip install requests
-```
-import requests
-```
 
 - install Pagination
   - pip install -U flask-paginate
 
+
+##### Search function
+
+In Terminal
+- python3   enter
+- from app import mongo    enter
+- mongo.db.recipes.create_index([("recipe_name", "text"), ("time", "text"), ("difficulty", "text"), ("ingredients", "text"), ("directions", "text"), ("created_by", "text") ])
+- mongo.db.recipes.index_information()
+- quit()
 
 Credits
 ====
