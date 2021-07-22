@@ -35,7 +35,7 @@
             {% for recipe in recipes %}
             <div class="col mb-3">
                 <div class="card gallery__card-image rounded-border">
-                    <a href="#">
+                    <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
                         <img class="gallery__image" alt="Recipe Image"
                         src="{{ recipe.image }}"> 
                         <div class="gallery__heading">

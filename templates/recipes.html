@@ -15,33 +15,43 @@
         </div>
     </div>
 </div>
- 
-
-
 
 <!-- Recipe Card -->
 {% if recipes|length > 0 %}
 <div class="mt-5">
     <div class="row justify-content-center">
         {% for recipe in recipes %}
-        <div class="col-10 col-md-6 col-lg-4 mb-3 gallery__card-image">
+        <div class="col-10 col-md-6 col-lg-4 gallery__card-image align-self-center">
+            <div class="size">
             <div class="card recipe__card-image rounded-border">
                 <a href="#">
                     <img class="recipe__image" alt="Recipe Image" src="{{ recipe.image }}">
                 </a>
             </div>
         </div>
+        </div>
         <div class="col-10 col-md-5 pb-5">
             <div>
                 <h3 class="recipe_name recipe_name-all text-center">
-                    <a href="#">
-                        {{ recipe.recipe_name }}</a>
+                    <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
+                        {{ recipe.recipe_name }}</a>                        
                 </h3>
                 <div class="row justify-content-center">
-                    <ul class="tabs tabs-fixed-width">
-                        <li class="tab fas fa-clock recipe__icon recipe__icon-right"> Cook: {{ recipe.time }}</li>
-                        <li class="tab fas fa-utensils recipe__icon"> Difficulty: {{ recipe.difficulty }}</li>
+                    <ul>
+                        <li class="fas fa-clock recipe__icon recipe__icon-right"> <span class="recipe__icon-text">Cook: {{ recipe.time }}</span></li>
+                        <li class="fas fa-thermometer-half recipe__icon"> <span class="recipe__icon-text">Difficulty: {{ recipe.difficulty }}</span></li>
                     </ul>
+                </div>
+                <div class="row justify-content-center mt-3">
+                   <small><i class="far fa-user-circle user__icon"></i><strong> By</strong> {{ recipe.created_by }}</small>
+                </div>
+                <div class="row text-center mt-3">
+                    <div class="col-12">
+                        {% if session.user %}                              
+                        <a class="btn btn-heart" href="{{ url_for('favourite_recipe', recipe_id=recipe._id) }}">
+                            <i class="fas fa-heart" id="like"></i>Add to Favorites</a>                    
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -49,7 +59,7 @@
     </div>
 </div>
 {% else %}
-<h3 class="red-text text-darken-4 center-align">No Results Found</h3>
+<h2 class="text-center text-danger mt-5"><strong>No Results Found</strong></h2>
 {% endif %}
 
 

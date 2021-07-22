@@ -3,7 +3,7 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-11 col-sm-7 col-lg-5">
-        <form class="form" method="POST" action="{{ url_for('login') }}">
+        <form class="form" method="POST" action="{{ url_for('signin') }}">
             <!-- username -->
             <div class="row">
                 <div class="form__group col-12 mb-4">
@@ -25,7 +25,7 @@
             <!-- login -->
             <div class="row">
                 <button class="col-12 btn btn-lavender" type="submit">
-                    Log In <i class="fas fa-sign-in-alt"></i>
+                    Sign In <i class="fas fa-sign-in-alt"></i>
                 </button>
             </div>
         </form>
@@ -35,7 +35,7 @@
     <div class="col-md-auto">
         <p class="text-center">
             <strong>New Here?</strong>
-            <a href="{{ url_for('register') }}" class="footer__footer-link">Register Account</a>
+            <a href="{{ url_for('signup') }}" class="footer__footer-link">Sign Up Account</a>
         </p>
     </div>
 </div>

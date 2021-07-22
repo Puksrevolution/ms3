@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-auto">
+        <div class="d-flex">
+            <div style="width: 40rem;">
+                <h2 class="text-center mb-3">{{ recipe.recipe_name }}</h2>                
+                <div class="card">                    
+                    <img class="rounded-border card-img bd-placeholder-img shadow-box" src="{{ recipe.image }}" alt="recipe_image" width="100%" aria-label="Placeholder: Card image">
+                    <h5 class="user"><i class="far fa-user-circle user__icon"></i> {{ recipe.created_by }}</h5>
+                </div>
+                <h3 class="text-center pt-4">Ingredients</h3>
+                <hr>
+                <p class="card__recipe-text text-center pt-2">
+                    <small class="text-muted">
+                        <i class="fas fa-hourglass-half pl-3"></i> Cook: {{ recipe.time }} 
+                        <i class="fas fa-signal  pl-3"></i> Difficulty: {{ recipe.difficulty }}
+                    </small>
+                </p>
+                <ul class="recipe_list-ingredients">
+                    <!-- For each ingredient line -->
+                    {% for line in recipe.ingredients.splitlines() %}
+                    <li class="ul-item">
+                        <p>{{line}}</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <h3 class="text-center pt-4">Directions</h3>
+                <hr class="mb-4">
+                {% for line in recipe.directions.splitlines() %}
+                <p>
+                    {{line}}
+                </p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row text-center mt-5">
+            <div class="col-12">
+                <a class="btn btn-dimgray" href="{{ url_for('all_recipes') }}">Back to Recipe</a>                 
+                {% if session.user %}                              
+                <a class="btn btn-heart" href="{{ url_for('favourite_recipe', recipe_id=recipe._id) }}">
+                    <i class="fas fa-heart" id="like"></i>Add to Favorites</a>
+                    <a class="btn btn-lavender" href="{{ url_for('remove_recipe', recipe_id=recipe._id) }}">
+                                <i class="fas fa-minus" id="like_minus"></i></a>
+                {% endif %}                  
+            </div>
+        </div>                    
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- Makes sure only the creator can edit the recipe or elif admin-->
+{% if session.user|lower == recipe.created_by|lower %}
+
+<!-- Subtitle for User -->
+<div class="row">
+    <div class="col-12">
+        <h2 class="text-center mt-5 mb-3">
+            <i class="fas fa-edit"></i> Edit Your Recipes Here! <i class="fas fa-edit"></i>
+        </h2>
+    </div>
+</div>
+
+<!-- Main content form for page -->
+<!-- Edit Form for User -->
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+        <form class="col s12" method="POST" action="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">
+            <div class="row g-3">
+                <div class="col-12 font-weight-bolder">
+                    <label class="form-label" for="recipe_name">
+                        <i class="fas fa-pencil-alt"></i> Recipe Name:</label>
+                    <input class="form-control mb-3" id="recipe_name" name="recipe_name" type="text" minlength="5"
+                        maxlength="30" required>
+                </div>
+                <div class="col-12 font-weight-bolder">
+                    <label class="form-label" for="image">
+                        <i class="fas fa-image"></i>Your Image Url here:</label>
+                    <input class="form-control mb-3" id="image" name="image" type="url" minlength="5">
+                </div>
+                <div class="col-6 font-weight-bolder">
+                    <label class="form-label" for="time">
+                        <i class="fas fa-clock"></i> Time:</label>
+                    <input class="form-control mb-3" id="time" name="time" type="number" placeholder="In Minutes"
+                        required>
+                </div>
+                <div class="col-12 font-weight-bolder">
+                    <label class="form-label" for="ingredients">
+                        <i class="fas fa-pepper-hot"></i> Ingredients:</label>
+                    <input class="form-control mb-3" id="ingredients" name="ingredients" type="text" required>
+                </div>
+                <div class="col-12 font-weight-bolder">
+                    <label class="form-label" for="directions">
+                        <i class="fas fa-align-left"></i> Instructions:</label>
+                    <textarea class="form-control mb-3" id="directions" name="directions" type="text" rows="5"
+                        required></textarea>
+                </div>
+                <!-- Cancel & Submit buttons for Edit Form -->
+                <div class="row">
+                    <div class="col s12 center-align">
+                        <a href="{{ url_for('profile') }}" class="btn btn-remove">
+                            Cancel
+                        </a>
+                        <button class="btn btn-sucsess" type="submit">
+                            Edit Recipe
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Allows Admin to edit users recipe -->
+{% elif session.user|lower == "admin"|lower %}
+
+<!-- Subtitle for Admin -->
+<div class="row">
+    <div class="col-12">
+        <h2 class="text-center mt-5 mb-3">
+            <i class="fas fa-edit"></i> Admin Edit Recipe here!<i class="fas fa-edit"></i>
+        </h2>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+        <form class="col s12" method="POST" action="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">
+            <div class="row g-3">
+                <div class="col-12 font-weight-bolder">
+                    <label class="form-label" for="recipe_name">
+                        <i class="fas fa-pencil-alt"></i> Recipe Name:</label>
+                    <input class="form-control mb-3" id="recipe_name" name="recipe_name" type="text" minlength="5"
+                        maxlength="30" required>
+                </div>
+                <div class="col-12 font-weight-bolder">
+                    <label class="form-label" for="image">
+                        <i class="fas fa-image"></i>Your Image Url here:</label>
+                    <input class="form-control mb-3" id="image" name="image" type="url" minlength="5">
+                </div>
+                <div class="col-6 font-weight-bolder">
+                    <label class="form-label" for="time">
+                        <i class="fas fa-clock"></i> Time:</label>
+                    <input class="form-control mb-3" id="time" name="time" type="number" placeholder="In Minutes"
+                        required>
+                </div>
+                <div class="col-12 font-weight-bolder">
+                    <label class="form-label" for="ingredients">
+                        <i class="fas fa-pepper-hot"></i> Ingredients:</label>
+                    <input class="form-control mb-3" id="ingredients" name="ingredients" type="text" required>
+                </div>
+                <div class="col-12 font-weight-bolder">
+                    <label class="form-label" for="directions">
+                        <i class="fas fa-align-left"></i> Instructions:</label>
+                    <textarea class="form-control mb-3" id="directions" name="directions" type="text" rows="5"
+                        required></textarea>
+                </div>
+                <!-- Cancel & Submit buttons for Edit Form -->
+                <div class="row">
+                    <div class="col s12 center-align">
+                        
+                        <button class="btn btn-success" type="submit">
+                            Edit Recipe
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% else %}
+
+<h3 class="red-text text-darken-4 center-align">You are not permitted to view this page</h3>
+
+{% endif %}
+
+{% endblock %}

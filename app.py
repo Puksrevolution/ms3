@@ -1,5 +1,5 @@
 import os
-import requests
+import random
 from flask_paginate import Pagination, get_page_parameter
 # import json
 from flask import (
@@ -62,20 +62,163 @@ def search():
     page = request.args.get(get_page_parameter(), type=int, default=1)
     pagination_obj = paginated(recipes, page)
     paginated_recipes = pagination_obj[0]
-    pagination = pagination_obj[1]    
-    return render_template("recipes.html", recipes=recipes,
+    pagination = pagination_obj[1]
+    return render_template("recipes.html",
+                           page_title="Search Result",
+                           recipes=recipes,
                            total=len(recipes),
                            recipe_paginated=paginated_recipes,
                            pagination=pagination,
-                           title="Search Result", search=True)
+                           search=True)
+
+
+# View single recipe #
+@app.route("/view_recipe/<recipe_id>", methods=["GET", "POST"])
+def view_recipe(recipe_id):
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    return render_template("view_recipe.html", recipe=recipe,
+                           page_title="Recipe")
+
+
+@app.route("/view_favourite/<recipe_id>", methods=["GET", "POST"])
+def view_favourite(recipe_id):
+    favourite = mongo.db.users.find_one(
+        {"favourite_recipes": ObjectId(recipe_id)})
+    return render_template("view_recipe.html", favourite=favourite,
+                           page_title="Recipe")
+
+
+# Create recipe functionality and page #
+@app.route("/add_recipe", methods=["GET", "POST"])
+def add_recipe():
+    # Request form fields #
+    if request.method == "POST":
+        recipe = {
+            "recipe_name": request.form.get("recipe_name"),
+            "image": request.form.get("image"),
+            "time": request.form.get("time"),
+            "difficulty": request.form.get("difficulty"),
+            "ingredients": request.form.get("ingredients"),
+            "directions": request.form.get("directions"),
+            "created_by": request.form.get("created_by"),
+            "user": session["user"]
+        }
+        mongo.db.recipes.insert_one(recipe)
+        flash("Recipe Successfully Added", "success")
+        return redirect(url_for("profile", username=session["user"]))
+
+    return render_template("add_recipe.html",
+                           page_title="Add Recipe")
+
+
+# Edit recipe functionality and page #
+@app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
+def edit_recipe(recipe_id):
+    # Request form fields #
+    if request.method == "POST":
+        recipe_edit = {
+            "recipe_name": request.form.get("recipe_name"),
+            "image": request.form.get("image"),
+            "time": request.form.get("time"),
+            "difficulty": request.form.get("difficulty"),
+            "ingredients": request.form.get("ingredients"),
+            "directions": request.form.get("directions"),
+            "created_by": request.form.get("created_by"),
+            "user": session["user"]
+        }
+        mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, recipe_edit)
+        flash("Recipe Updated Successfully", "success")
+        return redirect(url_for("profile", username=session["user"]))
+
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    return render_template(
+        "edit_recipe.html", recipe=recipe, page_title="Edit Recipe")
+
+
+# Delete recipe functionality #
+@app.route("/delete_recipe/<recipe_id>")
+def delete_recipe(recipe_id):
+    mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
+    list(mongo.db.users.find(
+        {"favourite_recipes": ObjectId(recipe_id)}))
+    # Remove recipe from array in DB #
+    mongo.db.users.find_one_and_update(
+            {"username": session["user"].lower()},
+            {"$pull": {"favourite_recipes": ObjectId(recipe_id)}})
+    flash("Recipe Deleted Successfully", "success")
+    return render_template("profil.html")
+
+
+# User profile page #
+@app.route("/profile/<username>", methods=["GET", "POST"])
+def profile(username):
+    # Retrieve users and recipes to use on profile page #
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    users = list(mongo.db.users.find())
+    recipes = list(mongo.db.recipes.find())
+    favourite_recipes = mongo.db.users.find_one(
+                {"username": session["user"]})["favourite_recipes"]
+    # Favourite recipe display functionality advised by CI tutors #
+    favourites = []
+    # To push to favourites array #
+    for recipe in favourite_recipes:
+        favourites.append(mongo.db.recipes.find_one({"_id": recipe}))
+    if session["user"]:
+        return render_template(
+            "profile.html", username=username, users=users,
+            recipes=recipes, favourites=favourites)
+
+    return redirect(url_for("signin"))
+
+
+# Add recipe to favourites array in DB #
+@app.route("/favourite_recipe/<recipe_id>", methods=["GET", "POST"])
+def favourite_recipe(recipe_id):
+    favourites = mongo.db.users.find(
+        {"favourite_recipes": ObjectId(recipe_id)})
+    favourite = mongo.db.users.find_one(
+        {"favourite_recipes": ObjectId(recipe_id)})
+    # Check favourite is not already added #
+    if favourite in favourites:
+        flash("This recipe is already in your favourites!", "error")
+        return redirect(url_for("all_recipes"))
+
+    # Add recipeId to favourites array in user collection #
+    else:
+        mongo.db.users.find_one_and_update(
+            {"username": session["user"].lower()},
+            {"$push": {"favourite_recipes": ObjectId(recipe_id)}})
+        flash("Recipe added to your favourites!", "success")
+        return redirect(url_for("profile", username=session["user"]))
+
+
+# Remove or delete recipe from favourites functionality #
+@app.route("/remove_recipe/<recipe_id>", methods=["GET", "POST"])
+def remove_recipe(recipe_id):
+    favourites = list(mongo.db.users.find(
+        {"favourite_recipes": ObjectId(recipe_id)}))
+    # Check if favourite recipe does not exist in favourites #
+    if len(favourites) <= 0:
+        flash("This recipe is not in your favourites!", "error")
+        return redirect(url_for("all_recipes"))
+    # Remove favourite if it exists #
+    else:
+        mongo.db.users.find_one_and_update(
+            {"username": session["user"].lower()},
+            {"$pull": {"favourite_recipes": ObjectId(recipe_id)}})
+        flash("Recipe removed from your favourites!", "success")
+        return redirect(url_for("profile", username=session["user"]))
 
 
 @app.route("/")
 def index():
     recipes = list(mongo.db.recipes.find())
+    images = random.choices(recipes, k=6)
     return render_template("index.html",
                            page_title="Yummy Recipes",
-                           recipes=recipes)
+                           recipes=recipes,
+                           images=images)
 
 
 @app.route("/about")
@@ -103,8 +246,8 @@ def privacy():
     return render_template("privacy.html", page_title="Privacy Policy")
 
 
-@app.route("/register", methods=["GET", "POST"])
-def register():
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
     if request.method == "POST":
         # check if username already exists in db
         existing_user = mongo.db.users.find_one(
@@ -112,24 +255,25 @@ def register():
 
         if existing_user:
             flash("Username already exists")
-            return redirect(url_for("register"))
+            return redirect(url_for("signup"))
 
         register = {
             "username": request.form.get("username").lower(),
-            "password": generate_password_hash(request.form.get("password"))
+            "password": generate_password_hash(request.form.get("password")),
+            "favourite_recipes": []
         }
         mongo.db.users.insert_one(register)
 
         # put the new user into 'session' cookie
         session["user"] = request.form.get("username").lower()
-        flash("Registration Successful!")
+        flash("Registration Successful!", "success")
         return redirect(url_for("profile", username=session["user"]))
 
-    return render_template("register.html", page_title="Register")
+    return render_template("signup.html", page_title="Sign Up")
 
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
+@app.route("/signin", methods=["GET", "POST"])
+def signin():
     if request.method == "POST":
         # check if username exists in db
         existing_user = mongo.db.users.find_one(
@@ -140,55 +284,51 @@ def login():
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
                         session["user"] = request.form.get("username").lower()
-                        flash("Welcome, {}".format(
-                            request.form.get("username")))
                         return redirect(url_for(
                             "profile", username=session["user"]))
             else:
                 # invalid password match
-                flash("Incorrect Username and/or Password")
-                return redirect(url_for("login"))
+                flash("Incorrect Username and/or Password", "error")
+                return redirect(url_for("signin"))
 
         else:
             # username doesn't exist
-            flash("Incorrect Username and/or Password")
-            return redirect(url_for("login"))
+            flash("Incorrect Username and/or Password", "error")
+            return redirect(url_for("signin"))
 
-    return render_template("login.html", page_title="Log In")
+    return render_template("signin.html", page_title="Sign In")
 
 
-@ app.route('/logout')
-def logout():
+@ app.route('/signout')
+def signout():
     # remove user from session cookie
-    flash("You have been logged out")
+    flash("You have been logged out", "success")
     session.pop("user")
-    return redirect(url_for('login'))
+    return redirect(url_for('signin'))
 
 
-@app.route("/profile/<username>", methods=["GET", "POST"])
-def profile(username):
-    # grab the session user's username from db
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
-
-    recipes = list(mongo.db.recipes.find())
-
-    if session["user"]:
-        return render_template("profile.html",
-                               username=username,
-                               recipes=recipes,
-                               page_title="Profile")
-
-    return redirect(url_for("login"))
-
-
-# ---- NEWSLETTER SUBSCRIPTION FORM ----- #
 @ app.route('/sub', methods=['POST'])
 def sub():
-    sub = mongo.db.newsletter
-    return_data = request.form.to_dict()
-    sub.insert_one(return_data)
-    flash("Sucessfully Subscribed")
+    if request.method == "POST":
+        # check if username already exists in db
+        existing_email = mongo.db.newsletter.find_one(
+            {"email": request.form.get("email").lower()})
+
+        if existing_email:
+            flash("Email already exists", "error")
+            return redirect(request.referrer)
+
+        email = {
+            "email": request.form.get("email").lower()
+        }
+        mongo.db.users.insert_one(email)
+
+        sub = mongo.db.newsletter
+        return_data = request.form.to_dict()
+        sub.insert_one(return_data)
+        flash("Sucessfully Subscribed", "success")
+        return redirect(request.referrer)
+
     return redirect(request.referrer)
 
 

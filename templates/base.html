@@ -70,17 +70,17 @@
                         <a class="nav-link" href="{{ url_for('profile', username=session['user']) }}">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Add Recipe</a>
+                        <a class="nav-link" href="{{ url_for('add_recipe') }}">Add Recipe</a>
                     </li>                                   
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
+                        <a class="nav-link" href="{{ url_for('signout') }}">Sign Out</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+                        <a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('login') }}">Log In</a>
+                        <a class="nav-link" href="{{ url_for('signin') }}">Sign In</a>
                     </li>
                 {% endif %}                
             </ul>
@@ -96,25 +96,25 @@
         </div>
     </header>
 
-    <main class="main">
-        <div class="container">
-            {% block content %}
-            {% endblock %}
-        </div>
-    </main>
-
     <section>
         <!-- flash messages -->
-        {% with messages = get_flashed_messages() %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
-                {% for message in messages %}
+            {% for category, message in messages %}
                     <div class="row justify-content-center mt-4 flashes">
-                        <h4 class="text-center py-2">{{ message }}</h4>
+                        <h4 class="text-center py-2 {{ category }}">{{ message }}</h4>
                     </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
     </section>
+
+    <main class="main">
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>    
 
     <footer class="footer">
         <div class="container">
@@ -150,7 +150,7 @@
                                 placeholder="Email-Address" aria-label="Search" required>
                             <button class="btn btn-subscribe" type="submit">Subscribe</button>
                         </form>                        
-                    </div>
+                    </div>                    
                 </div>
             </div>
             <footer class="footer__footer">
