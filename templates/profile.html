@@ -28,7 +28,7 @@
 
 <div class="row justify-content-center">
     <div class="col-12 col-sm-8 mt-4">
-        <p class="recipe_list mb-3"><i class="fas fa-heart"></i> Your <strong>Favorite Recipes</strong>:</p>
+        <p class="recipe_list mb-3"><i class="fas fa-heart"></i> Your <strong>Favourite Recipes</strong>:</p>
         <!-- Favourites content -->
         {% for favourite in favourites %}
         <div>
@@ -36,8 +36,7 @@
             <h6 class="favourite recipe_name">  {{ favourite.recipe_name }}  
             </a>     
                 <a class="btn btn-sm ml-2" href="">
-                <i class="fas fa-minus"></i></a>
-                
+                <i class="fas fa-minus"></i></a>                
             </h6>                                     
         </div>                    
         {% endfor %}                   
@@ -51,7 +50,8 @@
         {% if recipe.user == username %}
         <div>            
             <div>
-                <h6>{{ recipe.recipe_name }}</h6>
+                <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
+                <h6 class="recipe_name">{{ recipe.recipe_name }}</h6></a>
             </div>           
             {% if session.user|lower == recipe.user|lower %}
             <!-- Edit and delete recipes buttons -->

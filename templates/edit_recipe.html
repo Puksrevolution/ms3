@@ -94,6 +94,16 @@
                     <input class="form-control mb-3" id="time" name="time" type="number" placeholder="In Minutes"
                         required>
                 </div>
+                <div class="col-6 font-weight-bolder">                
+                    <label class="form-label" for="difficulty">
+                        <i class="fas fa-thermometer-half"></i>Difficulty:</label>
+                    <select class="form-control mb-3" id="difficulty" name="difficulty" required>
+                        <option selected disabled>Select difficulty</option>
+                        <option>Easy</option>
+                        <option>Medium</option>
+                        <option>Hard</option>
+                    </select>                   
+                </div>    
                 <div class="col-12 font-weight-bolder">
                     <label class="form-label" for="ingredients">
                         <i class="fas fa-pepper-hot"></i> Ingredients:</label>
@@ -104,17 +114,18 @@
                         <i class="fas fa-align-left"></i> Instructions:</label>
                     <textarea class="form-control mb-3" id="directions" name="directions" type="text" rows="5"
                         required></textarea>
-                </div>
-                <!-- Cancel & Submit buttons for Edit Form -->
-                <div class="row">
-                    <div class="col s12 center-align">
-                        
-                        <button class="btn btn-success" type="submit">
-                            Edit Recipe
-                        </button>
-                    </div>
-                </div>
+                </div>                              
             </div>
+            <!-- Cancel & Submit buttons for Edit Form --> 
+            <div class="row justify-content-center">
+                <div class="col-12 text-center">                   
+                    <button class="btn btn-success" type="submit">
+                        Edit Recipe
+                    </button>
+                    <a class="btn btn-danger" href="{{ url_for('profile', username=session['user']) }}" type="button">
+                        Cancle</a>
+                </div>
+            </div>  
         </form>
     </div>
 </div>

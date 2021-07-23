@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<div class="row justify-content-center">
+<!-- Intro -->
+<section class="row justify-content-center">
     <div class="col-12 col-sm-10 col-lg-8">
         <p>
             Dicover here at CookBook always the right recipe idea: for cooking or baking,
@@ -10,42 +10,168 @@
         </p>
         <p>
             Sing Up to get your own profile to view, add, store and share recipes in a modern way
-            and to create a collection of your favourite recipes.           
+            and to create a collection of your favourite recipes.
         </p>
 
     </div>
-</div>
-<div class="row text-center mt-3">
-    <div class="col-12">
-        <a class="btn btn-dimgray" href="{{ url_for('all_recipes') }}">View Recipes</a>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <h2 class="text-center my-4">
-            Recipe Gallery
-        </h2>
-    </div>
-</div>
+</section>
 
-<!-- Recipe Card -->
-
-    <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            {% for recipe in recipes %}
-            <div class="col mb-3">
-                <div class="card gallery__card-image rounded-border">
-                    <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
-                        <img class="gallery__image" alt="Recipe Image"
-                        src="{{ recipe.image }}"> 
-                        <div class="gallery__heading">
-                            <h5 class="">{{ recipe.recipe_name }}</h5>                    
-                        </div>     
-                    </a>                   
-                </div>                              
+<!-- Search -->
+<section class="row justify-content-center mt-5">
+    <div class="col-12 col-md-8 col-lg-6">
+        <form  action="{{ url_for('search') }}" method="post">
+            <div class="row g-3">                       
+                <div class="col-6 font-weight-bolder">
+                    <input class="form-control" type="search" name="query" id="query" minlength="3"
+                placeholder="Search Recipes" aria-label="Search" required>                   
+                </div>    
+                <div class="col-6 font-weight-bolder">                
+                    <button class="btn btn-lavender" type="submit"><i class="fas fa-search"></i></button>
+                    <a class="btn btn-reset" href="{{ url_for('all_recipes') }}">Reset</a>               
+                </div>                                                
             </div>            
-            {% endfor %}
+        </form>
+    </div>
+</section>
+
+<!-- Article -->
+<section class="row justify-content-center t-5">
+    <a href="{{ url_for('article') }}">
+        <div class="col-12">
+            <div class="row ">
+                <div class="col-12 col-md-6 mb-3">
+                    <h3 class="recipe_name recipe_name-all text-center">
+                        How to Get Rid of Fruit Flies for Good
+                    </h3>
+                    <p class="pt-3">These DIY tips will rid your home of these pesky pests once and for all.</p>
+                    <p>
+                        As I live alone, I have never been one to stock up on items like produce.
+                        If I bought too much, it'd go bad before I got to use it.
+                        But with tightening budgets and the desire to avoid too ...
+                    </p>                    
+                    <p><strong>By Aly Walansky</strong> | <small class="text-muted">July 15, 2021</small></p>
+                </div>
+                <div class="col-12 col-md-6 d-lg-block">                    
+                    <img class="rounded-border card-img bd-placeholder-img shadow-box"
+                        src="https://www.thespruce.com/thmb/BoR2HaUJB9eMAq4Ppid79DtwIMk=/1500x1001/filters:fill(auto,1)/what-is-a-fruit-fly-2656677-hero-ec0c068408644cd8805b78f5ca618b08.jpg">
+                </div>
+            </div>
+        </div>
+    </a>
+</section>
+
+<!-- Gallery -->
+<section class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mt-5 mb-4">
+                Recipe Gallery
+            </h2>
         </div>
     </div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for recipe in random_recipes %}
+        <div class="col mb-3">
+            <div class="card gallery__card-image rounded-border">
+                <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
+                    <img class="gallery__image" alt="Recipe Image" src="{{ recipe.image }}">
+                    <div class="gallery__heading">
+                        <h5 class="">{{ recipe.recipe_name }}</h5>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
 
+<!-- Products -->
+
+<section class="container">
+    <div class="offers__container">
+        <div class="offers__card-container offers__card-container--flip">
+            <div class="offers__card">
+                <div class="offers__card-primary">
+                    <div class="offers__image-container">
+                        <img class="offers__image" src="https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F43%2F2021%2F07%2F15%2FArm-and-Hammer-Fruit-and-Vegetable-Wash.jpg" alt="" />
+                    </div>
+                    <div class="offers__content">
+                        <h4 class="offers__content-heading">Arm & Hammer Fruit & Vegetable Wash</h4>                        
+                    </div>
+                </div>
+                <div class="offers__card-hover">
+                    <a href="#booking-modal" class="button button--slim button--secondary">Jetzt buchen!</a>
+                </div>
+            </div>
+        </div>
+        <div class="offers__card-container offers__card-container--flip">
+            <div class="offers__card">
+                <div class="offers__card-primary">
+                    <div class="offers__image-container">
+                        <img class="offers__image" src="images/offers/pexels-min-an-898766.jpg" alt="" />
+                    </div>
+                    <div class="offers__content">
+                        <h4 class="offers__content-heading">Fotografie-Schnellkurs</h4>
+                        <p class="offers__content-subheading">Lorem ipsum dolor sit amet.</p>
+                        <div class="offers__content-info">
+                            <div class="offers__content-info-duration">
+                                <svg class="icon">
+                                    <use href="images/icons.svg#icon-clock" />
+                                </svg>
+                                <span class="offers__content-info-duration-text"><strong>3</strong> Stunden</span>
+                            </div>
+                            <div class="offers__content-info-level">
+                                <svg class="icon">
+                                    <use href="images/icons.svg#icon-level-beginner" />
+                                </svg>
+                                <span class="offers__content-info-duration-text">Anfänger</span>
+                            </div>
+                        </div>
+                        <div class="offers__content-price-container">
+                            jetzt nur:
+                            <strong class="offers__content-price">329,99 €</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="offers__card-hover">
+                    <a href="#booking-modal" class="button button--slim button--secondary">Jetzt buchen!</a>
+                </div>
+            </div>
+        </div>
+        <div class="offers__card-container offers__card-container--flip">
+            <div class="offers__card">
+                <div class="offers__card-primary">
+                    <div class="offers__image-container">
+                        <img class="offers__image" src="images/offers/pexels-min-an-898766.jpg" alt="" />
+                    </div>
+                    <div class="offers__content">
+                        <h4 class="offers__content-heading">Fotografie-Schnellkurs</h4>
+                        <p class="offers__content-subheading">Lorem ipsum dolor sit amet.</p>
+                        <div class="offers__content-info">
+                            <div class="offers__content-info-duration">
+                                <svg class="icon">
+                                    <use href="images/icons.svg#icon-clock" />
+                                </svg>
+                                <span class="offers__content-info-duration-text"><strong>3</strong> Stunden</span>
+                            </div>
+                            <div class="offers__content-info-level">
+                                <svg class="icon">
+                                    <use href="images/icons.svg#icon-level-beginner" />
+                                </svg>
+                                <span class="offers__content-info-duration-text">Anfänger</span>
+                            </div>
+                        </div>
+                        <div class="offers__content-price-container">
+                            jetzt nur:
+                            <strong class="offers__content-price">329,99 €</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="offers__card-hover">
+                    <a href="#booking-modal" class="button button--slim button--secondary">Jetzt buchen!</a>
+                </div>
+            </div>
+        </div>
+    </div>    
+</section>
 {% endblock %}

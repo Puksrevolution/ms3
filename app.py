@@ -1,7 +1,6 @@
 import os
 import random
 from flask_paginate import Pagination, get_page_parameter
-# import json
 from flask import (
     Flask, render_template, flash,
     redirect, request, session, url_for)
@@ -213,12 +212,21 @@ def remove_recipe(recipe_id):
 
 @app.route("/")
 def index():
-    recipes = list(mongo.db.recipes.find())
-    images = random.choices(recipes, k=6)
+    # recipes = list(mongo.db.recipes.find())
+    # images = random.choices(recipes, k=6)
+    recipes = mongo.db.recipes
+    random_recipes = (
+        [recipe for recipe in recipes.aggregate([
+            {"$sample": {"size": 6}}])])
     return render_template("index.html",
                            page_title="Yummy Recipes",
                            recipes=recipes,
-                           images=images)
+                           random_recipes=random_recipes)
+
+
+@app.route("/article")
+def article():
+    return render_template("article.html", page_title="DIY Tips")
 
 
 @app.route("/about")
