@@ -115,10 +115,7 @@ hr {
     text-decoration: underline;
 }
 
-.pagination .active>a,
-.pagination a.active, 
-.pagination a.show,
-.pagination .show>a {    
+.pagination .active>a {    
     color: #868686;
     text-decoration: underline;
 }
