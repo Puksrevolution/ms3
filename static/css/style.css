@@ -1,16 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Montserrat:wght@500;700&display=swap');
 
-/**
-background-color: #F4F3EE;
-background-color: #f5f5e2; 
-background-color: #F7F7FF;
-background-color: #f6f6f6;   
-background-color: #FAF9F9;
-background-color: #FEF9EF;
-background-color: #F5EFED;
-*/
-
-/*BASE*/
+/*--BASE--*/
 * {
     margin: 0;
     padding: 0;
@@ -24,7 +14,6 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-/*Heading/Title/Text*/
 h1,
 h2,
 h3,
@@ -64,11 +53,8 @@ hr {
     border-radius: 2px;
 }
 
-.shadow-box {
-    box-shadow: 0 0 1rem black;
-}
-
-/*Sections*/
+/*--BASE TEMPLATE--*/
+/*Base Sections*/
 .header {
     margin-top: 6rem;
     text-align: center;
@@ -79,42 +65,156 @@ hr {
     margin: 2rem 1rem 4rem 1rem;
 }
 
-/*Container*/
+/*Layout*/
 .container {
     position: relative;
 }
 
-/*Pagination*/
+/*Navbar*/
+.navbar {
+    background-color: #FEF9EF;
+    padding: 0 1rem;
+}
+
+.navbar-brand {
+    padding-bottom: 0;
+}
+
+.navbar .navbar-nav .nav-link {
+    color: #0F0A0A;
+    font-size: 1.1rem;
+}
+
+.navbar .navbar-nav .nav-link:hover {
+    color: #6D6A75;
+    text-decoration: underline;
+}
+
+.navbar-light .navbar-nav .active>.nav-link,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-link.show, 
+.navbar-light .navbar-nav .show>.nav-link {
+    color: #868686;
+    text-decoration: underline;
+}
+
+/*Navbar-Page Pagination*/
 .pagination ul li {
     display: inline-block;
+    margin: 0 0.2rem;
     padding: 0 0.5rem;
     list-style: none;
     font-size: 1.3rem;
     font-weight: bold;
+    border: 1px solid hsl(0, 0%, 70%);
+    border-radius: 0.25rem;
 }
 
-.active {
+.pagination ul li:hover {
+    color: #6D6A75;
+    text-decoration: underline;
+}
+
+.pagination .active>a,
+.pagination a.active, 
+.pagination a.show,
+.pagination .show>a {    
     color: #868686;
+    text-decoration: underline;
 }
 
-/*Image*/
-.rounded-border {
-    border-radius: 0.75rem;
+/*Footer*/
+.footer {
+    background-color: #e3dfff;
+    box-shadow: 0 0 0.5rem #868686;
+    padding: 3rem 0 5rem 0;
 }
 
+.footer__line {
+    border-bottom: 2px solid #FEF9EF;
+    border-radius: 2px;
+    margin-bottom: 0.7rem;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+
+.footer__icons {
+    display: inline-block;
+    line-height: normal;
+    font-size: xx-large;
+}
+.footer__icons:not(:last-child) {
+    margin-right: 0.5rem;
+}
+
+.footer__icons--instagram {
+    color: #ff008c;
+}
+
+.footer__icons--instagram:hover {
+    color: #e02b8f;
+}
+
+.footer__icons--facebook {
+    color: #0051ff;
+}
+
+.footer__icons--facebook:hover {
+    color: #4d73c5;
+}
+
+.footer__icons--youtube {
+    color: #ff0000;
+}
+
+.footer__icons--youtube:hover {
+    color: #df2121;
+}
+
+.footer__footer-list {
+    list-style-type: none;
+}
+
+.footer__footer-link {
+    white-space: nowrap;
+    padding: 0 1rem;
+    color: #0F0A0A;
+}
+
+.footer__footer-link:hover {
+    color: #6D6A75;
+    text-decoration: underline;
+}
+
+.footer__copyright {
+    position: absolute;
+    left: 2rem;
+    bottom: 0;
+}
+
+.footer__top {
+    position: absolute;
+    right: 2rem;
+    bottom: -0.2rem;
+    font-size: 1.5rem;
+}
+.footer__top:hover {
+    color: #6D6A75;
+}
+
+/*--Components--*/
 /*Button*/
 .btn {
     box-shadow: 0 0 0.5rem #868686;
-}
-
-.btn-lavender {
-    background-color: #E3DFFF;
 }
 
 .btn-buy {
     width: 70%;
 }
 
+.btn-lavender {
+    background-color: #E3DFFF;
+}
 .btn-lavender:hover {
     background-color: #868686;
     color: #EAEBED;
@@ -126,7 +226,6 @@ hr {
     margin-bottom: 0.5rem;
     color: #EAEBED;
 }
-
 .btn-dimgray:hover {
     background-color: #E3DFFF;
 }
@@ -136,32 +235,16 @@ hr {
     box-shadow: 0 0 0.2rem #868686;
     padding: .37rem .75rem;
 }
-
 .btn-subscribe:hover {
     background-color: #E3DFFF;
 }
 
-.btn-remove {
-    position: absolute;
-    right: 0;
-    bottom: 0;
+.btn-red {    
     background-color: #9A031E;
     margin-left: 0.5rem;
     color: #E3DFFF;
 }
-
-.btn-remove:hover {
-    background-color: rgb(230, 0, 42);
-    color: #E3DFFF;
-}
-
-.btn-reset {
-    background-color: #9A031E;
-    margin-left: 0.5rem;
-    color: #E3DFFF;
-}
-
-.btn-reset:hover {
+.btn-red:hover {
     background-color: rgb(230, 0, 42);
     color: #E3DFFF;
 }
@@ -171,58 +254,20 @@ hr {
     color: white;
 }
 
-.fa-heart:hover {
-    color: white;
-}
-
-/*Card*/
+/*Cards*/
 .card {
     position: relative;
     border: transparent;
     background-color: transparent;
 }
 
-.user {
-    position: absolute;
-    bottom: 0.5rem;
-    left: 1rem;
-    color: white;
-    text-shadow: 0 0 1rem black,
-        0 0 1rem black,
-        0 0 1rem black,
-        0 0 1rem black,
-        0 0 1rem black;
-}
-
 .card-body {
     padding: 0;
 }
 
-.card-list {
-    margin-top: 0.5rem;
-    margin-left: 1.5rem;
-}
-
-.ul-item {
-    padding-left: 0.5rem;
-    padding-bottom: 0.2rem;
-}
-
-.recipe_list-card {
-    margin: 0 0 0 1.5rem;
-}
-
-.recipe_list-ingredients {
-    margin: 2rem 0 1rem 1.5rem;
-}
-
-.fa-user-circle {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
-
-.fa-heart {
-    color: #9A031Efa;
+.card__content {
+    position: relative;
+    padding: 1rem 0 0 1rem;
 }
 
 .card__recipe {
@@ -247,6 +292,14 @@ hr {
     padding: 1rem 0 0 1rem;
 }
 
+.recipe_list-card {
+    margin: 0 0 0 1.5rem;
+}
+
+.recipe_list-ingredients {
+    margin: 2rem 0 1rem 1.5rem;
+}
+
 .recipe_list {
     font-size: 1.3rem;
 }
@@ -267,10 +320,6 @@ hr {
 .recipe__icon-text {
     font-family: 'Montserrat', sans-serif;
     font-size: smaller;
-}
-
-.user__icon {
-    font-size: 1.3rem;
 }
 
 .recipe__icon-right {
@@ -338,194 +387,7 @@ hr {
     z-index: 12;
 }
 
-/*Form*/
-form .form__input-icon {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    margin: 0.6rem 1rem;
-    font-size: 1.3rem;
-}
-
-form .form__input-addicon {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    margin: 1.5rem;
-    font-size: 1.3rem;
-}
-
-.form-control {
-    border: 1px solid #868686;
-}
-
-.form-control-add {
-    padding-left: 2.2rem;
-}
-
-label {
-    margin: 0;
-}
-
-input[type="file"] {
-    display: none;
-}
-
-.form {
-    margin-bottom: 1rem;
-}
-
-.form__group {
-    position: relative;
-    margin-bottom: 0.9rem;
-    padding: 0;
-}
-
-.form__input {
-    width: 100%;
-    padding: .4rem 0 .4rem 3rem;
-    border: 1px solid #868686;
-    border-radius: .25rem;
-}
-
-.form__input:focus {
-    outline-color: #9A031E;
-}
-
-.form__input::placeholder {
-    color: transparent;
-}
-
-.form__label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 1rem;
-    margin: 0.4rem 4rem;
-    transform-origin: 0% 20%;
-    transform: scale(1) translate(0, 0);
-    will-change: transform;
-    transition: transform 0.25s ease-in-out;
-}
-
-.form__input:focus~.form__label,
-.form__input[placeholder]:not(:placeholder-shown)~.form__label {
-    transform: scale(0.75) translate(0.4rem, 2.8rem);
-}
-
-.form__input-email {
-    display: inline;
-    width: 50%;
-    border: 1px solid #868686;
-}
-
-/*Navbar*/
-.navbar {
-    background-color: #FEF9EF;
-    padding: 0 1rem;
-}
-
-.navbar-brand {
-    padding-bottom: 0;
-}
-
-.navbar .navbar-nav .nav-link {
-    color: #0F0A0A;
-    font-size: 1.1rem;
-}
-
-.navbar .navbar-nav .nav-link:hover {
-    color: #6D6A75;
-    text-decoration: underline;
-}
-
-/*Navbar-Page*/
-.page-link {
-    color: #0F0A0A;
-}
-
-.page-link:hover {
-    color: #6D6A75;
-    text-decoration: underline;
-}
-
-/*Footer*/
-.footer {
-    background-color: #e3dfff;
-    box-shadow: 0 0 0.5rem #868686;
-    padding: 3rem 0 5rem 0;
-}
-
-.footer__line {
-    border-bottom: 2px solid #FEF9EF;
-    border-radius: 2px;
-    margin-bottom: 0.5rem;
-    padding-bottom: 0.5rem;
-    text-align: center;
-}
-
-.footer__icons {
-    line-height: normal;
-    font-size: xx-large;
-}
-
-.footer__icons--instagram {
-    color: #ff008c;
-}
-
-.footer__icons--instagram:hover {
-    color: #e02b8f;
-}
-
-.footer__icons--facebook {
-    color: #0051ff;
-}
-
-.footer__icons--facebook:hover {
-    color: #4d73c5;
-}
-
-.footer__icons--youtube {
-    color: #ff0000;
-}
-
-.footer__icons--youtube:hover {
-    color: #df2121;
-}
-
-.footer__footer-list {
-    list-style-type: none;
-}
-
-.footer__footer-link {
-    white-space: nowrap;
-    padding: 0 1rem;
-    color: #0F0A0A;
-}
-
-.footer__footer-link:hover {
-    color: #6D6A75;
-    text-decoration: underline;
-}
-
-.copyright {
-    position: absolute;
-    left: 2rem;
-    bottom: 0;
-}
-
-.top {
-    position: absolute;
-    right: 2rem;
-    bottom: -0.2rem;
-    font-size: 1.5rem;
-}
-
-.top:hover {
-    color: #6D6A75;
-}
-
-/*Offers*/
+/*Products*/
 .product__card {
     border: 8px solid #e3dfff;
     border-radius: 0.75rem;
@@ -536,9 +398,9 @@ input[type="file"] {
 }
 
 @media (min-width: 576px){
-.pr {
-    padding-right: 0;
-}
+    .pr {
+        padding-right: 0;
+    }
 }
 
 .product__image-container {
@@ -677,18 +539,148 @@ input[type="file"] {
     backface-visibility: hidden;
 }
 
-/*text layout*/
-.contact__email {
+/*Form*/
+form .form__input-icon {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 0.6rem 1rem;
+    font-size: 1.3rem;
+}
+
+form .form__input-addicon {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin: 1.5rem;
+    font-size: 1.3rem;
+}
+
+.form-control {
+    border: 1px solid #868686;
+}
+
+.form-control-add {
+    padding-left: 2.2rem;
+}
+
+label {
+    margin: 0;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.form {
+    margin-bottom: 1rem;
+}
+
+.form__group {
+    position: relative;
+    margin-bottom: 0.9rem;
+    padding: 0;
+}
+
+.form__input {
+    width: 100%;
+    padding: .4rem 0 .4rem 3rem;
+    border: 1px solid #868686;
+    border-radius: .25rem;
+}
+
+.form__input:focus {
+    outline-color: #9A031E;
+}
+
+.form__input::placeholder {
+    color: transparent;
+}
+
+.form__label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 1rem;
+    margin: 0.4rem 4rem;
+    transform-origin: 0% 20%;
+    transform: scale(1) translate(0, 0);
+    will-change: transform;
+    transition: transform 0.25s ease-in-out;
+}
+
+.form__input:focus~.form__label,
+.form__input[placeholder]:not(:placeholder-shown)~.form__label {
+    transform: scale(0.75) translate(0.4rem, 2.8rem);
+}
+
+.form__input-email {
+    display: inline;
+    width: 50%;
+    border: 1px solid #868686;
+}
+
+
+/*Utility Classes*/
+/*Image*/
+.rounded-border {
+    border-radius: 0.75rem;
+}
+
+.shadow-box {
+    box-shadow: 0 0 1rem black;
+}
+
+.ul__list {
+    margin-top: 0.5rem;
+    margin-left: 1.5rem;
+}
+
+.ul__list-item {    
+    padding-bottom: 0.5rem;
+}
+
+.link {
     padding-top: 0.5rem;
     text-shadow: 0 0 0.15rem #868686;
 }
 
-.contact__email:hover {
+.link:hover {
     color: #6D6A75;
     text-shadow: none;
     text-decoration: underline;
 }
 
+/*Icon*/
+.fa-user-circle {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.user__icon {
+    font-size: 1.3rem;
+}
+
+.user {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 1rem;
+    color: white;
+    text-shadow: 0 0 1rem black,
+        0 0 1rem black,
+        0 0 1rem black,
+        0 0 1rem black,
+        0 0 1rem black;
+}
+
+.fa-heart {
+    color: #9A031Efa;
+}
+.fa-heart:hover {
+    color: white;
+}
+
+/*Flash Messages*/
 .flashes h4 {
     background-color: #E3DFFF;
     box-shadow: 0 0 0.5rem #868686;
@@ -711,36 +703,30 @@ input[type="file"] {
     .footer__line {
         padding-bottom: 0.7rem;
     }
-
     .copyright {
         position: relative;
         float: left;
         left: 0;
         padding-top: 2rem;
     }
-
     .top {
         position: relative;
         float: right;
         right: 1.5rem;
         bottom: -0.5rem;
     }
-
     .recipe_name-all {
         padding-top: 0;
         padding-bottom: 0.75rem;
         font-size: 1.5rem;
         text-align: center;
     }
-
     .recipe__icon {
         font-size: 0.8rem;
     }
-
     .recipe__icon-right {
         padding-right: 0.5rem;
     }
-
     .recipe__card-image {
         height: 13rem;
     }
@@ -750,16 +736,13 @@ input[type="file"] {
     .recipe__card-image {
         height: 10rem;
     }
-
     .size {
         height: 100%;
         padding-bottom: 1rem;
     }
-
     .favourite {
         font-size: 0.95rem;
     }
-
     .product__image-container::before {        
         border-right: none;         
     }

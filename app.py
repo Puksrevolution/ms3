@@ -238,6 +238,11 @@ def contact():
     return render_template("contact.html", page_title="Contact Us")
 
 
+@app.route("/advertising")
+def advertising():
+    return render_template("advertising.html", page_title="Advertising Policy")
+
+
 @app.route("/accessibility")
 def accessibility():
     return render_template("accessibility.html", page_title="Accessibility")
