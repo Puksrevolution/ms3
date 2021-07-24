@@ -16,26 +16,8 @@
     </div>
 </section>
 
-<!-- Search -->
-<section class="row justify-content-center mt-5">
-    <div class="col-12 col-md-8 col-lg-6">
-        <form  action="{{ url_for('search') }}" method="post">
-            <div class="row g-3">                       
-                <div class="col-6 font-weight-bolder">
-                    <input class="form-control" type="search" name="query" id="query" minlength="3"
-                placeholder="Search Recipes" aria-label="Search" required>                   
-                </div>    
-                <div class="col-6 font-weight-bolder">                
-                    <button class="btn btn-lavender" type="submit"><i class="fas fa-search"></i></button>
-                    <a class="btn btn-reset" href="{{ url_for('all_recipes') }}">Reset</a>               
-                </div>                                                
-            </div>            
-        </form>
-    </div>
-</section>
-
 <!-- Article -->
-<section class="row justify-content-center t-5">
+<section class="row justify-content-center mt-5">
     <a href="{{ url_for('article') }}">
         <div class="col-12">
             <div class="row ">
@@ -48,10 +30,11 @@
                         As I live alone, I have never been one to stock up on items like produce.
                         If I bought too much, it'd go bad before I got to use it.
                         But with tightening budgets and the desire to avoid too ...
-                    </p>                    
+                    </p>
+                    <p><small><strong><u>READ MORE HERE</u></strong></small></p>                    
                     <p><strong>By Aly Walansky</strong> | <small class="text-muted">July 15, 2021</small></p>
                 </div>
-                <div class="col-12 col-md-6 d-lg-block">                    
+                <div class="col-12 col-md-6  align-self-center">                    
                     <img class="rounded-border card-img bd-placeholder-img shadow-box"
                         src="https://www.thespruce.com/thmb/BoR2HaUJB9eMAq4Ppid79DtwIMk=/1500x1001/filters:fill(auto,1)/what-is-a-fruit-fly-2656677-hero-ec0c068408644cd8805b78f5ca618b08.jpg">
                 </div>
@@ -61,7 +44,7 @@
 </section>
 
 <!-- Gallery -->
-<section class="container">
+<section>
     <div class="row">
         <div class="col-12">
             <h2 class="text-center mt-5 mb-4">
@@ -86,92 +69,80 @@
 </section>
 
 <!-- Products -->
-
-<section class="container">
-    <div class="offers__container">
-        <div class="offers__card-container offers__card-container--flip">
-            <div class="offers__card">
-                <div class="offers__card-primary">
-                    <div class="offers__image-container">
-                        <img class="offers__image" src="https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F43%2F2021%2F07%2F15%2FArm-and-Hammer-Fruit-and-Vegetable-Wash.jpg" alt="" />
+<section>
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mt-5">
+                Kitchen
+            </h2>
+            <hr>
+            <h4 class="text-center mb-5">Tools & Helpers</h4>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-10 col-sm-4 col-lg-3 mb-4">
+            <div class="products__card-container">
+                <div class="products__card">
+                    <div class="products__card-front">
+                        <div class="products__image-container">                
+                            <img class="card-img-top products__image products__image mt-4" 
+                                src="https://m.media-amazon.com/images/I/816ARQmGsNL._AC_SL1500_.jpg" alt="Kitchen Tools">
+                        </div>
+                        <div class="products__card-body">
+                            <h6 class="text-center px-3 pb-4">Strain Strainer - Lime Green</h6>                    
+                        </div>
                     </div>
-                    <div class="offers__content">
-                        <h4 class="offers__content-heading">Arm & Hammer Fruit & Vegetable Wash</h4>                        
+                    <div class="products__card-hover">
+                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
+                            href="https://www.amazon.com/Kitchen-Gizmo-Strainer-Silicone-Colander/dp/B018W9JII0/ref=sr_1_13?dchild=1&keywords=kitchen+tools&qid=1627074493&sr=8-13">
+                                Buy It: $15.99 Amazon
+                        </a>
                     </div>
-                </div>
-                <div class="offers__card-hover">
-                    <a href="#booking-modal" class="button button--slim button--secondary">Jetzt buchen!</a>
                 </div>
             </div>
         </div>
-        <div class="offers__card-container offers__card-container--flip">
-            <div class="offers__card">
-                <div class="offers__card-primary">
-                    <div class="offers__image-container">
-                        <img class="offers__image" src="images/offers/pexels-min-an-898766.jpg" alt="" />
-                    </div>
-                    <div class="offers__content">
-                        <h4 class="offers__content-heading">Fotografie-Schnellkurs</h4>
-                        <p class="offers__content-subheading">Lorem ipsum dolor sit amet.</p>
-                        <div class="offers__content-info">
-                            <div class="offers__content-info-duration">
-                                <svg class="icon">
-                                    <use href="images/icons.svg#icon-clock" />
-                                </svg>
-                                <span class="offers__content-info-duration-text"><strong>3</strong> Stunden</span>
-                            </div>
-                            <div class="offers__content-info-level">
-                                <svg class="icon">
-                                    <use href="images/icons.svg#icon-level-beginner" />
-                                </svg>
-                                <span class="offers__content-info-duration-text">Anfänger</span>
-                            </div>
+        <div class="col-10 col-sm-4 col-lg-3 mb-4">
+            <div class="products__card-container">
+                <div class="products__card">
+                    <div class="products__card-front">
+                        <div class="products__image-container">                
+                            <img class="card-img-top products__image products__image mt-4" 
+                                src="https://m.media-amazon.com/images/I/81wynG+kxpL._AC_SL1500_.jpg" alt="Kitchen Tools">
                         </div>
-                        <div class="offers__content-price-container">
-                            jetzt nur:
-                            <strong class="offers__content-price">329,99 €</strong>
+                        <div class="products__card-body">
+                            <h6 class="text-center px-3 pb-4">Zoodle Maker Veggie</h6>                    
                         </div>
                     </div>
-                </div>
-                <div class="offers__card-hover">
-                    <a href="#booking-modal" class="button button--slim button--secondary">Jetzt buchen!</a>
+                    <div class="products__card-hover">
+                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
+                            href="https://www.amazon.com/Vegetable-Spiralizer-Slicer-Spaghetti-Adjustable/dp/B07RN6CG6X/ref=sr_1_36?dchild=1&keywords=kitchen+tools&qid=1627074969&sr=8-36">
+                                Buy It: $9.99 Amazon
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="offers__card-container offers__card-container--flip">
-            <div class="offers__card">
-                <div class="offers__card-primary">
-                    <div class="offers__image-container">
-                        <img class="offers__image" src="images/offers/pexels-min-an-898766.jpg" alt="" />
-                    </div>
-                    <div class="offers__content">
-                        <h4 class="offers__content-heading">Fotografie-Schnellkurs</h4>
-                        <p class="offers__content-subheading">Lorem ipsum dolor sit amet.</p>
-                        <div class="offers__content-info">
-                            <div class="offers__content-info-duration">
-                                <svg class="icon">
-                                    <use href="images/icons.svg#icon-clock" />
-                                </svg>
-                                <span class="offers__content-info-duration-text"><strong>3</strong> Stunden</span>
-                            </div>
-                            <div class="offers__content-info-level">
-                                <svg class="icon">
-                                    <use href="images/icons.svg#icon-level-beginner" />
-                                </svg>
-                                <span class="offers__content-info-duration-text">Anfänger</span>
-                            </div>
+        <div class="col-10 col-sm-4 col-lg-3 mb-4">
+            <div class="products__card-container">
+                <div class="products__card">
+                    <div class="products__card-front">
+                        <div class="products__image-container">                
+                            <img class="card-img-top products__image products__image mt-4" 
+                                src="https://m.media-amazon.com/images/I/71JxdxaA4tS._AC_SL1500_.jpg" alt="Kitchen Tools">
                         </div>
-                        <div class="offers__content-price-container">
-                            jetzt nur:
-                            <strong class="offers__content-price">329,99 €</strong>
+                        <div class="products__card-body">
+                            <h6 class="text-center px-3 pb-4">Kitchen Sink Caddy Organizer</h6>                    
                         </div>
                     </div>
-                </div>
-                <div class="offers__card-hover">
-                    <a href="#booking-modal" class="button button--slim button--secondary">Jetzt buchen!</a>
+                    <div class="products__card-hover">
+                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
+                            href="https://www.amazon.com/FavoThings-Organizer-Stainless-Scrubbers-Bathroom/dp/B08HHVSZYT/ref=sr_1_150?dchild=1&keywords=kitchen+tools&qid=1627075809&sr=8-150">
+                                Buy It: $23.99 Amazon
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
 </section>
 {% endblock %}

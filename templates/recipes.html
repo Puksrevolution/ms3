@@ -18,7 +18,7 @@
     </div>
 </div>
 
-<!-- Recipe Card -->
+<!-- Recipe Cards -->
 {% if recipes|length > 0 %}
 <div class="mt-5">
     <div class="row justify-content-center">
@@ -64,9 +64,86 @@
 <h2 class="text-center text-danger mt-5"><strong>No Results Found</strong></h2>
 {% endif %}
 
-
 <!-- Pagination links -->
 <div class="row justify-content-center mt-3">
     {{ pagination.links }}
 </div>
+
+<!-- Products -->
+<section>
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mt-5">
+                Kitchen
+            </h2>
+            <hr>
+            <h4 class="text-center mb-5">Tools & Helpers</h4>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-10 col-sm-4 col-lg-3 mb-4">
+            <div class="products__card-container">
+                <div class="products__card">
+                    <div class="products__card-front">
+                        <div class="products__image-container">                
+                            <img class="card-img-top products__image products__image mt-4" 
+                                src="https://m.media-amazon.com/images/I/81dNdc-J+YL._AC_SL1500_.jpg" alt="Kitchen Tools">
+                        </div>
+                        <div class="products__card-body">
+                            <h6 class="text-center px-3 pb-4">Bamboo Kitchen Drawer Organizer</h6>                    
+                        </div>
+                    </div>
+                    <div class="products__card-hover">
+                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
+                            href="https://www.amazon.com/Bamboo-Kitchen-Drawer-Organizer-Utensil/dp/B07WQY8SNV/ref=sr_1_80?crid=2083W3YHV8NDX&dchild=1&keywords=kitchen+tools+and+gadgets&qid=1627078073&sprefix=kitchen+tools%2Caps%2C499&sr=8-80">
+                                Buy It: $29.97 Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-10 col-sm-4 col-lg-3 mb-4">
+            <div class="products__card-container">
+                <div class="products__card">
+                    <div class="products__card-front">
+                        <div class="products__image-container">                
+                            <img class="card-img-top products__image products__image mt-4" 
+                                src="https://m.media-amazon.com/images/I/610rGXTKOsL._AC_SL1500_.jpg" alt="Kitchen Tools">
+                        </div>
+                        <div class="products__card-body">
+                            <h6 class="text-center px-3 pb-4">Angry Mama Microwave Cleaner</h6>                    
+                        </div>
+                    </div>
+                    <div class="products__card-hover">
+                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
+                            href="https://www.amazon.com/Microwave-Cleaner-Kitchen-AODOOR-Minutes/dp/B07PZTMPKG/ref=sr_1_102?crid=2083W3YHV8NDX&dchild=1&keywords=kitchen+tools+and+gadgets&qid=1627078296&sprefix=kitchen+tools%2Caps%2C499&sr=8-102">
+                                Buy It: $8.99 Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-10 col-sm-4 col-lg-3 mb-4">
+            <div class="products__card-container">
+                <div class="products__card">
+                    <div class="products__card-front">
+                        <div class="products__image-container">                
+                            <img class="card-img-top products__image products__image mt-4" 
+                                src="https://m.media-amazon.com/images/I/61WTLBoGXOL._AC_SL1000_.jpg" alt="Kitchen Tools">
+                        </div>
+                        <div class="products__card-body">
+                            <h6 class="text-center px-3 pb-4">Gorilla Grip Cutting Board</h6>                    
+                        </div>
+                    </div>
+                    <div class="products__card-hover">
+                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
+                            href="https://www.amazon.com/Gorilla-Grip-Original-Reversible-Dishwasher/dp/B07QC3WJSM/ref=sr_1_149?crid=2083W3YHV8NDX&dchild=1&keywords=kitchen+tools+and+gadgets&qid=1627078558&sprefix=kitchen+tools%2Caps%2C499&sr=8-149">
+                                Buy It: $26.99 Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

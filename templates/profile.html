@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!-- User Icon -->
 <div class="row justify-content-center text-center">
     <div class="col-10 col-sm-8 col-lg-6">
         <i class="fas fa-user-circle"></i>
@@ -16,7 +17,7 @@
     </div>
 </div>
 
-<!-- Greeting -->
+<!-- Info -->
 <div class="row justify-content-center">
     <div class="col-10 col-sm-8 col-lg-6">
         <p>
@@ -26,6 +27,7 @@
     </div>
 </div>
 
+<!-- Favourites List -->
 <div class="row justify-content-center">
     <div class="col-12 col-sm-8 mt-4">
         <p class="recipe_list mb-3"><i class="fas fa-heart"></i> Your <strong>Favourite Recipes</strong>:</p>
@@ -42,6 +44,8 @@
         {% endfor %}                   
     </div>
 </div>
+
+<!-- Recipes List -->
 <div class="row justify-content-center">  
     <div class="col-12 col-sm-8 mt-4">
         <p class="recipe_list mb-3"><i class="fas fa-utensils"></i> Your <strong>Created Recipes</strong>:</p>
@@ -70,5 +74,91 @@
         {% endif %}
         {% endfor %}
     </div>
-</div> 
+</div>
+
+<!-- Products -->
+<section>
+    <!-- Header -->
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mt-5">
+                Kitchen
+            </h2>
+            <hr>
+            <h4 class="text-center mb-5">Tools & Helpers</h4>
+        </div>
+    </div>
+    <!-- Product Cards -->
+    <div class="row justify-content-center">
+        <!-- Product Card -->
+        <div class="col-10 col-sm-4 col-lg-3 mb-4">
+            <div class="products__card-container">
+                <div class="products__card">
+                    <div class="products__card-front">
+                        <div class="products__image-container">
+                            <img class="card-img-top products__image products__image mt-4"
+                                src="https://m.media-amazon.com/images/I/81cOMawuGyL._AC_SL1500_.jpg"
+                                alt="Kitchen Tools">
+                        </div>
+                        <div class="products__card-body">
+                            <h6 class="text-center px-3 pb-4">Cake Decorating Supplies Kit for Beginners</h6>
+                        </div>
+                    </div>
+                    <div class="products__card-hover">
+                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
+                            href="https://www.amazon.com/Decorating-Supplies-Beginners-Turntable-nozzles-Baking/dp/B07RNLTX37/ref=sr_1_7?crid=2G9RH2CO95OSJ&dchild=1&keywords=baking+gadgets+and+tools&qid=1627084947&sprefix=baking+gadgets%2Caps%2C261&sr=8-7">
+                            Buy It: $22.99 Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Product Cards -->
+        <div class="col-10 col-sm-4 col-lg-3 mb-4">
+            <div class="products__card-container">
+                <div class="products__card">
+                    <div class="products__card-front">
+                        <div class="products__image-container">
+                            <img class="card-img-top products__image products__image mt-4"
+                                src="https://m.media-amazon.com/images/I/71Co0Ht0usS._AC_SL1500_.jpg"
+                                alt="Kitchen Tools">
+                        </div>
+                        <div class="products__card-body">
+                            <h6 class="text-center px-3 pb-4">Professional Blender</h6>
+                        </div>
+                    </div>
+                    <div class="products__card-hover">
+                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
+                            href="https://www.amazon.com/Professional-Blender-Countertop-Smoothies-Processor/dp/B093ZQKDQD/ref=sr_1_18_sspa?dchild=1&keywords=kitchen&qid=1627085146&sr=8-18-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUFLUTBPRDdaMTM3R04mZW5jcnlwdGVkSWQ9QTA1MTMzMDYyOEdKWTc5M1ZZR1lCJmVuY3J5cHRlZEFkSWQ9QTA2MTY5MjhZUFlENEwxOFc0U1kmd2lkZ2V0TmFtZT1zcF9tdGYmYWN0aW9uPWNsaWNrUmVkaXJlY3QmZG9Ob3RMb2dDbGljaz10cnVl">
+                            Buy It: $99.00 Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Product Cards -->
+        <div class="col-10 col-sm-4 col-lg-3 mb-4">
+            <div class="products__card-container">
+                <div class="products__card">
+                    <div class="products__card-front">
+                        <div class="products__image-container">
+                            <img class="card-img-top products__image products__image mt-4"
+                                src="https://m.media-amazon.com/images/I/717lppOu1CL._AC_SL1500_.jpg"
+                                alt="Kitchen Tools">
+                        </div>
+                        <div class="products__card-body">
+                            <h6 class="text-center px-3 pb-4">BASSTOP Over The Sink Dish Drying Rack</h6>
+                        </div>
+                    </div>
+                    <div class="products__card-hover">
+                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
+                            href="https://www.amazon.com/BASSTOP-Adjustable-Organization-Utensils-Countertop/dp/B08N69XK3S/ref=sr_1_46?dchild=1&keywords=kitchen&qid=1627085294&sr=8-46">
+                            Buy It: $69.99 Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

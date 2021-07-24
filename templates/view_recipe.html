@@ -1,6 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row justify-content-center">
+<!-- Search Box-->
+<div class="row justify-content-center mt-5">
+    <div class="col-12 col-md-8 col-lg-6">
+        <form  action="{{ url_for('search') }}" method="post">
+            <div class="row g-3">                       
+                <div class="col-6 font-weight-bolder">
+                    <input class="form-control" type="search" name="query" id="query" minlength="3"
+                placeholder="Search Recipes" aria-label="Search" required>                   
+                </div>    
+                <div class="col-6 font-weight-bolder">                
+                    <button class="btn btn-lavender" type="submit"><i class="fas fa-search"></i></button>
+                    <a class="btn btn-reset" href="{{ url_for('all_recipes') }}">Reset</a>               
+                </div>                                                
+            </div>            
+        </form>
+    </div>
+</div>
+
+<!-- One Recipe -->
+<div class="row justify-content-center mt-5">
     <div class="col-md-auto">
         <div class="d-flex">
             <div style="width: 40rem;">
@@ -47,4 +66,82 @@
         </div>                    
     </div>
 </div>
+
+<!-- Products -->
+<section>
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mt-5">
+                Kitchen
+            </h2>
+            <hr>
+            <h4 class="text-center mb-5">Tools & Helpers</h4>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-10 col-sm-4 col-lg-3 mb-4">
+            <div class="products__card-container">
+                <div class="products__card">
+                    <div class="products__card-front">
+                        <div class="products__image-container">                
+                            <img class="card-img-top products__image products__image mt-4" 
+                                src="https://m.media-amazon.com/images/I/81oOfHC4AjL._AC_SL1500_.jpg" alt="Kitchen Tools">
+                        </div>
+                        <div class="products__card-body">
+                            <h6 class="text-center px-3 pb-4">Zoie + Chloe Dough Press Set</h6>                    
+                        </div>
+                    </div>
+                    <div class="products__card-hover">
+                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
+                            href="https://www.amazon.com/Zoie-Chloe-3-Piece-Dough-Press/dp/B015XMKQQ2/ref=sr_1_189?crid=2083W3YHV8NDX&dchild=1&keywords=kitchen+tools+and+gadgets&qid=1627078774&sprefix=kitchen+tools%2Caps%2C499&sr=8-189">
+                                Buy It: $7.99 Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-10 col-sm-4 col-lg-3 mb-4">
+            <div class="products__card-container">
+                <div class="products__card">
+                    <div class="products__card-front">
+                        <div class="products__image-container">                
+                            <img class="card-img-top products__image products__image mt-4" 
+                                src="https://m.media-amazon.com/images/I/71uwtorVa6S._AC_SL1500_.jpg" alt="Kitchen Tools">
+                        </div>
+                        <div class="products__card-body">
+                            <h6 class="text-center px-3 pb-4">Kitchen Gadget Herb Stripper</h6>                    
+                        </div>
+                    </div>
+                    <div class="products__card-hover">
+                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
+                            href="https://www.amazon.com/Stripper-Stainless-Remover-Kitchen-Include/dp/B092M3WTQ5/ref=sr_1_201?crid=2083W3YHV8NDX&dchild=1&keywords=kitchen+tools+and+gadgets&qid=1627079218&sprefix=kitchen+tools%2Caps%2C499&sr=8-201">
+                                Buy It: $16.99 Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-10 col-sm-4 col-lg-3 mb-4">
+            <div class="products__card-container">
+                <div class="products__card">
+                    <div class="products__card-front">
+                        <div class="products__image-container">                
+                            <img class="card-img-top products__image products__image mt-4" 
+                                src="https://m.media-amazon.com/images/I/71GMEOmoKgL._AC_SL1500_.jpg" alt="Kitchen Tools">
+                        </div>
+                        <div class="products__card-body">
+                            <h6 class="text-center px-3 pb-4">Al Dente - The Singing Floating Pasta Timer</h6>                    
+                        </div>
+                    </div>
+                    <div class="products__card-hover">
+                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
+                            href="https://www.amazon.com/Al-Dente-Singing-Floating-Different/dp/B00PFZL59K/ref=sr_1_220?crid=2083W3YHV8NDX&dchild=1&keywords=kitchen+tools+and+gadgets&qid=1627079374&sprefix=kitchen+tools%2Caps%2C499&sr=8-220">
+                                Buy It: $24.46 Amazon
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
