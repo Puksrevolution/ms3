@@ -246,8 +246,7 @@ hr {
     color: #E3DFFF;
 }
 
-.btn-remove {
-    display: inline-block;
+.btn-remove {    
     margin-left: 1rem;
     padding: 0 0.2rem;
     border: 0.09rem solid #E3DFFF;
@@ -667,6 +666,7 @@ input[type="file"] {
 
 .fa-minus {
     color: #9A031E;
+    font-size: small;
 }
 
 .fa-heart {
@@ -719,7 +719,7 @@ input[type="file"] {
         position: relative;
         float: left;
         left: 0;
-        padding-top: 2rem;
+        padding-top: 4rem;
     }
     .top {
         position: relative;
@@ -745,6 +745,12 @@ input[type="file"] {
 }
 
 @media (max-width: 30em) {
+    .footer {
+        padding-bottom: 3rem;
+    }
+    .footer__footer {
+        padding-bottom: 3.5rem;        
+    }
     .recipe__card-image {
         height: 10rem;
     }

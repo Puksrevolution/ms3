@@ -30,11 +30,11 @@
 <!-- Profile Lists -->
 <div class="row justify-content-center mb-5">
     <!-- Favourites List -->
-    <div class="col-12 col-sm-6 col-md-5 col-lg-4 mx-3">
+    <div class="col-12 col-sm-6 col-md-5 mx-3">
         <p class="recipe_list mb-3"><i class="fas fa-heart"></i> Your <strong>Favourite Recipes</strong>:</p>
         <!-- Favourite Names and remove function -->
         {% for recipe in favourites %}
-        <div>            
+        <div class="mb-2">            
             <h6 class="favourite underline"><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
                     {{ recipe.recipe_name }} </a>
                 <a class="btn-sm btn-remove" href="{{ url_for('remove_recipe', recipe_id=recipe._id) }}">
