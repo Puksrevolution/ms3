@@ -33,14 +33,12 @@
     <div class="col-12 col-sm-6 col-md-5 col-lg-4 mx-3">
         <p class="recipe_list mb-3"><i class="fas fa-heart"></i> Your <strong>Favourite Recipes</strong>:</p>
         <!-- Favourite Names and remove function -->
-        {% for favourite in favourites %}
-        <div>
-            {% for recipe in favourites %}
+        {% for recipe in favourites %}
+        <div>            
             <h6 class="favourite underline"><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
-                    {{ favourite.recipe_name }} </a>
+                    {{ recipe.recipe_name }} </a>
                 <a class="btn-sm btn-remove" href="{{ url_for('remove_recipe', recipe_id=recipe._id) }}">
-                    <i class="fas fa-minus" id="like_minus"></i></a></h6>
-            {% endfor %}
+                    <i class="fas fa-minus" id="like_minus"></i></a></h6>            
         </div>
         {% endfor %}
     </div>
