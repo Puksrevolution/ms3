@@ -26,7 +26,7 @@
         <div class="col-10 col-md-6 col-lg-4 gallery__card align-self-center">
             <div class="size">
             <div class="card recipe__card-image rounded-border">
-                <a href="#">
+                <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
                     <img class="recipe__image" alt="Recipe Image" src="{{ recipe.image }}">
                 </a>
             </div>
