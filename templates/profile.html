@@ -34,131 +34,100 @@
         <!-- Favourites content -->
         {% for favourite in favourites %}
         <div>
-            <a href="#">                           
-            <h6 class="favourite recipe_name">  {{ favourite.recipe_name }}  
-            </a>     
-                <a class="btn btn-sm btn-remove ml-2" href="">
-                <i class="fas fa-minus"></i></a>                
-            </h6>                                     
-        </div>                    
-        {% endfor %}                   
+            {% for recipe in favourites %}
+            <h6 class="favourite underline"><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
+                    {{ favourite.recipe_name }} </a></h6>
+            <a class="btn-sm btn-remove" href="{{ url_for('remove_recipe', recipe_id=recipe._id) }}">
+                <i class="fas fa-minus" id="like_minus"></i></a>
+            {% endfor %}
+        </div>
+        {% endfor %}
     </div>
 </div>
 
 <!-- Recipes List -->
-<div class="row justify-content-center">  
+<div class="row justify-content-center">
     <div class="col-12 col-sm-8 mt-4">
         <p class="recipe_list mb-3"><i class="fas fa-utensils"></i> Your <strong>Created Recipes</strong>:</p>
         <!-- Recipes content -->
         {% for recipe in recipes %}
         {% if recipe.user == username %}
-        <div>            
+        <div>
             <div>
                 <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
-                <h6 class="recipe_name">{{ recipe.recipe_name }}</h6></a>
-            </div>           
+                    <h6 class="underline">{{ recipe.recipe_name }}</h6>
+                </a>
+            </div>
             {% if session.user|lower == recipe.user|lower %}
             <!-- Edit and delete recipes buttons -->
             <div class="row  mt-2">
                 <div class="col-12">
                     <a class="btn btn-sm btn-success" href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">
                         Edit Recipe</a>
-                    <a class="btn btn-sm btn-danger" href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" 
+                    <a class="btn btn-sm btn-danger" href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}"
                         title="delete" onclick="return confirm('Are you sure you want to delete this recipe?')">
-                        Delete Recipe</a>                        
+                        Delete Recipe</a>
                 </div>
             </div>
             {% endif %}
-        </div> 
+        </div>
         {% else %}
         {% endif %}
         {% endfor %}
     </div>
 </div>
 
-<!-- Products -->
+<!-- Change Password -->
 <section>
-    <!-- Header -->
     <div class="row">
         <div class="col-12">
-            <h2 class="text-center mt-5">
-                Kitchen
-            </h2>
-            <hr>
-            <h4 class="text-center mb-5">Tools & Helpers</h4>
+            <h2 class="text-center mt-5 mb-4">Change Your Password</h2>
         </div>
     </div>
-    <!-- Product Cards -->
     <div class="row justify-content-center">
-        <!-- Product Card -->
-        <div class="col-10 col-sm-4 col-lg-3 mb-4">
-            <div class="products__card-container">
-                <div class="products__card">
-                    <div class="products__card-front">
-                        <div class="products__image-container">
-                            <img class="card-img-top products__image products__image mt-4"
-                                src="https://m.media-amazon.com/images/I/81cOMawuGyL._AC_SL1500_.jpg"
-                                alt="Kitchen Tools">
-                        </div>
-                        <div class="products__card-body">
-                            <h6 class="text-center px-3 pb-4">Cake Decorating Supplies Kit for Beginners</h6>
-                        </div>
+        <div class="col-11 col-sm-7 col-lg-5">
+            <form class="form" method="POST" action="{{ url_for('profile', username=session['user']) }}">
+                <!-- New Passowrd -->
+                <div class="row">
+                    <div class="form__group col-12">
+                        <input class="form__input" id="password" name="password" type="password"
+                            placeholder="New Password" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$"
+                            autocomplete="off" required>
+                        <label class="form__label" for="password">New Password</label>                        
+                        <i class="fas fa-user-lock form__input-icon"></i>
                     </div>
-                    <div class="products__card-hover">
-                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
-                            href="https://www.amazon.com/Decorating-Supplies-Beginners-Turntable-nozzles-Baking/dp/B07RNLTX37/ref=sr_1_7?crid=2G9RH2CO95OSJ&dchild=1&keywords=baking+gadgets+and+tools&qid=1627084947&sprefix=baking+gadgets%2Caps%2C261&sr=8-7">
-                            Buy It: $22.99 Amazon
-                        </a>
-                    </div>
+                    <small class="form-text text-muted mb-3">5-15 characters</small>
                 </div>
-            </div>
-        </div>
-        <!-- Product Cards -->
-        <div class="col-10 col-sm-4 col-lg-3 mb-4">
-            <div class="products__card-container">
-                <div class="products__card">
-                    <div class="products__card-front">
-                        <div class="products__image-container">
-                            <img class="card-img-top products__image products__image mt-4"
-                                src="https://m.media-amazon.com/images/I/71Co0Ht0usS._AC_SL1500_.jpg"
-                                alt="Kitchen Tools">
-                        </div>
-                        <div class="products__card-body">
-                            <h6 class="text-center px-3 pb-4">Professional Blender</h6>
-                        </div>
+                <!-- Confirm passowrd -->
+                <div class="row">
+                    <div class="form__group col-12">
+                        <input class="form__input" id="confirm-password" name="confirm-password" type="password"
+                            placeholder="Confirm Password" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$"
+                            autocomplete="off" required>                        
+                        <label class="form__label" for="confirm-password">Confirm Password</label>                                                
+                        <i class="fas fa-user-lock form__input-icon"></i>
                     </div>
-                    <div class="products__card-hover">
-                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
-                            href="https://www.amazon.com/Professional-Blender-Countertop-Smoothies-Processor/dp/B093ZQKDQD/ref=sr_1_18_sspa?dchild=1&keywords=kitchen&qid=1627085146&sr=8-18-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUFLUTBPRDdaMTM3R04mZW5jcnlwdGVkSWQ9QTA1MTMzMDYyOEdKWTc5M1ZZR1lCJmVuY3J5cHRlZEFkSWQ9QTA2MTY5MjhZUFlENEwxOFc0U1kmd2lkZ2V0TmFtZT1zcF9tdGYmYWN0aW9uPWNsaWNrUmVkaXJlY3QmZG9Ob3RMb2dDbGljaz10cnVl">
-                            Buy It: $99.00 Amazon
-                        </a>
-                    </div>
+                    <small class="form-text text-muted mb-3">5-15 characters</small>
+                </div>                
+                <!-- Submit New Password -->
+                <div class="row">
+                    <button class="col-12 btn btn-lavender" type="submit">
+                        Submit New Password <i class="fas fa-check-circle"></i>
+                    </button>
                 </div>
-            </div>
-        </div>
-        <!-- Product Cards -->
-        <div class="col-10 col-sm-4 col-lg-3 mb-4">
-            <div class="products__card-container">
-                <div class="products__card">
-                    <div class="products__card-front">
-                        <div class="products__image-container">
-                            <img class="card-img-top products__image products__image mt-4"
-                                src="https://m.media-amazon.com/images/I/717lppOu1CL._AC_SL1500_.jpg"
-                                alt="Kitchen Tools">
-                        </div>
-                        <div class="products__card-body">
-                            <h6 class="text-center px-3 pb-4">BASSTOP Over The Sink Dish Drying Rack</h6>
-                        </div>
-                    </div>
-                    <div class="products__card-hover">
-                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
-                            href="https://www.amazon.com/BASSTOP-Adjustable-Organization-Utensils-Countertop/dp/B08N69XK3S/ref=sr_1_46?dchild=1&keywords=kitchen&qid=1627085294&sr=8-46">
-                            Buy It: $69.99 Amazon
-                        </a>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </section>
+
+<!-- Products -->
+<div class="row">
+    <div class="col-12">
+        <h2 class="text-center mt-5">
+            Kitchen
+        </h2>
+        <hr>
+        <h4 class="text-center mb-5">Tools & Helpers</h4>
+    </div>
+</div>
 {% endblock %}

@@ -8,7 +8,8 @@
     <!-- SEO -->
     <meta name="description" content="You find here at CookBook always the right recipe idea: 
         for cooking or baking, after work, for guests or parties, in spring, summer, autumn and winter.">
-    <meta name="keywords" content="recipe, recipes, cooking, baking, fry, roast, briol, barbecue, cooking book, food, tasty">
+    <meta name="keywords"
+        content="recipe, recipes, cooking, baking, fry, roast, briol, barbecue, cooking book, food, tasty">
     <meta name="author" content="Puks's WebDesing">
 
     <title>CookBook | Yummy Recepies For Everyone</title>
@@ -21,7 +22,7 @@
     <meta property="og:url" content="https://cbms3.herokuapp.com/">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/CookHat.svg')}}" />       
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/CookHat.svg')}}" />
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -42,52 +43,53 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-md navbar-light fixed-top">
         <div class="container-lg">
-        <!-- Navbar brand -->
-        <a class="navbar-brand mt-2 mt-lg-0" href="{{ url_for('index') }}">
-            <img src="{{ url_for('static', filename='images/CookHat.svg')}}" height="60" alt="Cook Hat Logo"
-                loading="lazy" />
-        </a>
-        <a class="navbar-brand mt-2 mt-lg-0" href="{{ url_for('index') }}">
-            <img src="{{ url_for('static', filename='images/CookBook.svg')}}" height="50" alt="CookBook Brand"
-                loading="lazy" />
-        </a>
-        <button class="navbar-toggler btn-outline-secondary" type="button" data-toggle="collapse"
-            data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <!-- Navbar brand -->
+            <a class="navbar-brand mt-2 mt-lg-0" href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/CookHat.svg')}}" height="60" alt="Cook Hat Logo"
+                    loading="lazy" />
+            </a>
+            <a class="navbar-brand mt-2 mt-lg-0" href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/CookBook.svg')}}" height="50" alt="CookBook Brand"
+                    loading="lazy" />
+            </a>
+            <button class="navbar-toggler btn-outline-secondary" type="button" data-toggle="collapse"
+                data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarContent">
-            <ul class="navbar-nav ml-auto justify-content-end">
-                <li class="nav-item">
-                    <a id="index" class="nav-link" href="{{ url_for('index') }}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a id="allRecipes" class="nav-link" href="{{ url_for('all_recipes') }}">Recipes</a>
-                </li>
-                {% if session.user %}
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ml-auto justify-content-end">
                     <li class="nav-item">
-                        <a id="profile" class="nav-link" href="{{ url_for('profile', username=session['user']) }}">Profile</a>
+                        <a id="index" class="nav-link" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="allRecipes" class="nav-link" href="{{ url_for('all_recipes') }}">Recipes</a>
+                    </li>
+                    {% if session.user %}
+                    <li class="nav-item">
+                        <a id="profile" class="nav-link"
+                            href="{{ url_for('profile', username=session['user']) }}">Profile</a>
                     </li>
                     <li class="nav-item">
                         <a id="addRecipe" class="nav-link" href="{{ url_for('add_recipe') }}">Add Recipe</a>
-                    </li>                                   
+                    </li>
                     <li class="nav-item">
                         <a id="signout" class="nav-link" href="{{ url_for('signout') }}">Sign Out</a>
                     </li>
-                {% else %}
+                    {% else %}
                     <li class="nav-item">
                         <a id="signup" class="nav-link" href="{{ url_for('signup') }}">Sign Up</a>
                     </li>
                     <li class="nav-item">
                         <a id="signin" class="nav-link" href="{{ url_for('signin') }}">Sign In</a>
                     </li>
-                {% endif %}                
-            </ul>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-    </div>
     </nav>
-    
+
     <!-- Main Heading -->
     <header class="header" id="top">
         <div class="container">
@@ -101,13 +103,13 @@
     <section>
         <!-- flash messages -->
         {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-            {% for category, message in messages %}
-                    <div class="row justify-content-center mt-4 flashes">
-                        <h4 class="text-center py-2 {{ category }}">{{ message }}</h4>
-                    </div>
-                {% endfor %}
-            {% endif %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="row justify-content-center mt-4 flashes">
+            <h4 class="text-center py-2 {{ category }}">{{ message }}</h4>
+        </div>
+        {% endfor %}
+        {% endif %}
         {% endwith %}
     </section>
 
@@ -116,8 +118,36 @@
         <div class="container">
             {% block content %}
             {% endblock %}
+            <!-- Products -->
+            <section>                
+                <div class="row justify-content-center">
+                    {% for product in random_products %}
+                    <div class="col-10 col-sm-4 col-lg-3 mb-4">
+                        <div class="products__card-container">
+                            <div class="products__card">
+                                <div class="products__card-front">
+                                    <div class="products__image-container">
+                                        <img class="card-img-top products__image products__image mt-4"
+                                            src="{{ product.product_image }}" alt="Kitchen Tools">
+                                    </div>
+                                    <div class="products__card-body">
+                                        <h6 class="text-center px-3 pb-4">{{ product.product_name }}</h6>
+                                    </div>
+                                </div>
+                                <div class="products__card-hover">
+                                    <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
+                                        href="{{ product.product_link }}">
+                                        Buy It: {{ product.product_price }} Amazon
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
         </div>
-    </main>    
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -155,12 +185,12 @@
                             <input class="form-control form__input-email" id="email" type="email" name="email"
                                 placeholder="Email-Address" aria-label="Search" required>
                             <button class="btn btn-subscribe" type="submit">Subscribe</button>
-                        </form>                        
-                    </div>                    
+                        </form>
+                    </div>
                 </div>
             </div>
             <!-- Terms of Service -->
-            <footer class="footer__footer">                
+            <footer class="footer__footer">
                 <div class="row justify-content-center">
                     <div class="col-6 col-sm-3 col-md-2 mx-4">
                         <ul class="footer__footer-list">
@@ -177,11 +207,10 @@
                                         Us
                                     </a>
                                 </strong>
-                            </li>                            
+                            </li>
                             <li>
                                 <strong>
-                                    <a class="footer__footer-link" target="_blank"
-                                        href="{{ url_for('advertising') }}">
+                                    <a class="footer__footer-link" target="_blank" href="{{ url_for('advertising') }}">
                                         Advertise
                                     </a>
                                 </strong>
@@ -218,7 +247,7 @@
             <div class="footer__copyright">
                 <i class="far fa-copyright"></i> <span id="copyright-year"></span> CookBook
             </div>
-            <a href="#top" class="footer__top" title="Back to top"><i class="fas fa-chevron-up"></i></a>            
+            <a href="#top" class="footer__top" title="Back to top"><i class="fas fa-chevron-up"></i></a>
         </div>
     </footer>
 
@@ -234,9 +263,9 @@
         integrity="sha512-wV7Yj1alIZDqZFCUQJy85VN+qvEIly93fIQAN7iqDFCPEucLCeNFz4r35FCo9s6WrpdDQPi80xbljXB8Bjtvcg=="
         crossorigin="anonymous"></script>
 
-    <!-- Static Custom JS -->    
-    <script id="baseScript" src="{{ url_for('static', filename='js/base.js') }}"
-    data-path="{{ request.path }}"></script>
+    <!-- Static Custom JS -->
+    <script id="baseScript" src="{{ url_for('static', filename='js/base.js') }}" data-path="{{ request.path }}">
+    </script>
 </body>
 
 </html>

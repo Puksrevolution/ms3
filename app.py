@@ -18,10 +18,8 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
-
-recipes = mongo.db.recipes.find()
-
-PER_PAGE = 4
+# Pagination #
+PER_PAGE = 8
 
 
 def paginated(recipes, page):
@@ -34,20 +32,26 @@ def paginated(recipes, page):
     ]
 
 
-# Main recipes page #
+# All Recipes #
 @app.route("/all_recipes")
 def all_recipes():
-    # Mentor assisted with restructuring of code related to pagnination #
     recipes = list(mongo.db.recipes.find().sort("_id", -1))
+    # Pagination #
     page = request.args.get(get_page_parameter(), type=int, default=1)
     pagination_obj = paginated(recipes, page)
     paginated_recipes = pagination_obj[0]
     pagination = pagination_obj[1]
+    products = mongo.db.products
+    random_products = (
+        [product for product in products.aggregate([
+            {"$sample": {"size": 3}}])])
     return render_template("recipes.html",
                            page_title="All Recipes",
                            recipes=paginated_recipes,
                            recipe_paginated=paginated_recipes,
-                           pagination=pagination)
+                           pagination=pagination,
+                           products=products,
+                           random_products=random_products)
 
 
 # Search functionality #
@@ -74,15 +78,13 @@ def search():
 @app.route("/view_recipe/<recipe_id>", methods=["GET", "POST"])
 def view_recipe(recipe_id):
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    products = mongo.db.products
+    random_products = (
+        [product for product in products.aggregate([
+            {"$sample": {"size": 3}}])])
     return render_template("view_recipe.html", recipe=recipe,
-                           page_title="Recipe")
-
-
-@app.route("/view_favourite/<recipe_id>", methods=["GET", "POST"])
-def view_favourite(recipe_id):
-    favourite = mongo.db.users.find_one(
-        {"favourite_recipes": ObjectId(recipe_id)})
-    return render_template("view_recipe.html", favourite=favourite,
+                           products=products,
+                           random_products=random_products,
                            page_title="Recipe")
 
 
@@ -144,12 +146,16 @@ def delete_recipe(recipe_id):
             {"username": session["user"].lower()},
             {"$pull": {"favourite_recipes": ObjectId(recipe_id)}})
     flash("Recipe Deleted Successfully", "success")
-    return render_template("profil.html")
+    return render_template("profile.html")
 
 
 # User profile page #
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
+    products = mongo.db.products
+    random_products = (
+        [product for product in products.aggregate([
+            {"$sample": {"size": 3}}])])
     # Retrieve users and recipes to use on profile page #
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
@@ -163,9 +169,22 @@ def profile(username):
     for recipe in favourite_recipes:
         favourites.append(mongo.db.recipes.find_one({"_id": recipe}))
     if session["user"]:
+        if request.method == "POST":
+                users = mongo.db.users.find_one(
+                    {"username": session["user"]})
+                if str(request.form.get("password")) == str(
+                    request.form.get("confirm-password")):
+                    newvalue = {"$set": {"password": generate_password_hash(
+                        str(request.form.get("password")))}}
+                    mongo.db.users.update_one(users, newvalue)
+                    flash("Password successfully updated!", "success")
+                    return redirect(url_for("profile", username=session["user"]))
+                else:
+                    flash("Passwords don't match, try again!", "error")
         return render_template(
             "profile.html", username=username, users=users,
-            recipes=recipes, favourites=favourites)
+            recipes=recipes, favourites=favourites,
+            products=products, random_products=random_products)
 
     return redirect(url_for("signin"))
 
@@ -211,16 +230,20 @@ def remove_recipe(recipe_id):
 
 @app.route("/")
 def index():
-    # recipes = list(mongo.db.recipes.find())
-    # images = random.choices(recipes, k=6)
     recipes = mongo.db.recipes
     random_recipes = (
         [recipe for recipe in recipes.aggregate([
             {"$sample": {"size": 6}}])])
+    products = mongo.db.products
+    random_products = (
+        [product for product in products.aggregate([
+            {"$sample": {"size": 3}}])])
     return render_template("index.html",
                            page_title="Yummy Recipes",
                            recipes=recipes,
-                           random_recipes=random_recipes)
+                           random_recipes=random_recipes,
+                           products=products,
+                           random_products=random_products)
 
 
 @app.route("/article")
@@ -260,6 +283,10 @@ def privacy():
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
+    products = mongo.db.products
+    random_products = (
+        [product for product in products.aggregate([
+            {"$sample": {"size": 3}}])])
     if request.method == "POST":
         # check if username already exists in db
         existing_user = mongo.db.users.find_one(
@@ -281,11 +308,17 @@ def signup():
         flash("Registration Successful!", "success")
         return redirect(url_for("profile", username=session["user"]))
 
-    return render_template("signup.html", page_title="Sign Up")
+    return render_template("signup.html", page_title="Sign Up",
+                           products=products,
+                           random_products=random_products)
 
 
 @app.route("/signin", methods=["GET", "POST"])
 def signin():
+    products = mongo.db.products
+    random_products = (
+        [product for product in products.aggregate([
+            {"$sample": {"size": 3}}])])
     if request.method == "POST":
         # check if username exists in db
         existing_user = mongo.db.users.find_one(
@@ -308,7 +341,9 @@ def signin():
             flash("Incorrect Username and/or Password", "error")
             return redirect(url_for("signin"))
 
-    return render_template("signin.html", page_title="Sign In")
+    return render_template("signin.html", page_title="Sign In",
+                           products=products,
+                           random_products=random_products)
 
 
 @ app.route('/signout')
@@ -319,6 +354,7 @@ def signout():
     return redirect(url_for('signin'))
 
 
+# Subscribe Newsletter #
 @ app.route('/sub', methods=['POST'])
 def sub():
     if request.method == "POST":

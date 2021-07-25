@@ -236,14 +236,20 @@ hr {
     background-color: #E3DFFF;
 }
 
-.btn-red {    
+.btn-reset {    
     background-color: #9A031E;
     margin-left: 0.5rem;
     color: #E3DFFF;
 }
-.btn-red:hover {
+.btn-reset:hover {
     background-color: rgb(230, 0, 42);
     color: #E3DFFF;
+}
+
+.btn-remove {
+    margin-left: 1rem;
+    padding: 0 0.2rem;
+    border: 0.09rem solid #E3DFFF;
 }
 
 .btn-heart:hover {
@@ -289,6 +295,49 @@ hr {
     padding: 1rem 0 0 1rem;
 }
 
+.gallery__card {
+    display: block;
+    position: relative;    
+    width: 100%;
+    height: 100%;    
+    object-fit: cover;
+}
+
+.gallery__image {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.75);
+    border-radius: 0.85rem;
+    filter: contrast(1.1) brightness(1.15) saturate(1.1);
+    transform: scale(1);
+    z-index: 0;
+    transition: filter 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out, z-index 0.2s linear;
+}
+.gallery__image:hover {
+    box-shadow: 0 0 1rem black;
+    transform: scale(1.1);
+    z-index: 10;
+    transition: filter 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out, z-index 0s linear;
+    filter: contrast(1) brightness(1) saturate(1);
+}
+
+.gallery__heading {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 0 0.5rem 1rem;
+    color: white;
+    text-shadow: 0 0 1rem black,
+        0 0 1rem black,
+        0 0 1rem black,
+        0 0 1rem black,
+        0 0 1rem black;
+    z-index: 12;
+}
+
 .recipe_list-card {
     margin: 0 0 0 1.5rem;
 }
@@ -304,10 +353,6 @@ hr {
 .size {
     width: 100%;
     height: 15rem;
-}
-
-.recipe_name:hover {
-    text-decoration: underline;
 }
 
 .recipe__icon {
@@ -338,50 +383,6 @@ hr {
     bottom: 0;
     right: 0;
     filter: contrast(1.1) brightness(1.15) saturate(1.1);
-}
-
-.gallery__card-image {
-    display: block;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.gallery__image {
-    display: block;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.75);
-    border-radius: 0.85rem;
-    filter: contrast(1.1) brightness(1.15) saturate(1.1);
-    transform: scale(1);
-    z-index: 0;
-    transition: filter 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out, z-index 0.2s linear;
-}
-
-.gallery__image:hover {
-    box-shadow: 0 0 1rem black;
-    transform: scale(1.1);
-    z-index: 10;
-    transition: filter 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out, z-index 0s linear;
-    filter: contrast(1) brightness(1) saturate(1);
-}
-
-.gallery__heading {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 1rem 0 0.5rem 1rem;
-    color: white;
-    text-shadow: 0 0 1rem black,
-        0 0 1rem black,
-        0 0 1rem black,
-        0 0 1rem black,
-        0 0 1rem black;
-    z-index: 12;
 }
 
 /*Products*/
@@ -620,6 +621,10 @@ input[type="file"] {
 
 /*Utility Classes*/
 /*Image*/
+.underline:hover {
+    text-decoration: underline;
+}
+
 .rounded-border {
     border-radius: 0.75rem;
 }
@@ -654,6 +659,17 @@ input[type="file"] {
     margin-bottom: 0.5rem;
 }
 
+.fa-minus {
+    color: #9A031E;
+}
+
+.fa-heart {
+    color: #9A031Efa;
+}
+.fa-heart:hover {
+    color: white;
+}
+
 .user__icon {
     font-size: 1.3rem;
 }
@@ -668,13 +684,6 @@ input[type="file"] {
         0 0 1rem black,
         0 0 1rem black,
         0 0 1rem black;
-}
-
-.fa-heart {
-    color: #9A031Efa;
-}
-.fa-heart:hover {
-    color: white;
 }
 
 /*Flash Messages*/

@@ -12,7 +12,6 @@
             Sing Up to get your own profile to view, add, store and share recipes in a modern way
             and to create a collection of your favourite recipes.
         </p>
-
     </div>
 </section>
 
@@ -21,8 +20,8 @@
     <a href="{{ url_for('article') }}">
         <div class="col-12">
             <div class="row ">
-                <div class="col-12 col-md-6 mb-3">
-                    <h3 class="recipe_name recipe_name-all text-center">
+                <div class="col-12 col-md-6 mb-4">
+                    <h3 class="underline text-center">
                         How to Get Rid of Fruit Flies for Good
                     </h3>
                     <p class="pt-3">These DIY tips will rid your home of these pesky pests once and for all.</p>
@@ -35,7 +34,7 @@
                     <p><strong>By Aly Walansky</strong> | <small class="text-muted">July 15, 2021</small></p>
                 </div>
                 <div class="col-12 col-md-6  align-self-center">                    
-                    <img class="rounded-border card-img bd-placeholder-img shadow-box"
+                    <img class="card-img rounded-border shadow-box"
                         src="https://www.thespruce.com/thmb/BoR2HaUJB9eMAq4Ppid79DtwIMk=/1500x1001/filters:fill(auto,1)/what-is-a-fruit-fly-2656677-hero-ec0c068408644cd8805b78f5ca618b08.jpg">
                 </div>
             </div>
@@ -54,12 +53,12 @@
     </div>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {% for recipe in random_recipes %}
-        <div class="col mb-3">
-            <div class="card gallery__card-image rounded-border">
+        <div class="col mb-4">
+            <div class="gallery__card">
                 <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
                     <img class="gallery__image" alt="Recipe Image" src="{{ recipe.image }}">
                     <div class="gallery__heading">
-                        <h5 class="">{{ recipe.recipe_name }}</h5>
+                        <h5>{{ recipe.recipe_name }}</h5>
                     </div>
                 </a>
             </div>
@@ -69,80 +68,13 @@
 </section>
 
 <!-- Products -->
-<section>
-    <div class="row">
-        <div class="col-12">
-            <h2 class="text-center mt-5">
-                Kitchen
-            </h2>
-            <hr>
-            <h4 class="text-center mb-5">Tools & Helpers</h4>
-        </div>
+<div class="row">
+    <div class="col-12">
+        <h2 class="text-center mt-5">
+            Kitchen
+        </h2>
+        <hr>
+        <h4 class="text-center mb-5">Tools & Helpers</h4>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-10 col-sm-4 col-lg-3 mb-4">
-            <div class="products__card-container">
-                <div class="products__card">
-                    <div class="products__card-front">
-                        <div class="products__image-container">                
-                            <img class="card-img-top products__image products__image mt-4" 
-                                src="https://m.media-amazon.com/images/I/816ARQmGsNL._AC_SL1500_.jpg" alt="Kitchen Tools">
-                        </div>
-                        <div class="products__card-body">
-                            <h6 class="text-center px-3 pb-4">Strain Strainer - Lime Green</h6>                    
-                        </div>
-                    </div>
-                    <div class="products__card-hover">
-                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
-                            href="https://www.amazon.com/Kitchen-Gizmo-Strainer-Silicone-Colander/dp/B018W9JII0/ref=sr_1_13?dchild=1&keywords=kitchen+tools&qid=1627074493&sr=8-13">
-                                Buy It: $15.99 Amazon
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-10 col-sm-4 col-lg-3 mb-4">
-            <div class="products__card-container">
-                <div class="products__card">
-                    <div class="products__card-front">
-                        <div class="products__image-container">                
-                            <img class="card-img-top products__image products__image mt-4" 
-                                src="https://m.media-amazon.com/images/I/81wynG+kxpL._AC_SL1500_.jpg" alt="Kitchen Tools">
-                        </div>
-                        <div class="products__card-body">
-                            <h6 class="text-center px-3 pb-4">Zoodle Maker Veggie</h6>                    
-                        </div>
-                    </div>
-                    <div class="products__card-hover">
-                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
-                            href="https://www.amazon.com/Vegetable-Spiralizer-Slicer-Spaghetti-Adjustable/dp/B07RN6CG6X/ref=sr_1_36?dchild=1&keywords=kitchen+tools&qid=1627074969&sr=8-36">
-                                Buy It: $9.99 Amazon
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-10 col-sm-4 col-lg-3 mb-4">
-            <div class="products__card-container">
-                <div class="products__card">
-                    <div class="products__card-front">
-                        <div class="products__image-container">                
-                            <img class="card-img-top products__image products__image mt-4" 
-                                src="https://m.media-amazon.com/images/I/71JxdxaA4tS._AC_SL1500_.jpg" alt="Kitchen Tools">
-                        </div>
-                        <div class="products__card-body">
-                            <h6 class="text-center px-3 pb-4">Kitchen Sink Caddy Organizer</h6>                    
-                        </div>
-                    </div>
-                    <div class="products__card-hover">
-                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
-                            href="https://www.amazon.com/FavoThings-Organizer-Stainless-Scrubbers-Bathroom/dp/B08HHVSZYT/ref=sr_1_150?dchild=1&keywords=kitchen+tools&qid=1627075809&sr=8-150">
-                                Buy It: $23.99 Amazon
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+</div>
 {% endblock %}
