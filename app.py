@@ -32,15 +32,74 @@ def paginated(recipes, page):
     ]
 
 
-# All Recipes #
+# --- Public Sites --- #
+# Home Page #
+@app.route("/")
+def index():
+    # 6 random recipes #
+    recipes = mongo.db.recipes
+    random_recipes = (
+        [recipe for recipe in recipes.aggregate([
+            {"$sample": {"size": 6}}])])
+    # 3 random products #
+    products = mongo.db.products
+    random_products = (
+        [product for product in products.aggregate([
+            {"$sample": {"size": 3}}])])
+    return render_template("index.html",
+                           page_title="Yummy Recipes",
+                           recipes=recipes,
+                           random_recipes=random_recipes,
+                           products=products,
+                           random_products=random_products)
+
+
+@app.route("/article")
+def article():
+    return render_template("article.html", page_title="DIY Tips")
+
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html", page_title="Contact Us")
+
+
+@app.route("/about")
+def about():
+    return render_template("about.html", page_title="About Us")
+
+
+@app.route("/advertising")
+def advertising():
+    return render_template("advertising.html", page_title="Advertising Policy")
+
+
+@app.route("/accessibility")
+def accessibility():
+    return render_template("accessibility.html", page_title="Accessibility")
+
+
+@app.route("/terms")
+def terms():
+    return render_template("terms.html", page_title="Terms of Use & Policies")
+
+
+@app.route("/privacy")
+def privacy():
+    return render_template("privacy.html", page_title="Privacy Policy")
+
+
+# Recipes Page #
 @app.route("/all_recipes")
 def all_recipes():
+    # Get all recipes from DB #
     recipes = list(mongo.db.recipes.find().sort("_id", -1))
     # Pagination #
     page = request.args.get(get_page_parameter(), type=int, default=1)
     pagination_obj = paginated(recipes, page)
     paginated_recipes = pagination_obj[0]
     pagination = pagination_obj[1]
+    # 3 random products #
     products = mongo.db.products
     random_products = (
         [product for product in products.aggregate([
@@ -52,6 +111,22 @@ def all_recipes():
                            pagination=pagination,
                            products=products,
                            random_products=random_products)
+
+
+# Recipe Page #
+@app.route("/view_recipe/<recipe_id>", methods=["GET", "POST"])
+def view_recipe(recipe_id):
+    # Get one recipe from DB #
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    # 3 random products #
+    products = mongo.db.products
+    random_products = (
+        [product for product in products.aggregate([
+            {"$sample": {"size": 3}}])])
+    return render_template("view_recipe.html", recipe=recipe,
+                           products=products,
+                           random_products=random_products,
+                           page_title="Recipe")
 
 
 # Search functionality #
@@ -74,18 +149,48 @@ def search():
                            search=True)
 
 
-# View single recipe #
-@app.route("/view_recipe/<recipe_id>", methods=["GET", "POST"])
-def view_recipe(recipe_id):
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+# --- User Sites --- #
+# User Profile Page #
+@app.route("/profile/<username>", methods=["GET", "POST"])
+def profile(username):
+    # 3 random products #
     products = mongo.db.products
     random_products = (
         [product for product in products.aggregate([
             {"$sample": {"size": 3}}])])
-    return render_template("view_recipe.html", recipe=recipe,
-                           products=products,
-                           random_products=random_products,
-                           page_title="Recipe")
+    # Retrieve users and recipes to use on profile page #
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    users = list(mongo.db.users.find())
+    recipes = list(mongo.db.recipes.find())
+    favourite_recipes = mongo.db.users.find_one(
+                {"username": session["user"]})["favourite_recipes"]
+    # Favourites Array #
+    favourites = []
+    # Push to Favourites Array #
+    for recipe in favourite_recipes:
+        favourites.append(mongo.db.recipes.find_one({"_id": recipe}))
+    if session["user"]:
+        if request.method == "POST":
+            users = mongo.db.users.find_one(
+                {"username": session["user"]})
+            # Edit Password functionality #
+            if str(request.form.get("password")) == str(
+                request.form.get("confirm-password")):
+                newvalue = {"$set": {"password": generate_password_hash(
+                    str(request.form.get("password")))}}
+                mongo.db.users.update_one(users, newvalue)
+                flash("Password successfully updated!", "success")
+                return redirect(url_for(
+                    "profile", username=session["user"]))
+            else:
+                flash("Passwords don't match, try again!", "error")
+        return render_template(
+            "profile.html", username=username, users=users,
+            recipes=recipes, favourites=favourites,
+            random_products=random_products)
+
+    return redirect(url_for("login"))
 
 
 # Create recipe functionality and page #
@@ -103,90 +208,13 @@ def add_recipe():
             "created_by": request.form.get("created_by"),
             "user": session["user"]
         }
+        # add request to recipes DB #
         mongo.db.recipes.insert_one(recipe)
         flash("Recipe Successfully Added", "success")
         return redirect(url_for("profile", username=session["user"]))
 
     return render_template("add_recipe.html",
                            page_title="Add Recipe")
-
-
-# Edit recipe functionality and page #
-@app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
-def edit_recipe(recipe_id):
-    # Request form fields #
-    if request.method == "POST":
-        recipe_edit = {
-            "recipe_name": request.form.get("recipe_name"),
-            "image": request.form.get("image"),
-            "time": request.form.get("time"),
-            "difficulty": request.form.get("difficulty"),
-            "ingredients": request.form.get("ingredients"),
-            "directions": request.form.get("directions"),
-            "created_by": request.form.get("created_by"),
-            "user": session["user"]
-        }
-        mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, recipe_edit)
-        flash("Recipe Updated Successfully", "success")
-        return redirect(url_for("profile", username=session["user"]))
-
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    return render_template(
-        "edit_recipe.html", recipe=recipe, page_title="Edit Recipe")
-
-
-# Delete recipe functionality #
-@app.route("/delete_recipe/<recipe_id>")
-def delete_recipe(recipe_id):
-    mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
-    list(mongo.db.users.find(
-        {"favourite_recipes": ObjectId(recipe_id)}))
-    # Remove recipe from array in DB #
-    mongo.db.users.find_one_and_update(
-            {"username": session["user"].lower()},
-            {"$pull": {"favourite_recipes": ObjectId(recipe_id)}})
-    flash("Recipe Deleted Successfully", "success")
-    return render_template("profile.html")
-
-
-# User profile page #
-@app.route("/profile/<username>", methods=["GET", "POST"])
-def profile(username):
-    products = mongo.db.products
-    random_products = (
-        [product for product in products.aggregate([
-            {"$sample": {"size": 3}}])])
-    # Retrieve users and recipes to use on profile page #
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
-    users = list(mongo.db.users.find())
-    recipes = list(mongo.db.recipes.find())
-    favourite_recipes = mongo.db.users.find_one(
-                {"username": session["user"]})["favourite_recipes"]
-    # Favourite recipe display functionality advised by CI tutors #
-    favourites = []
-    # To push to favourites array #
-    for recipe in favourite_recipes:
-        favourites.append(mongo.db.recipes.find_one({"_id": recipe}))
-    if session["user"]:
-        if request.method == "POST":
-                users = mongo.db.users.find_one(
-                    {"username": session["user"]})
-                if str(request.form.get("password")) == str(
-                    request.form.get("confirm-password")):
-                    newvalue = {"$set": {"password": generate_password_hash(
-                        str(request.form.get("password")))}}
-                    mongo.db.users.update_one(users, newvalue)
-                    flash("Password successfully updated!", "success")
-                    return redirect(url_for("profile", username=session["user"]))
-                else:
-                    flash("Passwords don't match, try again!", "error")
-        return render_template(
-            "profile.html", username=username, users=users,
-            recipes=recipes, favourites=favourites,
-            products=products, random_products=random_products)
-
-    return redirect(url_for("signin"))
 
 
 # Add recipe to favourites array in DB #
@@ -210,75 +238,55 @@ def favourite_recipe(recipe_id):
         return redirect(url_for("profile", username=session["user"]))
 
 
-# Remove or delete recipe from favourites functionality #
+# Remove or delete recipe from favourites array in DB #
 @app.route("/remove_recipe/<recipe_id>", methods=["GET", "POST"])
 def remove_recipe(recipe_id):
     favourites = list(mongo.db.users.find(
         {"favourite_recipes": ObjectId(recipe_id)}))
-    # Check if favourite recipe does not exist in favourites #
-    if len(favourites) <= 0:
-        flash("This recipe is not in your favourites!", "error")
-        return redirect(url_for("all_recipes"))
-    # Remove favourite if it exists #
-    else:
-        mongo.db.users.find_one_and_update(
-            {"username": session["user"].lower()},
-            {"$pull": {"favourite_recipes": ObjectId(recipe_id)}})
-        flash("Recipe removed from your favourites!", "success")
+    mongo.db.users.find_one_and_update(
+        {"username": session["user"].lower()},
+        {"$pull": {"favourite_recipes": ObjectId(recipe_id)}})
+    flash("Recipe removed from your favourites!", "success")
+    return redirect(url_for(
+        "profile", username=session["user"], favourites=favourites))
+
+
+# Edit recipe functionality and page #
+@app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
+def edit_recipe(recipe_id):
+    # Request form fields #
+    if request.method == "POST":
+        recipe_edit = {
+            "recipe_name": request.form.get("recipe_name"),
+            "image": request.form.get("image"),
+            "time": request.form.get("time"),
+            "difficulty": request.form.get("difficulty"),
+            "ingredients": request.form.get("ingredients"),
+            "directions": request.form.get("directions"),
+            "created_by": request.form.get("created_by"),
+            "user": session["user"]
+        }
+        # update recipe on DB #
+        mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, recipe_edit)
+        flash("Recipe Successfully Updated", "success")
         return redirect(url_for("profile", username=session["user"]))
 
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    return render_template(
+        "edit_recipe.html", recipe=recipe, page_title="Edit Recipe")
 
-@app.route("/")
-def index():
-    recipes = mongo.db.recipes
-    random_recipes = (
-        [recipe for recipe in recipes.aggregate([
-            {"$sample": {"size": 6}}])])
-    products = mongo.db.products
-    random_products = (
-        [product for product in products.aggregate([
-            {"$sample": {"size": 3}}])])
-    return render_template("index.html",
-                           page_title="Yummy Recipes",
-                           recipes=recipes,
-                           random_recipes=random_recipes,
-                           products=products,
-                           random_products=random_products)
-
-
-@app.route("/article")
-def article():
-    return render_template("article.html", page_title="DIY Tips")
-
-
-@app.route("/about")
-def about():
-    return render_template("about.html", page_title="About Us")
-
-
-@app.route("/contact")
-def contact():
-    return render_template("contact.html", page_title="Contact Us")
-
-
-@app.route("/advertising")
-def advertising():
-    return render_template("advertising.html", page_title="Advertising Policy")
-
-
-@app.route("/accessibility")
-def accessibility():
-    return render_template("accessibility.html", page_title="Accessibility")
-
-
-@app.route("/terms")
-def terms():
-    return render_template("terms.html", page_title="Terms of Use & Policies")
-
-
-@app.route("/privacy")
-def privacy():
-    return render_template("privacy.html", page_title="Privacy Policy")
+# Delete recipe functionality #
+@app.route("/delete_recipe/<recipe_id>")
+def delete_recipe(recipe_id):
+    mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
+    list(mongo.db.users.find(
+        {"favourite_recipes": ObjectId(recipe_id)}))
+    # Remove recipe from array in DB #
+    mongo.db.users.find_one_and_update(
+            {"username": session["user"].lower()},
+            {"$pull": {"favourite_recipes": ObjectId(recipe_id)}})
+    flash("Recipe Deleted Successfully", "success")
+    return render_template("profile.html")
 
 
 @app.route("/signup", methods=["GET", "POST"])

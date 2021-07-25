@@ -247,6 +247,7 @@ hr {
 }
 
 .btn-remove {
+    display: inline-block;
     margin-left: 1rem;
     padding: 0 0.2rem;
     border: 0.09rem solid #E3DFFF;
@@ -621,6 +622,11 @@ input[type="file"] {
 
 /*Utility Classes*/
 /*Image*/
+.bg-password {
+    background-color: #e3dfff;
+    margin: 0 5rem;
+}
+
 .underline:hover {
     text-decoration: underline;
 }
@@ -751,5 +757,8 @@ input[type="file"] {
     }
     .product__image-container::before {        
         border-right: none;         
+    }
+    .st-3 {
+        margin-top: 1.5rem;
     }
 }
