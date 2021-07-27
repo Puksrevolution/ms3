@@ -365,7 +365,7 @@ def signout():
     # remove user from session cookie
     flash("You have been logged out", "success")
     session.pop("user")
-    return redirect(url_for('signin'))
+    return redirect(url_for('index'))
 
 
 # Subscribe Newsletter #
