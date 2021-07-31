@@ -49,7 +49,7 @@
                         <small><i class="far fa-user-circle user__icon"></i><strong> By</strong> {{ recipe.created_by }}</small>
                     </div>            
                     <div class="col-12 mt-3 text-center">                               
-                        {% if session.user|lower != "admin"|lower %}                              
+                        {% if session.user|lower %}                              
                         <a class="btn btn-heart" href="{{ url_for('favourite_recipe', recipe_id=recipe._id) }}">
                             <i class="fas fa-heart" id="like"></i>Add to Favourites</a>
                             
