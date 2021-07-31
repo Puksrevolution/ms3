@@ -80,6 +80,10 @@ hr {
     padding-bottom: 0;
 }
 
+.nav-link {
+    padding: 0 1rem;
+}
+
 .navbar .navbar-nav .nav-link {
     color: #0F0A0A;
     font-size: 1.1rem;
@@ -205,6 +209,7 @@ hr {
 .btn-nav {
     background-color: #e3dfff;
     border-radius: 1000px;
+    
 }
 
 .btn-buy {
@@ -750,6 +755,14 @@ input[type="file"] {
 }
 
 @media (max-width: 30em) {
+    .navbar-nav .nav-link {
+        padding: 0.2rem 0.5rem;
+        
+    }
+    .nav-link {
+        display: inline;
+    }
+
     .footer {
         padding-bottom: 3rem;
     }

@@ -31,10 +31,10 @@
                 <!-- use of terms agreemant -->
                 <div class="custom-control custom-checkbox mb-3">
                     <input class="custom-control-input" type="checkbox" id="customCheck" required>
-                    <label class="custom-control-label" for="customCheck">By signing up I agree to the BookCook Terms of
-                        Use.
-                        I acknowledge that I have read the Privacy Policy.
-                        <a href="{{url_for('privacy')}}">the Privacy Policy.</a>
+                    <label class="custom-control-label" for="customCheck">
+                        By signing up I agree to the BookCook Terms of Use.
+                        I acknowledge that I have read 
+                        <a class="link" href="{{url_for('privacy')}}">the Privacy Policy.</a>
                     </label>
                 </div>
                 <!-- register -->
@@ -51,7 +51,7 @@
         <div class="col-md-auto">
             <p class="text-center">
                 <strong>Already Registered?</strong>
-                <a href="{{ url_for('signin') }}" class="footer__footer-link">Sign In</a>
+                <a class="link" href="{{ url_for('signin') }}">Sign In</a>
             </p>
         </div>
     </div>
