@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% if session.user|lower != "admin"|lower %}
 <!-- User Icon -->
 <div class="row justify-content-center text-center">
     <div class="col-10 col-sm-8 col-lg-6">
@@ -56,8 +57,8 @@
             </div>
             {% if session.user|lower == recipe.user|lower %}
             <!-- Edit and delete recipes buttons -->
-            <div class="row  mt-2">
-                <div class="col-12">
+            <div class="row  mt-2 mb-4">
+                <div class="col-12 ml-3">
                     <a class="btn btn-sm btn-success" href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">
                         Edit Recipe</a>
                     <a class="btn btn-sm btn-danger" href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}"
@@ -115,6 +116,89 @@
         </div>
     </div>
 </section>
+
+{% elif session.user|lower == "admin"|lower %}
+<!-- Admin -->
+<div class="row">
+    <div class="col-12">
+        <h2 class="text-center pb-4">
+            Admin Profile
+        </h2>
+    </div>
+</div>
+
+<!-- Profile Lists -->
+<div class="row justify-content-center mb-5">
+    <!-- Recipes List -->
+    <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-3">
+        <p class="recipe_list mb-3"><i class="fas fa-utensils"></i><strong> Edit and Delete Recipes</strong>:</p>
+        <!-- Recipes Names and edit/delete function -->
+        {% for recipe in recipes %}        
+        <div>
+            <div>
+                <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
+                    <h6 class="underline">{{ recipe.recipe_name }}</h6>
+                </a>
+            </div>            
+            <!-- Edit and delete recipes buttons -->
+            <div class="row  mt-2 mb-4">
+                <div class="col-12 ml-3">
+                    <a class="btn btn-sm btn-success" href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">
+                        Edit Recipe</a>
+                    <a class="btn btn-sm btn-danger" href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}"
+                        title="delete" onclick="return confirm('Are you sure you want to delete this recipe?')">
+                        Delete Recipe</a>
+                </div>
+            </div>            
+        </div>        
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Change Password -->
+<section class="">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Change Your Password</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-11 col-sm-7 col-lg-5">
+            <form class="form" method="POST" action="{{ url_for('profile', username=session['user']) }}">
+                <!-- New Passowrd -->
+                <div class="row">
+                    <div class="form__group col-12">
+                        <input class="form__input" id="password" name="password" type="password"
+                            placeholder="New Password" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$"
+                            autocomplete="off" required>
+                        <label class="form__label" for="password">New Password</label>
+                        <i class="fas fa-user-lock form__input-icon"></i>
+                    </div>
+                    <small class="form-text text-muted mb-3">5-15 characters</small>
+                </div>
+                <!-- Confirm passowrd -->
+                <div class="row">
+                    <div class="form__group col-12">
+                        <input class="form__input" id="confirm-password" name="confirm-password" type="password"
+                            placeholder="Confirm Password" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$"
+                            autocomplete="off" required>
+                        <label class="form__label" for="confirm-password">Confirm Password</label>
+                        <i class="fas fa-user-lock form__input-icon"></i>
+                    </div>
+                    <small class="form-text text-muted mb-3">5-15 characters</small>
+                </div>
+                <!-- Submit New Password -->
+                <div class="row">
+                    <button class="col-12 btn btn-lavender" type="submit">
+                        Submit New Password <i class="fas fa-check-circle"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% else %}
+{% endif %}
 {% endblock %}
 
 {% block Products %}

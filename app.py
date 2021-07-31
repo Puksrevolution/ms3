@@ -151,7 +151,7 @@ def search():
                            total=len(recipes),
                            recipe_paginated=paginated_recipes,
                            pagination=pagination,
-                           search=True, 
+                           search=True,
                            products=products,
                            random_products=random_products)
 
@@ -348,7 +348,7 @@ def signin():
         if existing_user:
             # ensure hashed password matches user input
             if check_password_hash(
-                    existing_user["password"], request.form.get("password")):
+                    existing_user["password"], request.form.get("password")):                    
                         session["user"] = request.form.get("username").lower()
                         return redirect(url_for(
                             "profile", username=session["user"]))
