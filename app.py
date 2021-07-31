@@ -140,13 +140,20 @@ def search():
     pagination_obj = paginated(recipes, page)
     paginated_recipes = pagination_obj[0]
     pagination = pagination_obj[1]
+    # 3 random products #
+    products = mongo.db.products
+    random_products = (
+        [product for product in products.aggregate([
+            {"$sample": {"size": 3}}])])
     return render_template("recipes.html",
                            page_title="Search Result",
                            recipes=recipes,
                            total=len(recipes),
                            recipe_paginated=paginated_recipes,
                            pagination=pagination,
-                           search=True)
+                           search=True, 
+                           products=products,
+                           random_products=random_products)
 
 
 # --- User Sites --- #
