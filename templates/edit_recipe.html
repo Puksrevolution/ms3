@@ -22,25 +22,25 @@
                     <label class="form-label" for="recipe_name">
                         <i class="fas fa-pencil-alt"></i> Recipe Name:</label>                    
                     <input class="form-control mb-3" id="recipe_name" name="recipe_name" 
-                        type="text" minlength="5" required>                    
+                        type="text" value="{{ recipe.recipe_name }}" minlength="5">                    
                 </div>
                 <div class="col-12 font-weight-bolder">
                     <label class="form-label" for="image">
                         <i class="fas fa-image"></i> Your Image Url here:</label>
                     <input class="form-control mb-3" id="image" name="image"
-                        type="url" placeholder="Use a valid URL for the picture of the dish." minlength="5">                
+                        type="url" value="{{ recipe.image }}" minlength="5">                
                 </div>                
                 <div class="col-6 font-weight-bolder">
                     <label class="form-label" for="time">
                         <i class="fas fa-clock"></i> Total Time:</label>
                     <input class="form-control" id="time" name="time"
-                        type="text" placeholder="x hr x min" required>
+                        type="text" value="{{ recipe.time }}">
                         <small class="form-text text-muted mb-3">Example: "2 hr 30 min"</small>                    
                 </div>    
                 <div class="col-6 font-weight-bolder">                
                     <label class="form-label" for="difficulty">
                         <i class="fas fa-signal"></i> Difficulty:</label>
-                    <select class="form-control mb-3" id="difficulty" name="difficulty" required>
+                    <select class="form-control mb-3" id="difficulty" name="difficulty">
                         <option selected disabled>Select difficulty</option>
                         <option>Easy</option>
                         <option>Medium</option>
@@ -51,19 +51,23 @@
                     <label class="form-label" for="ingredients">
                         <i class="fas fa-pepper-hot"></i> Ingredients:</label>                                            
                     <textarea class="form-control mb-3" id="ingredients" name="ingredients" 
-                        type="text" placeholder="Each ingredient in it's own line." rows="3" required></textarea>                                        
+                        type="text" rows="3">
+                    {{ recipe.ingredients }}                        
+                    </textarea>                                        
                 </div>
                 <div class="col-12 font-weight-bolder">
                     <label class="form-label" for="directions">
                         <i class="fas fa-align-left"></i> Directions:</label>
                     <textarea class="form-control mb-3" id="directions" name="directions"
-                        type="text" placeholder="A new line for each step of the recipe." rows="5" required></textarea>
+                        type="text" rows="5">
+                    {{ recipe.directions }}                        
+                    </textarea>
                 </div>
                 <div class="col-6 font-weight-bolder">
                     <label class="form-label" for="created_by">
                         <i class="far fa-user-circle user__icon"></i> Created By:</label>
                     <input class="form-control mb-3" id="created_by" name="created_by"
-                        type="text" placeholder="" required>                                            
+                        type="text" value="{{ recipe.created_by }}">                                            
                 </div>                                                
             </div>
             <!-- Cancel & Submit buttons for Edit Form --> 
@@ -82,7 +86,6 @@
 
 <!-- Allows Admin to edit users recipe -->
 {% elif session.user|lower == "admin"|lower %}
-
 <!-- Subtitle for Admin -->
 <div class="row">
     <div class="col-12">
@@ -100,25 +103,25 @@
                     <label class="form-label" for="recipe_name">
                         <i class="fas fa-pencil-alt"></i> Recipe Name:</label>                    
                     <input class="form-control mb-3" id="recipe_name" name="recipe_name" 
-                        type="text" minlength="5" required>                    
+                        type="text" value="{{ recipe.recipe_name }}" minlength="5">                    
                 </div>
                 <div class="col-12 font-weight-bolder">
                     <label class="form-label" for="image">
                         <i class="fas fa-image"></i> Your Image Url here:</label>
                     <input class="form-control mb-3" id="image" name="image"
-                        type="url" placeholder="Use a valid URL for the picture of the dish." minlength="5">                
+                        type="url" value="{{ recipe.image }}" minlength="5">                
                 </div>                
                 <div class="col-6 font-weight-bolder">
                     <label class="form-label" for="time">
                         <i class="fas fa-clock"></i> Total Time:</label>
                     <input class="form-control" id="time" name="time"
-                        type="text" placeholder="x hr x min" required>
+                        type="text" value="{{ recipe.time }}">
                         <small class="form-text text-muted mb-3">Example: "2 hr 30 min"</small>                    
                 </div>    
                 <div class="col-6 font-weight-bolder">                
                     <label class="form-label" for="difficulty">
                         <i class="fas fa-signal"></i> Difficulty:</label>
-                    <select class="form-control mb-3" id="difficulty" name="difficulty" required>
+                    <select class="form-control mb-3" id="difficulty" name="difficulty">
                         <option selected disabled>Select difficulty</option>
                         <option>Easy</option>
                         <option>Medium</option>
@@ -129,19 +132,23 @@
                     <label class="form-label" for="ingredients">
                         <i class="fas fa-pepper-hot"></i> Ingredients:</label>                                            
                     <textarea class="form-control mb-3" id="ingredients" name="ingredients" 
-                        type="text" placeholder="Each ingredient in it's own line." rows="3" required></textarea>                                        
+                        type="text" rows="3">
+                    {{ recipe.ingredients }}                        
+                    </textarea>                                        
                 </div>
                 <div class="col-12 font-weight-bolder">
                     <label class="form-label" for="directions">
                         <i class="fas fa-align-left"></i> Directions:</label>
                     <textarea class="form-control mb-3" id="directions" name="directions"
-                        type="text" placeholder="A new line for each step of the recipe." rows="5" required></textarea>
+                        type="text" rows="5">
+                    {{ recipe.directions }}                        
+                    </textarea>
                 </div>
                 <div class="col-6 font-weight-bolder">
                     <label class="form-label" for="created_by">
                         <i class="far fa-user-circle user__icon"></i> Created By:</label>
                     <input class="form-control mb-3" id="created_by" name="created_by"
-                        type="text" placeholder="" required>                                            
+                        type="text" value="{{ recipe.created_by }}">                                            
                 </div>                                                
             </div>
             <!-- Cancel & Submit buttons for Edit Form --> 
@@ -153,7 +160,7 @@
                     <a class="btn btn-danger" href="{{ url_for('profile', username=session['user']) }}" type="button">
                         Cancle</a>
                 </div>
-            </div>  
+            </div> 
         </form>
     </div>
 </div>
