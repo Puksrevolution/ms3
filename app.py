@@ -3,6 +3,7 @@
     Task Manager Flask App mini Project
 """
 
+
 import os
 from flask_paginate import Pagination, get_page_parameter
 from flask import (
@@ -105,16 +106,15 @@ User account management
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
-    """
-    Allows the user to create a new account with
-    a unique username and password
-    """
     # 3 random products #
     products = mongo.db.products
     random_products = (
         [product for product in products.aggregate([
             {"$sample": {"size": 3}}])])
-
+    """
+    Allows the user to create a new account with
+    a unique username and password
+    """
     if request.method == "POST":
         # check if username already exists in db
         existing_user = mongo.db.users.find_one(
@@ -124,9 +124,10 @@ def signup():
             flash("Username already exists", "error")
             return redirect(url_for("signup"))
 
+        # collect the signup form data and write to MongoDB
         register = {
             "username": request.form.get("username").lower(),
-            "password": generate_password_hash(request.form.get("password")),            
+            "password": generate_password_hash(request.form.get("password")),
             "favourite_recipes": []
         }
         mongo.db.users.insert_one(register)
@@ -143,17 +144,16 @@ def signup():
 
 @app.route("/signin", methods=["GET", "POST"])
 def signin():
-    """
-    Allows the user to sign in with username and password.
-    Checks for validity of username and password entered.
-    Redirects user to profile page after successful login.
-    """
     # 3 random products #
     products = mongo.db.products
     random_products = (
         [product for product in products.aggregate([
             {"$sample": {"size": 3}}])])
-
+    """
+    Allows the user to sign in with username and password.
+    Checks for validity of username and password entered.
+    Redirects user to profile page after successful login.
+    """
     if request.method == "POST":
         # check if username exists in db
         existing_user = mongo.db.users.find_one(
@@ -195,16 +195,15 @@ def signout():
 
 @app.route("/profile/<username>", methods=["GET", "POST"])
 def profile(username):
-    """
-    Render the user profile page using the logged in user's
-    data in the database.
-    """
     # 3 random products #
     products = mongo.db.products
     random_products = (
         [product for product in products.aggregate([
             {"$sample": {"size": 3}}])])
-
+    """
+    Render the user profile page using the logged in user's
+    data in the database.
+    """
     # Retrieve users and recipes to use on profile page #
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
@@ -277,7 +276,7 @@ def all_recipes():
 def view_recipe(recipe_id):
     """
     Get the recipe details for the selected recipe and
-    render the the View Recipe Page template.
+    render the View Recipe Page
     """
     # Get one recipe from DB #
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
@@ -321,7 +320,7 @@ def add_recipe():
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     """
-    Render the Edit Review page if a user is logged in.
+    Render the Edit Recipe page if a user is logged in.
     """
     # Request form fields #
     if session["user"]:
@@ -329,11 +328,11 @@ def edit_recipe(recipe_id):
             # grab the session user's details from db
             username = mongo.db.users.find_one(
                 {"username": session["user"]})
-            # grab the book review details
+            # grab the recipe details
             recipe = mongo.db.recipes.find_one(
                 {"_id": ObjectId(recipe_id)})
 
-            # if user is review creator, admin or superuser then allow edit
+            # if it's user or admin then allow edit
             if (session["user"] == recipe["user"] or
                     username == "admin"):
 
@@ -362,8 +361,8 @@ def edit_recipe(recipe_id):
 @app.route("/delete_recipe/<recipe_id>")
 def delete_recipe(recipe_id):
     """
-    Delete Recipe function deletes the selected Recipe
-    from the database.
+    Delete Recipe function
+    deletes the selected Recipe from the database.
     """
     mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
     list(mongo.db.users.find(
@@ -376,12 +375,11 @@ def delete_recipe(recipe_id):
     return redirect(url_for("profile", username=session["user"]))
 
 
-# Search functionality #
 @app.route("/search", methods=["GET", "POST"])
 def search():
     """
-    Search function filters the recipes based on the text index
-    query.
+    Search function
+    filters the recipes based on the text index query.
     """
     # Search functionality #
     query = request.form.get("query")
@@ -436,9 +434,17 @@ def favourite_recipe(recipe_id):
         return redirect(url_for("profile", username=session["user"]))
 
 
-# Remove or delete recipe from favourites array in DB #
+"""
+Recipe remove favourite button functionality
+"""
+
+
 @app.route("/remove_recipe/<recipe_id>", methods=["GET", "POST"])
 def remove_recipe(recipe_id):
+    """
+    Remove Recipe function
+    removes the favourite Recipe from the database.
+    """
     favourites = list(mongo.db.users.find(
         {"favourite_recipes": ObjectId(recipe_id)}))
     mongo.db.users.find_one_and_update(
@@ -449,7 +455,12 @@ def remove_recipe(recipe_id):
         "profile", username=session["user"], favourites=favourites))
 
 
-# Subscribe Newsletter #
+"""
+Subscribe Newsletter Functionality
+collect the email address from input fielda and write to MongoD
+"""
+
+
 @ app.route('/sub', methods=['POST'])
 def sub():
     if request.method == "POST":
@@ -473,6 +484,39 @@ def sub():
         return redirect(request.referrer)
 
     return redirect(request.referrer)
+
+
+"""HTTP response error code handling."""
+
+
+@app.errorhandler(404)
+def not_found(e):
+    """
+    Renders an error page for http error respons code 404
+    displaying a friendly template with a button that directs the user
+    back to the main page.
+    """
+    return (render_template('404.html'), 404)
+
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    """
+    Renders an error page for http error respons code 500
+    displaying a friendly template with a button that directs the user
+    back to the main page.
+    """
+    return (render_template('500.html'), 500)
+
+
+@app.errorhandler(503)
+def service_unavailable(e):
+    """
+    Renders an error page for http error respons code 503
+    displaying a friendly template with a button that directs the user
+    back to the main page.
+    """
+    return (render_template('503.html'), 503)
 
 
 if __name__ == "__main__":

@@ -35,6 +35,7 @@ a {
     color: inherit;
     text-decoration: none;
 }
+
 a:hover {
     color: inherit;
     text-decoration: none;
@@ -61,15 +62,11 @@ hr {
 }
 
 .main {
-    position: relative;    
+    position: relative;
     margin: 2rem 1rem 4rem 1rem;
 }
 
-/*Layout*/
-.container {
-    position: relative;
-}
-
+/*--Components--*/
 /*Navbar*/
 .navbar {
     background-color: #FEF9EF;
@@ -93,7 +90,7 @@ hr {
 
 .navbar-light .navbar-nav .active>.nav-link,
 .navbar-light .navbar-nav .nav-link.active,
-.navbar-light .navbar-nav .nav-link.show, 
+.navbar-light .navbar-nav .nav-link.show,
 .navbar-light .navbar-nav .show>.nav-link {
     color: #6D6A75;
     text-decoration: underline;
@@ -116,7 +113,7 @@ hr {
     text-decoration: underline;
 }
 
-.pagination .active>a {    
+.pagination .active>a {
     color: #6D6A75;
     text-decoration: underline;
 }
@@ -141,6 +138,7 @@ hr {
     line-height: normal;
     font-size: xx-large;
 }
+
 .footer__icons:not(:last-child) {
     margin-right: 0.5rem;
 }
@@ -148,6 +146,7 @@ hr {
 .footer__icons--instagram {
     color: #ff008c;
 }
+
 .footer__icons--instagram:hover {
     color: #e02b8f;
 }
@@ -155,6 +154,7 @@ hr {
 .footer__icons--facebook {
     color: #0051ff;
 }
+
 .footer__icons--facebook:hover {
     color: #4d73c5;
 }
@@ -162,6 +162,7 @@ hr {
 .footer__icons--youtube {
     color: #ff0000;
 }
+
 .footer__icons--youtube:hover {
     color: #df2121;
 }
@@ -193,11 +194,16 @@ hr {
     bottom: -0.6rem;
     font-size: 1.5rem;
 }
+
 .footer__top:hover {
     color: #6D6A75;
 }
 
-/*--Components--*/
+/*Layout*/
+.container {
+    position: relative;
+}
+
 /*Button*/
 .btn {
     box-shadow: 0 0 0.5rem #6D6A75;
@@ -206,16 +212,12 @@ hr {
 .btn-nav {
     background-color: #e3dfff;
     border-radius: 1000px;
-    
-}
-
-.btn-buy {
-    width: 70%;
 }
 
 .btn-lavender {
     background-color: #E3DFFF;
 }
+
 .btn-lavender:hover {
     background-color: #6D6A75;
     color: #FEF9EF;
@@ -227,6 +229,7 @@ hr {
     margin-bottom: 0.5rem;
     color: #FEF9EF;
 }
+
 .btn-dimgray:hover {
     background-color: #E3DFFF;
 }
@@ -236,21 +239,23 @@ hr {
     box-shadow: 0 0 0.2rem #6D6A75;
     padding: .37rem .75rem;
 }
+
 .btn-subscribe:hover {
     background-color: #E3DFFF;
 }
 
-.btn-reset {    
+.btn-reset {
     background-color: #9A031E;
     margin-left: 0.5rem;
     color: #E3DFFF;
 }
+
 .btn-reset:hover {
     background-color: rgb(230, 0, 42);
     color: #E3DFFF;
 }
 
-.btn-remove {    
+.btn-remove {
     margin-left: 1rem;
     padding: 0 0.2rem;
     border: 0.09rem solid #E3DFFF;
@@ -259,6 +264,10 @@ hr {
 .btn-heart:hover {
     background-color: #ff6682;
     color: #FEF9EF;
+}
+
+.btn-buy {
+    width: 70%;
 }
 
 /*Cards*/
@@ -301,9 +310,9 @@ hr {
 
 .gallery__card {
     display: block;
-    position: relative;    
+    position: relative;
     width: 100%;
-    height: 100%;    
+    height: 100%;
     object-fit: cover;
 }
 
@@ -319,6 +328,7 @@ hr {
     z-index: 0;
     transition: filter 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out, z-index 0.2s linear;
 }
+
 .gallery__image:hover {
     box-shadow: 0 0 1rem #0F0A0A;
     transform: scale(1.1);
@@ -399,16 +409,10 @@ hr {
     padding: 2rem 1rem;
 }
 
-@media (min-width: 576px){
-    .pr {
-        padding-right: 0;
-    }
-}
-
 .product__image-container {
     position: relative;
-    background-color: #FEF9EF;    
-    border: 7px solid #e3dfff;            
+    background-color: #FEF9EF;
+    border: 7px solid #e3dfff;
 }
 
 .product__image-container::before {
@@ -418,7 +422,7 @@ hr {
     left: 0;
     right: 0;
     top: 0;
-    z-index: 1;             
+    z-index: 1;
 }
 
 .product__image-container::after {
@@ -430,7 +434,7 @@ hr {
     height: 4rem;
     background-image: linear-gradient(-7.7391704773deg, #e3dfff 49.7%, transparent 50.3%);
     background-repeat: no-repeat;
-    background-position: 50% 100%;       
+    background-position: 50% 100%;
 }
 
 .products__card-container {
@@ -444,7 +448,7 @@ hr {
 
 .products__image-container {
     position: relative;
-    background-color: #FEF9EF;        
+    background-color: #FEF9EF;
 }
 
 .products__image-container::before {
@@ -454,7 +458,7 @@ hr {
     left: 0;
     right: 0;
     top: 0;
-    z-index: 1;    
+    z-index: 1;
 }
 
 .products__image-container::after {
@@ -470,7 +474,7 @@ hr {
 }
 
 .products__image {
-    width: 100%;      
+    width: 100%;
 }
 
 .products__card-body {
@@ -488,7 +492,7 @@ hr {
     height: 10rem;
 }
 
-.products__heading {    
+.products__heading {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -622,7 +626,6 @@ input[type="file"] {
     border: 1px solid #6D6A75;
 }
 
-
 /*Utility Classes*/
 /*Image*/
 .bg-password {
@@ -647,7 +650,7 @@ input[type="file"] {
     margin-left: 1.5rem;
 }
 
-.ul__list-item {    
+.ul__list-item {
     padding-bottom: 0.5rem;
 }
 
@@ -676,6 +679,7 @@ input[type="file"] {
 .fa-heart {
     color: #9A031Efa;
 }
+
 .fa-heart:hover {
     color: #FEF9EF;
 }
@@ -714,41 +718,126 @@ input[type="file"] {
     color: rgb(230, 0, 42);
 }
 
+/* Code from Simon Vardy https://github.com/simonjvardy/the-reading-room/tree/master/templates/error-handling */
+#notfound {
+    position: relative;
+    min-height: 80vh;
+}
+
+#notfound .notfound {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.notfound {
+    max-width: 410px;
+    width: 100%;
+    text-align: center;
+}
+
+.notfound .notfound-error {
+    height: 280px;
+    position: relative;
+    z-index: -1;
+}
+
+.notfound .notfound-error h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 230px;
+    margin: 0px;
+    font-weight: 900;
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    background: url('../images/pexels-ella-olsson-1458694.jpg') no-repeat;
+    background-clip: border-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: cover;
+    background-position: center;
+}
+
+.notfound h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 2rem;
+}
+
+.notfound p {
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #000;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 20px;
+    margin-top: 0px;
+}
+
 /* Media Queries */
+@media only screen and (max-width: 767px) {
+    .notfound .notfound-error {
+        height: 142px;
+    }
+
+    .notfound .notfound-error h1 {
+        font-size: 112px;
+    }
+}
+
+@media (min-width: 576px) {
+    .pr {
+        padding-right: 0;
+    }
+}
+
 @media (max-width: 48em) {
     .navbar .navbar-nav .nav-link {
         display: inline-block;
     }
+
     .footer__footer {
-        padding-bottom: 2.5rem;        
+        padding-bottom: 2.5rem;
     }
+
     .footer__line {
         padding-bottom: 0.7rem;
     }
+
     .copyright {
         position: relative;
         float: left;
         left: 0;
         padding-top: 4rem;
     }
+
     .top {
         position: relative;
         float: right;
         right: 1.5rem;
         bottom: -0.5rem;
     }
+
     .recipe_name-all {
         padding-top: 0;
         padding-bottom: 0.75rem;
         font-size: 1.5rem;
         text-align: center;
     }
+
     .recipe__icon {
         font-size: 0.8rem;
     }
+
     .recipe__icon-right {
         padding-right: 0.5rem;
     }
+
     .recipe__card-image {
         height: 13rem;
     }
@@ -758,22 +847,28 @@ input[type="file"] {
     .footer {
         padding-bottom: 3rem;
     }
+
     .footer__footer {
-        padding-bottom: 3.5rem;        
+        padding-bottom: 3.5rem;
     }
+
     .recipe__card-image {
         height: 10rem;
     }
+
     .size {
         height: 100%;
         padding-bottom: 1rem;
     }
+
     .favourite {
         font-size: 0.95rem;
     }
-    .product__image-container::before {        
-        border-right: none;         
+
+    .product__image-container::before {
+        border-right: none;
     }
+
     .st-3 {
         margin-top: 1.5rem;
     }

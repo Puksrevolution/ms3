@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="notfound">
+    <div class="notfound">
+        <div class="notfound-error">
+            <h1>Oops!</h1>
+        </div>
+        <h2 class="mb-4">
+            404 - Page <br>
+            not found
+        </h2>
+        <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
+        <a class="btn btn-dimgray" href="{{ url_for('index') }}">Back to Home</a>
+    </div>
+</div>
+{% endblock %}
