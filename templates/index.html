@@ -15,8 +15,9 @@
     </div>
 </section>
 
+
 <!-- Article -->
-<section class="row justify-content-center mt-5">
+<section class="row justify-content-center section-top">
     <a href="{{ url_for('article') }}">
         <div class="col-12">
             <div class="row ">
@@ -46,7 +47,7 @@
 <section>
     <div class="row">
         <div class="col-12">
-            <h2 class="text-center mt-5 mb-4">
+            <h2 class="text-center sub-title">
                 Recipe Gallery
             </h2>
         </div>
@@ -67,15 +68,16 @@
     </div>
 </section>
 {% endblock %}
+
 {% block Products %}
 <!-- Products -->
 <div class="row">
-    <div class="col-12">
-        <h2 class="text-center mt-5">
+    <div class="col-12 sub-title">
+        <h2 class="text-center">
             Kitchen
         </h2>
         <hr>
-        <h4 class="text-center mb-5">Tools & Helpers</h4>
+        <h4 class="text-center">Tools & Helpers</h4>
     </div>
 </div>
 <!-- Products -->
@@ -94,6 +96,7 @@
                             <h6 class="text-center px-3 pb-4">{{ product.product_name }}</h6>
                         </div>
                     </div>
+                    
                     <div class="products__card-hover">
                         <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
                             href="{{ product.product_link }}">

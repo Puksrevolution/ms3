@@ -1,5 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=Montserrat:wght@500;700&display=swap');
 
+
+.section-top {
+    margin-top: 5rem;
+}
+
+.sub-title {
+    margin: 5rem 0 4rem 0;
+}
+
+a.remove:hover {
+    position: relative
+}
+a.remove span {
+    display: none;
+}
+a.remove:hover span {    
+    padding: 5px 20px 5px 5px;
+    display: block;
+    z-index: 100;    
+    left: 0px;
+    margin: 10px;
+    width: 250px;
+    position: absolute;
+    top: 10px;
+    text-decoration: none;
+    color: #9A031E;
+}
+
+
 /*--BASE--*/
 * {
     margin: 0;
@@ -63,7 +92,7 @@ hr {
 
 .main {
     position: relative;
-    margin: 2rem 1rem 4rem 1rem;
+    margin: 4rem 1rem;
 }
 
 /*--Components--*/
@@ -80,7 +109,7 @@ hr {
 .navbar .navbar-nav .nav-link {
     color: #0F0A0A;
     font-size: 1.1rem;
-    padding: 0rem 0.4rem 0.1rem 0.4rem;
+    
 }
 
 .navbar .navbar-nav .nav-link:hover {
@@ -96,7 +125,7 @@ hr {
     text-decoration: underline;
 }
 
-/*Navbar-Page Pagination*/
+/*Pagination Navbar*/
 .pagination ul li {
     display: inline-block;
     margin: 0 0.2rem;
@@ -176,7 +205,6 @@ hr {
     padding: 0 1rem;
     color: #0F0A0A;
 }
-
 .footer__footer-link:hover {
     color: #6D6A75;
     text-decoration: underline;
@@ -194,7 +222,6 @@ hr {
     bottom: -0.6rem;
     font-size: 1.5rem;
 }
-
 .footer__top:hover {
     color: #6D6A75;
 }
@@ -217,7 +244,6 @@ hr {
 .btn-lavender {
     background-color: #E3DFFF;
 }
-
 .btn-lavender:hover {
     background-color: #6D6A75;
     color: #FEF9EF;
@@ -229,7 +255,6 @@ hr {
     margin-bottom: 0.5rem;
     color: #FEF9EF;
 }
-
 .btn-dimgray:hover {
     background-color: #E3DFFF;
 }
@@ -239,7 +264,6 @@ hr {
     box-shadow: 0 0 0.2rem #6D6A75;
     padding: .37rem .75rem;
 }
-
 .btn-subscribe:hover {
     background-color: #E3DFFF;
 }
@@ -249,7 +273,6 @@ hr {
     margin-left: 0.5rem;
     color: #E3DFFF;
 }
-
 .btn-reset:hover {
     background-color: rgb(230, 0, 42);
     color: #E3DFFF;
@@ -268,6 +291,11 @@ hr {
 
 .btn-buy {
     width: 70%;
+    box-shadow: none;
+    font-weight: bold;
+    padding: 4rem 2rem;
+    margin: 0;
+    font-size: large;
 }
 
 /*Cards*/
@@ -505,11 +533,7 @@ hr {
     right: -0.0625rem;
     bottom: -0.0625rem;
     z-index: 2;
-    background-color: #e3dfff;
-    background-image: linear-gradient(90deg, transparent calc(50% - 0.03125rem), #FEF9EF calc(50% - 0.03125rem), #FEF9EF calc(50% + 0.03125rem), transparent calc(50% + 0.03125rem)), linear-gradient(135deg, #e3dfff 0%, #e3dfff 100%);
-    background-repeat: no-repeat, no-repeat;
-    background-position: center top, center center;
-    background-size: 100% calc(50% - 4rem), 100% 100%;
+    background-color: #e3dfff;    
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -594,25 +618,11 @@ input[type="file"] {
     border: 1px solid #6D6A75;
     border-radius: .25rem;
 }
-
 .form__input:focus {
     outline-color: #9A031E;
 }
-
 .form__input::placeholder {
     color: transparent;
-}
-
-.form__label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 1rem;
-    margin: 0.4rem 4rem;
-    transform-origin: 0% 20%;
-    transform: scale(1) translate(0, 0);
-    will-change: transform;
-    transition: transform 0.25s ease-in-out;
 }
 
 .form__input:focus~.form__label,
@@ -626,6 +636,17 @@ input[type="file"] {
     border: 1px solid #6D6A75;
 }
 
+.form__label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 1rem;
+    margin: 0.4rem 4rem;
+    transform-origin: 0% 20%;
+    transform: scale(1) translate(0, 0);
+    will-change: transform;
+    transition: transform 0.25s ease-in-out;
+}
 /*Utility Classes*/
 /*Image*/
 .bg-password {
@@ -658,7 +679,6 @@ input[type="file"] {
     padding-top: 0.5rem;
     text-shadow: 0 0 0.15rem #6D6A75;
 }
-
 .link:hover {
     color: #6D6A75;
     text-shadow: none;
@@ -718,7 +738,7 @@ input[type="file"] {
     color: rgb(230, 0, 42);
 }
 
-/* Code from Simon Vardy https://github.com/simonjvardy/the-reading-room/tree/master/templates/error-handling */
+/* Error-Handling Pages*/
 #notfound {
     position: relative;
     min-height: 80vh;
@@ -780,17 +800,7 @@ input[type="file"] {
 }
 
 /* Media Queries */
-@media only screen and (max-width: 767px) {
-    .notfound .notfound-error {
-        height: 142px;
-    }
-
-    .notfound .notfound-error h1 {
-        font-size: 112px;
-    }
-}
-
-@media (min-width: 576px) {
+@media (min-width: 36em) {
     .pr {
         padding-right: 0;
     }
@@ -799,8 +809,9 @@ input[type="file"] {
 @media (max-width: 48em) {
     .navbar .navbar-nav .nav-link {
         display: inline-block;
+        padding: 0.5rem;
     }
-
+    
     .footer__footer {
         padding-bottom: 2.5rem;
     }
@@ -840,6 +851,13 @@ input[type="file"] {
 
     .recipe__card-image {
         height: 13rem;
+    }
+
+    .notfound .notfound-error {
+        height: 142px;
+    }
+    .notfound .notfound-error h1 {
+        font-size: 112px;
     }
 }
 

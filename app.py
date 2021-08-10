@@ -263,6 +263,7 @@ def all_recipes():
     random_products = (
         [product for product in products.aggregate([
             {"$sample": {"size": 3}}])])
+
     return render_template("recipes.html",
                            page_title="All Recipes",
                            recipes=paginated_recipes,
@@ -471,11 +472,6 @@ def sub():
         if existing_email:
             flash("Email already exists", "error")
             return redirect(request.referrer)
-
-        email = {
-            "email": request.form.get("email").lower()
-        }
-        mongo.db.users.insert_one(email)
 
         sub = mongo.db.newsletter
         return_data = request.form.to_dict()

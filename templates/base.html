@@ -35,6 +35,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
         integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA=="
         crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{url_for('static', filename='js/Fnon-master/fnon.min.css')}}" />
     <!-- Static Custom CSS -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 </head>
@@ -99,29 +100,33 @@
         </div>
     </header>
 
+    <!-- flash messages -->
+    <section>
+        <div class="container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="row justify-content-center mt-4 flashes">
+                <h4 class="text-center py-2 {{ category }}">{{ message }}</h4>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+    </section>
+
     <!-- Main Container -->
     <main class="main">
-        <div class="container">
-            <!-- Flash Messages -->
-            <section>
-                <!-- flash messages -->
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                {% for category, message in messages %}
-                <div class="row justify-content-center my-4 flashes">
-                    <h4 class="text-center py-2 {{ category }}">{{ message }}</h4>
-                </div>
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
-            </section>
+        <div class="container">           
             {% block content %}
-            {% endblock %}
-            <!-- Products -->
-            {% block Products %}               
-            {% endblock %}
+            {% endblock %}            
         </div>
-    </main>
+        <!-- Products -->        
+        <div class="container">
+            {% block Products %}
+            {% endblock %}
+        </div>       
+    </main>   
 
     <!-- Footer -->
     <footer class="footer">
@@ -164,7 +169,7 @@
                 </div>
             </div>
             <!-- Terms of Service -->
-            <footer class="footer__footer">
+            <div class="footer__footer">
                 <div class="row justify-content-center">
                     <div class="col-6 col-sm-3 col-md-2 mx-4">
                         <ul class="footer__footer-list">
@@ -217,7 +222,7 @@
                         </ul>
                     </div>
                 </div>
-            </footer>
+            </div>
             <div class="footer__copyright">
                 <i class="far fa-copyright"></i> <span id="copyright-year"></span> CookBook
             </div>
@@ -235,11 +240,12 @@
         crossorigin="anonymous"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"
         integrity="sha512-wV7Yj1alIZDqZFCUQJy85VN+qvEIly93fIQAN7iqDFCPEucLCeNFz4r35FCo9s6WrpdDQPi80xbljXB8Bjtvcg=="
-        crossorigin="anonymous"></script>
-
+        crossorigin="anonymous"></script>        
     <!-- Static Custom JS -->
     <script id="baseScript" src="{{ url_for('static', filename='js/base.js') }}" data-path="{{ request.path }}">
-    </script>
+    </script>    
+    <script src="{{ url_for('static', filename='js/Fnon-master/fnon.min.js') }}"></script>
+
 </body>
 
 </html>
