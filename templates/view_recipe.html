@@ -25,7 +25,8 @@
             <div style="width: 40rem;">
                 <h2 class="text-center mb-3">{{ recipe.recipe_name }}</h2>                
                 <div class="card">                    
-                    <img class="rounded-border card-img bd-placeholder-img shadow-box" src="{{ recipe.image }}" alt="recipe_image" width="100%" aria-label="Placeholder: Card image">
+                    <img class="card-img rounded-border shadow-box" src="{{ recipe.image }}"
+                        width="100%" onerror="this.onerror=null;this.src='../static/images/CookHat.svg';">
                     <h5 class="user"><i class="far fa-user-circle user__icon"></i> {{ recipe.created_by }}</h5>
                 </div>
                 <h3 class="text-center pt-4">Ingredients</h3>
@@ -89,7 +90,7 @@
     </div>
     <!-- Cards-->
     <div class="row justify-content-center">
-        {% for product in random_products %}
+        {% for product in products %}
         <div class="col-10 col-sm-4 col-lg-3 mb-4">
             <div class="products__card-container">
                 <div class="products__card">
