@@ -198,9 +198,14 @@ def profile():
     """
     # Retrieve users and recipes to use on profile page #
     username = session["user"]
-    user_details = mongo.db.users.find_one({"user": session["user"]})
-    favourite_recipe_id_list = user_details["favourite_recipes"]
-    recipes_by_me = list(mongo.db.recipes.find({"username": username}))
+    user_details = mongo.db.users.find_one({"username": session["user"]})
+    favourite_recipe_id_list = user_details["favourite_recipes"]    
+    recipes_by_me = []
+    if username == ADMIN_USER_NAME:
+        recipes_by_me = list(mongo.db.recipes.find())
+    else:
+        recipes_by_me = list(mongo.db.recipes.find({"user": username}))
+    print(recipes_by_me)
     # Favourites Array #
     favourites = []
     # Push to Favourites Array #
@@ -214,11 +219,11 @@ def profile():
             is_valid_recipe = False
         if is_valid_recipe:
             favourites.append(recipe_detail)
-        return render_template("profile.html",
-                               username=username,
-                               recipes_by_me=recipes_by_me,
-                               favourites=favourites,
-                               products=products)
+    return render_template("profile.html",
+                           username=username,
+                           recipes_by_me=recipes_by_me,
+                           favourites=favourites,
+                           products=products)
 
 
 @app.route("/change-password", methods=["GET", "POST"])
@@ -310,7 +315,7 @@ def add_recipe():
         flash("Recipe Successfully Added", "success")
         return redirect(url_for("profile", username=session["user"]))
 
-    return render_template("add_recipe.html",
+    return render_template("add_recipe.html",                           
                            page_title="Add Recipe")
 
 
@@ -329,6 +334,7 @@ def edit_recipe(recipe_id):
         # grab the recipe details
         recipe = mongo.db.recipes.find_one(
             {"_id": ObjectId(recipe_id)})
+        print(recipe)
 
         # if it's user or admin then allow edit
         if session["user"] == recipe["user"] or username == ADMIN_USER_NAME:
@@ -414,11 +420,13 @@ def favourite_recipe(recipe_id):
     favourites list
     """
     if session["user"]:
-        favourite_recipe_ids = mongo.db.users.find(
+        favourite_recipe_ids = mongo.db.users.find_one(
             {"username": session["user"]})["favourite_recipes"]
+        print(favourite_recipe_ids)
+        print(recipe_id)
 
         # Check favourite is not already added #
-        if recipe_id in favourite_recipe_ids:
+        if ObjectId(recipe_id) in favourite_recipe_ids:
             flash("This recipe is already in your favourites!", "error")
             return redirect(url_for("all_recipes"))
 

@@ -8,7 +8,6 @@
         <i class="fas fa-user-circle"></i>
     </div>
 </div>
-
 <!-- Greeting -->
 <div class="row">
     <div class="col-12">
@@ -17,7 +16,6 @@
         </h2>
     </div>
 </div>
-
 <!-- Info -->
 <div class="row justify-content-center mb-5">
     <div class="col-10 col-sm-8 col-lg-6">
@@ -49,8 +47,7 @@
     <div class="col-12 col-sm-6 col-md-5 col-lg-4 mx-3 st-3">
         <p class="fs mb-3"><i class="fas fa-utensils"></i> Your <strong>Created Recipes</strong>:</p>
         <!-- Recipes Names -->
-        {% for recipe in recipes %}
-        {% if recipe.user == username %}
+        {% for recipe in recipes_by_me %}        
         <div>
             <div>
                 <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
@@ -67,8 +64,7 @@
                         Delete Recipe</a>
                 </div>
             </div>            
-        </div>        
-        {% endif %}
+        </div>             
         {% endfor %}
     </div>
 </div>
@@ -130,7 +126,7 @@
     <div class="col-12 col-sm-10 col-md-8 col-lg-6 mx-3">
         <p class="recipe_list mb-3"><i class="fas fa-utensils"></i><strong> Edit and Delete Recipes</strong>:</p>
         <!-- Recipes Names -->
-        {% for recipe in recipes %}        
+        {% for recipe in recipes_by_me %}        
         <div>
             <div class="mb-2">
                 <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
