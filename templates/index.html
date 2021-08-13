@@ -2,7 +2,7 @@
 
 {% block content %}
 <!-- Intro -->
-<section class="row justify-content-center">
+<div class="row justify-content-center">
     <div class="col-12 col-sm-10 col-lg-8">
         <p>
             Dicover here at CookBook always the right recipe idea for: <br> cooking or baking,
@@ -13,11 +13,10 @@
             and to create a collection of your favourite recipes.
         </p>
     </div>
-</section>
-
+</div>
 
 <!-- Article -->
-<section class="row justify-content-center section-top">
+<div class="row justify-content-center section-top">
     <a href="{{ url_for('article') }}">
         <div class="col-12">
             <div class="row ">
@@ -29,44 +28,42 @@
                     <p>
                         As I live alone, I have never been one to stock up on items like produce.
                         If I bought too much, it'd go bad before I got to use it.
-                        But with tightening budgets and the desire to avoid too ...                        
+                        But with tightening budgets and the desire to avoid too ...
                         <small class="link"><strong><u>READ MORE HERE</u></strong></small>
-                    </p>                                                                
+                    </p>
                     <p><strong>By Aly Walansky</strong> | <small class="text-muted">July 15, 2021</small></p>
                 </div>
-                <div class="col-12 col-md-6  align-self-center">                    
-                    <img class="card-img rounded-border shadow-box"
+                <div class="col-12 col-md-6  align-self-center">
+                    <img class="card-img rounded-border shadow-box" alt="Article Image"
                         src="https://www.thespruce.com/thmb/BoR2HaUJB9eMAq4Ppid79DtwIMk=/1500x1001/filters:fill(auto,1)/what-is-a-fruit-fly-2656677-hero-ec0c068408644cd8805b78f5ca618b08.jpg">
                 </div>
             </div>
         </div>
     </a>
-</section>
+</div>
 
 <!-- Gallery -->
-<section>
-    <div class="row">
-        <div class="col-12">
-            <h2 class="text-center sub-title">
-                Recipe Gallery
-            </h2>
+<div class="row">
+    <div class="col-12">
+        <h2 class="text-center sub-title">
+            Recipe Gallery
+        </h2>
+    </div>
+</div>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    {% for recipe in recipes %}
+    <div class="col mb-4">
+        <div class="gallery__card">
+            <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
+                <img class="gallery__image" alt="Recipe Image" src="{{ recipe.image }}">
+                <div class="gallery__heading">
+                    <h5>{{ recipe.recipe_name }}</h5>
+                </div>
+            </a>
         </div>
     </div>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for recipe in random_recipes %}
-        <div class="col mb-4">
-            <div class="gallery__card">
-                <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
-                    <img class="gallery__image" alt="Recipe Image" src="{{ recipe.image }}">
-                    <div class="gallery__heading">
-                        <h5>{{ recipe.recipe_name }}</h5>
-                    </div>
-                </a>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</section>
+    {% endfor %}
+</div>
 {% endblock %}
 
 {% block Products %}
@@ -81,32 +78,30 @@
     </div>
 </div>
 <!-- Products -->
-<section>                
-    <div class="row justify-content-center">
-        {% for product in products %}
-        <div class="col-10 col-sm-4 col-lg-3 mb-4">
-            <div class="products__card-container">
-                <div class="products__card">
-                    <div class="products__card-front">
-                        <div class="products__image-container">
-                            <img class="card-img-top products__image products__image mt-4"
-                                src="{{ product.product_image }}" alt="Kitchen Tools">
-                        </div>
-                        <div class="products__card-body">
-                            <h6 class="text-center px-3 pb-4">{{ product.product_name }}</h6>
-                        </div>
+<div class="row justify-content-center">
+    {% for product in products %}
+    <div class="col-10 col-sm-4 col-lg-3 mb-4">
+        <div class="products__container">
+            <div class="products__card">
+                <div class="products__card-front">
+                    <div class="products__image-container">
+                        <img class="products__image mt-4" src="{{ product.product_image }}" alt="Kitchen Tools">
                     </div>
-                    
-                    <div class="products__card-hover">
-                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
-                            href="{{ product.product_link }}">
-                            Buy It: {{ product.product_price }} Amazon
-                        </a>
+                    <div class="products__card-body">
+                        <h6 class="text-center px-3 pb-4">{{ product.product_name }}</h6>
                     </div>
+                </div>
+                <div class="products__card-hover">
+                    <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
+                        href="{{ product.product_link }}">
+                        Buy It: <br> 
+                        {{ product.product_price }} <br>
+                        Amazon
+                    </a>
                 </div>
             </div>
         </div>
-        {% endfor %}
     </div>
-</section>
+    {% endfor %}
+</div>
 {% endblock %}

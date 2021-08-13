@@ -2,100 +2,93 @@
 
 {% block content %}
 <!-- Sign Up Form -->
-<section>
-    <div class="row justify-content-center">
-        <div class="col-11 col-sm-7 col-lg-5">
-            <form class="form" method="POST" action="{{ url_for('signup') }}">
-                <!-- username -->
-                <div class="row">
-                    <div class="form__group col-12">
-                        <input class="form__input" id="username" name="username" type="text"
-                            placeholder="Choose Username" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$"
-                            autocomplete="off" required>
-                        <label class="form__label" for="username">Choose Username</label>
-                        <i class="fas fa-user-plus form__input-icon"></i>
-                    </div>
-                    <small class="form-text text-muted mb-3">5-15 characters</small>
+<div class="row justify-content-center">
+    <div class="col-11 col-sm-7 col-lg-5">
+        <form class="form" method="POST" action="{{ url_for('signup') }}">
+            <!-- username -->
+            <div class="row">
+                <div class="form__group col-12">
+                    <input class="form__input" id="username" name="username" type="text"
+                        placeholder="Choose Username" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$"
+                        autocomplete="off" required>
+                    <label class="form__label" for="username">Choose Username</label>
+                    <i class="fas fa-user-plus form__input-icon"></i>
                 </div>
-                <!-- passowrd -->
-                <div class="row">
-                    <div class="form__group col-12">
-                        <input class="form__input" id="password" name="password" type="password"
-                            placeholder="Set Password" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$"
-                            autocomplete="off" required>
-                        <label class="form__label" for="password">Set Password</label>
-                        <i class="fas fa-user-lock form__input-icon"></i>
-                    </div>
-                    <small class="form-text text-muted mb-3">5-15 characters</small>
+                <small class="form-text text-muted mb-3">5-15 characters</small>
+            </div>
+            <!-- passowrd -->
+            <div class="row">
+                <div class="form__group col-12">
+                    <input class="form__input" id="password" name="password" type="password"
+                        placeholder="Set Password" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$"
+                        autocomplete="off" required>
+                    <label class="form__label" for="password">Set Password</label>
+                    <i class="fas fa-user-lock form__input-icon"></i>
                 </div>
-                <!-- use of terms agreemant -->
-                <div class="custom-control custom-checkbox mb-3">
-                    <input class="custom-control-input" type="checkbox" id="customCheck" required>
-                    <label class="custom-control-label" for="customCheck">
-                        By signing up I agree to the BookCook Terms of Use.
-                        I acknowledge that I have read the
-                        <a class="link" href="{{url_for('privacy')}}">Privacy Policy.</a>
-                    </label>
-                </div>
-                <!-- register -->
-                <div class="row">
-                    <button class="col-12 btn btn-lavender" type="submit">
-                        Sign Up <i class="fas fa-sign-in-alt"></i>
-                    </button>
-                </div>
-            </form>
-        </div>
+                <small class="form-text text-muted mb-3">5-15 characters</small>
+            </div>
+            <!-- use of terms agreemant -->
+            <div class="custom-control custom-checkbox mb-3">
+                <input class="custom-control-input" type="checkbox" id="customCheck" required>
+                <label class="custom-control-label" for="customCheck">
+                    By signing up I agree to the BookCook Terms of Use.
+                    I acknowledge that I have read the
+                    <a class="link" href="{{url_for('privacy')}}">Privacy Policy.</a>
+                </label>
+            </div>
+            <!-- register -->
+            <div class="row">
+                <button class="col-12 btn btn-lavender" type="submit">
+                    Sign Up <i class="fas fa-sign-in-alt"></i>
+                </button>
+            </div>
+        </form>
     </div>
-    <!-- Sing In href -->
-    <div class="row justify-content-center">
-        <div class="col-md-auto">
-            <p class="text-center">
-                <strong>Already Registered?</strong>
-                <a class="link" href="{{ url_for('signin') }}">Sign In</a>
-            </p>
-        </div>
+</div>
+<!-- Sing In href -->
+<div class="row justify-content-center">
+    <div class="col-md-auto">
+        <p class="text-center">
+            <strong>Already Registered?</strong>
+            <a class="link" href="{{ url_for('signin') }}">Sign In</a>
+        </p>
     </div>
-</section>
+</div>
 {% endblock %}
 
 {% block Products %}
 <!-- Products -->
-<section>
-    <!-- Header -->
-    <div class="row">
-        <div class="col-12">
-            <h2 class="text-center mt-5">
-                Kitchen
-            </h2>
-            <hr>
-            <h4 class="text-center mb-5">Tools & Helpers</h4>
-        </div>
+<div class="row">
+    <div class="col-12 sub-title">
+        <h2 class="text-center">
+            Kitchen
+        </h2>
+        <hr>
+        <h4 class="text-center">Tools & Helpers</h4>
     </div>
-    <!-- Cards-->
-    <div class="row justify-content-center">
-        {% for product in products %}
-        <div class="col-10 col-sm-4 col-lg-3 mb-4">
-            <div class="products__card-container">
-                <div class="products__card">
-                    <div class="products__card-front">
-                        <div class="products__image-container">
-                            <img class="card-img-top products__image products__image mt-4"
-                                src="{{ product.product_image }}" alt="Kitchen Tools">
-                        </div>
-                        <div class="products__card-body">
-                            <h6 class="text-center px-3 pb-4">{{ product.product_name }}</h6>
-                        </div>
+</div>
+<!-- Products -->
+<div class="row justify-content-center">
+    {% for product in products %}
+    <div class="col-10 col-sm-4 col-lg-3 mb-4">
+        <div class="products__container">
+            <div class="products__card">
+                <div class="products__card-front">
+                    <div class="products__image-container">
+                        <img class="products__image mt-4" src="{{ product.product_image }}" alt="Kitchen Tools">
                     </div>
-                    <div class="products__card-hover">
-                        <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
-                            href="{{ product.product_link }}">
-                            Buy It: {{ product.product_price }} Amazon
-                        </a>
+                    <div class="products__card-body">
+                        <h6 class="text-center px-3 pb-4">{{ product.product_name }}</h6>
                     </div>
+                </div>
+                <div class="products__card-hover">
+                    <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer" href="{{ product.product_link }}">
+                        Buy It: {{ product.product_price }} Amazon
+                    </a>
                 </div>
             </div>
         </div>
-        {% endfor %}
     </div>
-</section>
+    {% endfor %}
+</div>
 {% endblock %}

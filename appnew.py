@@ -7,7 +7,7 @@
 import os
 from flask_paginate import Pagination, get_page_parameter
 from flask import (
-    Flask, flash, render_template,
+    Flask, render_template, flash,
     redirect, request, session, url_for, abort)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
@@ -15,17 +15,16 @@ from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
 
-
 app = Flask(__name__)
 
+# Configuration #
 app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
-
-# Admin
+# Admin #
 ADMIN_USER_NAME = "admin"
 
 # Pagination #
@@ -51,7 +50,7 @@ def get_random_products():
 
 """
 Render the Home, Article and
-all the Footer pages
+all the Footernav pages
 """
 
 
@@ -163,7 +162,8 @@ def signin():
                 session["user"] = request.form.get("username").lower()
                 # Welcome message and direct to Profile page
                 flash("Welome Back!", "success")
-                return redirect(url_for("profile", username=session["user"]))
+                return redirect(url_for(
+                    "profile", username=session["user"]))
             else:
                 # invalid password match
                 flash("Incorrect Username and/or Password", "error")
@@ -178,7 +178,7 @@ def signin():
                            products=products)
 
 
-@ app.route('/signout')
+@ app.route("/signout")
 def signout():
     """
     Allows the user to logout and clear the session cookie
@@ -190,7 +190,7 @@ def signout():
 
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
-    # 3 random products
+    # 3 random products #
     products = get_random_products()
     """
     Render the user profile page using the logged in user's
@@ -210,33 +210,37 @@ def profile():
             recipe_detail = mongo.db.recipes.find_one({"_id": recipe_id})
             if not recipe_detail:
                 is_valid_recipe = False
-        except:
+        except recipe_detail.DoesNotExist:
             is_valid_recipe = False
         if is_valid_recipe:
             favourites.append(recipe_detail)
-        return render_template("profile.html",
-                               username=username,
-                               recipes_by_me=recipes_by_me,
-                               favourites=favourites,
-                               products=products)
+
+    return render_template("profile.html",
+                           page_title="Profile",
+                           username=username,
+                           recipes_by_me=recipes_by_me,
+                           favourites=favourites,
+                           products=products)
 
 
-@app.route("/change-password", methods=["GET", "POST"])
+@app.route("/change_password", methods=["GET", "POST"])
 def change_password():
-    if request.method == "POST":
-        current_user = mongo.db.users.find_one(
-            {"username": session["user"]})
-        if str(request.form.get("password")) == str(
-                request.form.get("confirm-password")):
-            newvalue = {"$set": {"password": generate_password_hash(
-                str(request.form.get("password")))}}
-            mongo.db.users.update_one(current_user, newvalue)
-            flash("Password successfully updated!", "success")
-            return redirect(url_for("profile", username=session["user"]))
-        else:
-            flash("Passwords don't match, try again!", "error")
-            return redirect(url_for("profile", username=session["user"]))
-    return redirect(url_for("profile", username=session["user"]))
+    # checks if passwords enter match, if yes, updates password,
+    # if not, notify the user
+    if session["user"]:
+        if request.method == "POST":
+            current_user = mongo.db.users.find_one(
+                {"username": session["user"]})
+            if str(request.form.get("password")) == str(
+                    request.form.get("confirm-password")):
+                newvalue = {"$set": {"password": generate_password_hash(
+                    str(request.form.get("password")))}}
+                mongo.db.users.update_one(current_user, newvalue)
+                flash("Password successfully updated!")
+                return redirect(url_for("profile"))
+            else:
+                flash("Passwords don't match, try again!")
+                return render_template("profile.html")
 
 
 """
@@ -244,7 +248,7 @@ Recipe CRUD Functionality
 """
 
 
-@app.route("/all_recipes")
+@app.route("/recipes")
 def all_recipes():
     """
     Render the Recipes page for all site visitors
@@ -267,7 +271,7 @@ def all_recipes():
                            products=products)
 
 
-@app.route("/view_recipe/<recipe_id>", methods=["GET", "POST"])
+@app.route("/recipe/<recipe_id>/view", methods=["GET", "POST"])
 def view_recipe(recipe_id):
     """
     Get the recipe details for the selected recipe and
@@ -277,18 +281,17 @@ def view_recipe(recipe_id):
     recipe = None
     try:
         recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    except:
+    except recipe.DoesNotExist:
         abort(404)
 
-    # 3 random products #
+    # 3 random products
     products = get_random_products()
-
     return render_template("view_recipe.html", recipe=recipe,
                            products=products,
                            page_title="Recipe")
 
 
-@app.route("/add_recipe", methods=["GET", "POST"])
+@app.route("/recipe/add", methods=["GET", "POST"])
 def add_recipe():
     """
     Render the Add Recipe page if a user is logged in.
@@ -314,7 +317,7 @@ def add_recipe():
                            page_title="Add Recipe")
 
 
-@app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
+@app.route("/recipe/<recipe_id>/edit", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     """
     Render the Edit Recipe page if a user is logged in.
@@ -340,7 +343,7 @@ def edit_recipe(recipe_id):
                 "difficulty": request.form.get("difficulty"),
                 "ingredients": request.form.get("ingredients"),
                 "directions": request.form.get("directions"),
-                "created_by": request.form.get("created_by"),
+                "created_by": username,
                 "user": username
             }
             # update recipe on DB #
@@ -348,23 +351,24 @@ def edit_recipe(recipe_id):
                 {"_id": ObjectId(recipe_id)},
                 {"$set": recipe_edit})
             flash("Recipe Successfully Updated", "success")
-            return redirect(url_for("profile", username=session["user"]))
+            return redirect(url_for("profile"))
 
     recipe = None
     try:
         recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    except:
+    except recipe.DoesNotExist:
         abort(404)
-    return render_template("edit_recipe.html",
-                           recipe=recipe, page_title="Edit Recipe")
+    return render_template(
+        "edit_recipe.html", recipe=recipe, page_title="Edit Recipe")
 
 
-@app.route("/delete_recipe/<recipe_id>")
+@app.route("/recipe/<recipe_id>/delete")
 def delete_recipe(recipe_id):
     """
     Delete Recipe function
     deletes the selected Recipe from the database.
     """
+    # Add a try except
     mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
     # Remove recipe from array in DB #
     mongo.db.users.find_one_and_update(
@@ -390,7 +394,6 @@ def search():
     pagination = pagination_obj[1]
     # 3 random products
     products = get_random_products()
-
     return render_template("recipes.html",
                            page_title="Search Result",
                            query=query,
@@ -403,11 +406,11 @@ def search():
 
 
 """
-Recipe add favourite button functionality
+Recipe favourite button functionality
 """
 
 
-@app.route("/favourite_recipe/<recipe_id>", methods=["GET", "POST"])
+@app.route("/recipe/<recipe_id>/favourite", methods=["GET", "POST"])
 def favourite_recipe(recipe_id):
     """
     Allows the user to add a recipe to their personal
@@ -436,8 +439,8 @@ Recipe remove favourite button functionality
 """
 
 
-@app.route("/remove_favourite/<recipe_id>", methods=["GET", "POST"])
-def remove_favourite(recipe_id):
+@app.route("/recipe/<recipe_id>/remove-favourite", methods=["GET", "POST"])
+def remove_recipe_fav(recipe_id):
     """
     Remove Recipe function
     removes the favourite Recipe from the database.
@@ -451,11 +454,11 @@ def remove_favourite(recipe_id):
 
 """
 Subscribe Newsletter Functionality
-collect the email address from input field and write to Mongo DB
+collect the email address from input fielda and write to MongoD
 """
 
 
-@app.route('/sub', methods=['POST'])
+@ app.route('/sub', methods=['POST'])
 def sub():
     if request.method == "POST":
         # check if username already exists in db
@@ -469,15 +472,13 @@ def sub():
         sub = mongo.db.newsletter
         return_data = request.form.to_dict()
         sub.insert_one(return_data)
-        flash("Successfully Subscribed", "success")
+        flash("Sucessfully Subscribed", "success")
         return redirect(request.referrer)
 
     return redirect(request.referrer)
 
 
-"""
-HTTP response error code handling.
-"""
+"""HTTP response error code handling."""
 
 
 @app.errorhandler(404)

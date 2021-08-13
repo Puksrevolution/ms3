@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+<!-- Privacy Policy Inofs -->
 <div class="row justify-content-center">
-    <div class="col-12 col-sm-9 col-lg-8">                   
-            <h2>Summary</h2>
+    <div class="col-12 col-sm-9 col-lg-8">
+        <h2>Summary</h2>
             <p class="pb-4">
                 The intention of this document is to explain as clearly as possible CookBook intention in
                 gathering information about the users of our website. We gather information in two ways. General
@@ -14,8 +15,15 @@
             <h2>1. Introduction</h2>
             <p class="pb-4">
                 It is CookBook policy to respect your privacy regarding any information we may collect while
-                operating our website. This Privacy Policy applies to "https://www.CookBook.com" 
-                (hereinafter, "us", "we", or "https://www.CookBook.com"). We respect your privacy and are 
+                operating our website. This Privacy Policy applies to
+                <a class="link" href="{{ url_for('index') }}" target="_blank" rel="noopener">
+                    <u>"https://www.CookBook.com"</u>
+                </a>  
+                (hereinafter, "us", "we", or 
+                <a class="link" href="{{ url_for('index') }}" target="_blank" rel="noopener">
+                    <u>"https://www.CookBook.com").</u>
+                </a>  
+                We respect your privacy and are 
                 committed to protecting personally identifiable information you may provide us through the Website.
                 We have adopted this privacy policy to explain what information may be collected on our Website, 
                 how we use this information, and under what circumstances we may disclose the
@@ -93,7 +101,10 @@
             <p class="pb-2">
                 Cookies identify your computer or device rather than you as an individual user and are used for 
                 different purposes. Cookies are small text files stored on your hard drive, which contain 
-                information about your activity and preferences when visiting https://www.CookBook.com. 
+                information about your activity and preferences when visiting
+                <a class="link" href="{{ url_for('index') }}" target="_blank" rel="noopener">
+                    <u>https://www.CookBook.com.</u>
+                </a>                 
                 These cookies allow us to monitor website traffic and to store information about your
                 preferences, which allows us to customise the site according to your needs. If you wish to change 
                 the way your browser handles cookies you can do so through your browser’s settings. 
@@ -133,7 +144,6 @@
                     info@cookbook.com
                 </a>
             </p>
-        </div>
     </div>
 </div>
 {% endblock %}
