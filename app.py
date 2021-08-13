@@ -199,7 +199,7 @@ def profile():
     # Retrieve users and recipes to use on profile page #
     username = session["user"]
     user_details = mongo.db.users.find_one({"username": session["user"]})
-    favourite_recipe_id_list = user_details["favourite_recipes"]    
+    favourite_recipe_id_list = user_details["favourite_recipes"]
     recipes_by_me = []
     if username == ADMIN_USER_NAME:
         recipes_by_me = list(mongo.db.recipes.find())
