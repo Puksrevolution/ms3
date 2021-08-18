@@ -344,9 +344,7 @@ def edit_recipe(recipe_id):
                 "time": request.form.get("time"),
                 "difficulty": request.form.get("difficulty"),
                 "ingredients": request.form.get("ingredients"),
-                "directions": request.form.get("directions"),
-                "created_by": request.form.get("created_by"),
-                "user": username
+                "directions": request.form.get("directions")
             }
             # update recipe on DB #
             mongo.db.recipes.update_one(

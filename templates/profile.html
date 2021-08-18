@@ -69,47 +69,6 @@
     </div>
 </div>
 
-<!-- Change Password -->
-<div class="row justify-content-center">
-    <div class="col-12 sub-title">
-        <h2 class="text-center">Change Your Password</h2>
-    </div>
-</div>
-<div class="row justify-content-center">
-    <div class="col-11 col-sm-7 col-lg-5">
-        <form class="form" method="POST" action="{{ url_for('change_password') }}">
-            <!-- New Passowrd -->
-            <div class="row">
-                <div class="form__group col-12">
-                    <input class="form__input" id="password" name="password" type="password" placeholder="New Password"
-                        minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$" autocomplete="off" required>
-                    <label class="form__label" for="password">New Password</label>
-                    <i class="fas fa-user-lock form__input-icon"></i>
-                </div>
-                <small class="form-text text-muted mb-3">5-15 characters</small>
-            </div>
-            <!-- Confirm passowrd -->
-            <div class="row">
-                <div class="form__group col-12">
-                    <input class="form__input" id="confirm-password" name="confirm-password" type="password"
-                        placeholder="Confirm Password" minlength="5" maxlength="15" pattern="^[a-zA-Z0-9]{5,15}$"
-                        autocomplete="off" required>
-                    <label class="form__label" for="confirm-password">Confirm Password</label>
-                    <i class="fas fa-user-lock form__input-icon"></i>
-                </div>
-                <small class="form-text text-muted mb-3">5-15 characters</small>
-            </div>
-            <!-- Submit New Password -->
-            <div class="row">
-                <button class="col-12 btn btn-lavender" type="submit">
-                    Submit New Password <i class="fas fa-check-circle"></i>
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-
 {% elif session.user|lower == "admin"|lower %}
 <!-- Admin -->
 <div class="row">
@@ -147,6 +106,8 @@
         {% endfor %}
     </div>
 </div>
+{% else %}
+{% endif %}
 
 <!-- Change Password -->
 <section class="">
@@ -190,8 +151,6 @@
         </div>
     </div>
 </section>
-{% else %}
-{% endif %}
 {% endblock %}
 
 {% block Products %}

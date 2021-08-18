@@ -1,24 +1,13 @@
 git push origin master
 
-Testing
-======
+### Install ###
 
-### **TESTIN.md** ###
-Testing information can be found in a separate [TESTING.md](Documentation/TESTING.md).
-
-### **Mentor Session** ###
-**Style Changes**
-- Navbar Item more spacing
-- Title more spacing
-- Reducing shadow styling .link
-- Gallery Image Card reduce scale transform
-- Product Back Cards
-  - remove the stylish line 
-  - no shadow style for button
-
-**HTML File Changes**
-
-**Back End Changes**
+- pip3 install Flask
+- pip3 install flask-pymongo
+- pip3 install dnspython
+- pip install -U flask-paginate
+- pip3 freeze --local > requirements.txt
+  - (after every pip3 install needed)
 
 ##### Create a MongoDB Database App
   - 
@@ -120,10 +109,6 @@ if __name__ == "__main__":
 10. pip3 install dnspython
 
 - pip3 freeze --local > requirements.txt (after every pip3 install needed)
-
-
-
-
 
 
 12. app.py

@@ -253,6 +253,10 @@ hr {
     background-color: #E3DFFF;
 }
 
+.btn-heart {
+    background-color: #e3dfff;
+    
+}
 .btn-heart:hover {
     background-color: #ff6682;
     color: #FEF9EF;
@@ -767,5 +771,9 @@ a.remove:hover span {
     }
     .pt {
         padding-top: 0.75rem;
+    }
+    .sm-search {
+        text-align: center;
+        margin-top: 1rem;
     }
 }

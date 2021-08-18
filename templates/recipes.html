@@ -4,18 +4,33 @@
 <!-- Search Box-->
 <div class="row justify-content-center my-5">
     <div class="col-12 col-md-8 col-lg-6">
-        <form  action="{{ url_for('search') }}" method="post">
-            <div class="row g-3">                       
+        <form action="{{ url_for('search') }}" method="post">
+            <div class="row g-3">
                 <div class="col-6 font-weight-bolder">
                     <input class="form-control" type="search" name="query" id="query" minlength="3"
-                placeholder="Search Recipes" aria-label="Search" required>                   
-                </div>    
-                <div class="col-6 font-weight-bolder">                
+                        placeholder="Search Recipes" aria-label="Search" required>
+                </div>
+                <div class="col-6 font-weight-bolder">
                     <button class="btn btn-lavender" type="submit"><i class="fas fa-search"></i></button>
-                    <a class="btn btn-reset" href="{{ url_for('all_recipes') }}">Reset</a>               
-                </div>                                                
-            </div>            
+                    <a class="btn btn-reset" href="{{ url_for('all_recipes') }}">Reset</a>
+                </div>
+            </div>
         </form>
+    </div>
+</div>
+
+<div class="row justify-content-center my-5">
+    <div class="col-12 col-md-8 col-lg-5">
+        <div class="row justify-content-center">
+            <form class="col-12 col-sm-8" action="{{ url_for('search') }}" method="post">
+                <input class="form-control" type="search" name="query" id="query" minlength="3"
+                    placeholder="Search Recipes" aria-label="Search" required>
+            </form>
+            <div class="col-12 col-sm-4 text-center mt-2 mt-sm-0">
+                <button class="btn btn-lavender" type="submit"><i class="fas fa-search"></i></button>
+                <a class="btn btn-reset" href="{{ url_for('all_recipes') }}">Reset</a>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -28,45 +43,49 @@
 <div class="mt-5">
     <div class="row justify-content-center">
         {% for recipe in recipes %}
-        <div class="col-10 col-md-6 col-lg-4 align-self-center mb-4">            
+        <div class="col-10 col-md-6 col-lg-4 align-self-center mb-4">
             <div class="card recipes__card-image">
                 <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
                     <img class="recipes__image" src="{{ recipe.image }}"
-                    onerror="this.onerror=null;this.src='../static/images/CookHat.svg';">
+                        onerror="this.onerror=null;this.src='../static/images/CookHat.svg';">
                 </a>
-            </div>            
+            </div>
         </div>
         <div class="col-10 col-md-5 pb-5">
             <div>
                 <h3 class="underline text-center pt-3">
                     <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}">
-                        {{ recipe.recipe_name }}</a>                        
+                        {{ recipe.recipe_name }}</a>
                 </h3>
                 <div class="row justify-content-center">
                     <ul class="pt pt-lg-3">
-                        <li class="fas fa-clock recipe__icon recipe__icon-right"> <span class="recipe__icon-text">Cook: {{ recipe.time }}</span></li>
-                        <i class="fas fa-signal recipe__icon"> <span class="recipe__icon-text">Difficulty: {{ recipe.difficulty }}</span></i>                         
+                        <li class="fas fa-clock recipe__icon recipe__icon-right"> <span class="recipe__icon-text">Cook:
+                                {{ recipe.time }}</span></li>
+                        <i class="fas fa-signal recipe__icon"> <span class="recipe__icon-text">Difficulty:
+                                {{ recipe.difficulty }}</span></i>
                     </ul>
                 </div>
                 <div class="row justify-content-center mt-3">
                     <div class="col-12 text-center">
-                        <small><i class="far fa-user-circle user__icon"></i><strong> By</strong> {{ recipe.created_by }}</small>
+                        <small><i class="far fa-user-circle user__icon"></i><strong> By</strong>
+                            {{ recipe.user }}</small>
                     </div>
                     <!-- Sign In User Favourite Button / Admin Edit/Delet Button -->
-                    <div class="col-12 mt-3 text-center">                               
-                    {% if session.user %}
-                        {% if session.user != "admin"|lower %}                             
+                    <div class="col-12 mt-3 text-center">
+                        {% if session.user %}
+                        {% if session.user != "admin"|lower %}
                         <a class="btn btn-heart" href="{{ url_for('favourite_recipe', recipe_id=recipe._id) }}">
-                            <i class="fas fa-heart" id="like"></i>Add to Favourites</a>                            
+                            <i class="fas fa-heart" id="like"></i>Add to Favourites</a>
                         {% elif session.user == "admin"|lower %}
-                        <a class="btn btn-sm btn-success mr-2" href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">
+                        <a class="btn btn-sm btn-success mr-2"
+                            href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">
                             Edit Recipe</a>
                         <a class="btn btn-sm btn-danger" href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}"
                             title="delete" onclick="return confirm('Are you sure you want to delete this recipe?')">
-                            Delete Recipe</a> 
-                        {% endif %}                       
-                    {% endif %}
-                    </div>                          
+                            Delete Recipe</a>
+                        {% endif %}
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -109,8 +128,7 @@
                     </div>
                 </div>
                 <div class="products__card-hover">
-                    <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer"
-                        href="{{ product.product_link }}">
+                    <a class="btn btn-sm btn-buy" target="_blank" rel="noreferrer" href="{{ product.product_link }}">
                         Buy It: {{ product.product_price }} Amazon
                     </a>
                 </div>
